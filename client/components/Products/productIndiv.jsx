@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 class ProductPage extends Component {
+<<<<<<< HEAD
   constructor(props) {
     super(props);
     this.state = {
@@ -19,6 +20,11 @@ class ProductPage extends Component {
           <p>{product.description}</p>
           <p>{product.price}</p>
         </div>
+=======
+  render() {
+    return (
+      <div>
+>>>>>>> 4a0b8546afc0764fdd4d2d0cf6d7bb4710dcdb8e
 
       </div>
     );
