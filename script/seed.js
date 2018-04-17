@@ -20,7 +20,10 @@ async function seed () {
 
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({email: 'murphy@email.com', password: '123'}),
+    User.create({email: 'amy@email.com', password: '123', isAdmin: true}),
+    User.create({email: 'testAdmin@test.com', password: '123', isAdmin: true}),
+    User.create({email: 'normalUser@email.com', password: '123'})
   ])
 
   const products = await Promise.all([
@@ -52,7 +55,7 @@ async function seed () {
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${users.length} users`)
-  console.log(`seeded ${products.length} users`);
+  console.log(`seeded ${products.length} products`);
   console.log(`seeded successfully`)
 }
 
