@@ -8,8 +8,14 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+router.post('/', (req, res, next) => {
+  Product.create(req.body)
+    .then(product => res.json(product))
+    .catch(next);
+});
+
 router.get('/:productId', (req, res, next) => {
   Product.findById(req.params.productId)
     .then(product => res.json(product))
     .catch(next)
-})
+});
