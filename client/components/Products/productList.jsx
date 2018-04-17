@@ -50,7 +50,7 @@ catHandler(event){
           <option value = "All">All</option>
           {prodCategories.map((cat, idx) => {
             return (
-              <option key={idx} value = {cat}>{cat}</option>
+              <option key={ cat + idx } value = {cat}>{cat}</option>
             )
           })}
         </select>
