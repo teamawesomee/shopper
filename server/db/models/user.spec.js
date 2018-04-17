@@ -10,7 +10,7 @@ describe('User model', () => {
   })
 
   //Testing the admin models:
-  describe('admin users', ()=>{
+  describe('admin users', () => {
     let cody
     let amy
 
