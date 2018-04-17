@@ -33,15 +33,21 @@ catHandler(event){
 
   render() {
     let products = this.state.products
-    if (this.state.selectedCategory != 'All'){
-      products = this.state.products.filter(product => product.category === this.state.selectedCategory)
-    }
     const prodCategories = Array.from(new Set(this.state.products.map(prod => prod.category)))
-    console.log("categories: ", prodCategories)
     const searchValue = this.state.searchValue;
     const regExSearchValue = new RegExp(searchValue, "gi")
     const filteredProducts = products.filter(product =>
       product.name.match(regExSearchValue));
+
+    //if the selected category is not 'all', the "products" variable only includes items that are of the selected category
+    if (this.state.selectedCategory != 'All'){
+      products = this.state.products.filter(product => product.category === this.state.selectedCategory)
+    }
+
+      // console log
+    console.log("categories: ", prodCategories)
+
+    // here is the jsx
     return (
       <div className="productPage">
       <h1>Products</h1>
@@ -49,6 +55,7 @@ catHandler(event){
         <input name="searchValue" type="text" onChange={this.handleChange} />
         <select name ="prodCategory" onChange={this.catHandler}>
           <option value = "All">All</option>
+          {/* this maps through our product categories within the dropdown selector */}
           {prodCategories.map((cat, idx) => {
             return (
               <option key={ cat + idx } value = {cat}>{cat}</option>
@@ -56,6 +63,7 @@ catHandler(event){
           })}
         </select>
       </form>
+      {/* this is the actual product list */}
         <div className="productList">
           { filteredProducts ? filteredProducts.map(product => {
             return (

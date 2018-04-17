@@ -26,32 +26,32 @@ async function seed () {
     User.create({email: 'normalUser@email.com', password: '123'})
   ])
 
-  const products = await Promise.all([
-    Product.create({
-      title: 'Happiness Potion',
-      description: 'Use this potion for eternal happiness!',
-      price: 1.5,
-      inventoryQuantity: 27,
-      category: ['Potion', 'Happiness'],
-      img: 'http://soappotions.com/wp-content/uploads/2017/10/round.jpg'}),
-    Product.create({
-      title: 'Puppy Potion',
-      description: 'Use this potion for eternal puppies!',
-      price: 5.75,
-      inventoryQuantity: 15,
-      category: ['Potion', 'Love'],
-      img:
-        'https://www.organicpavilion.com/products/puppy-potion-fresh-shampoo-500ml'}),
-    Product.create({
-      title:
-        'Your family tree must be a cactus ‘cause you’re all a bunch of pricks.',
-      description:
-        'Use this sassy comeback for temporary relief from prickery!',
-      price: 3.33,
-      inventoryQuantity: 40,
-      category: ['Sass', 'Happiness'],
-      img: 'https://i.pinimg.com/originals/03/5e/af/035eafc66394f26c94f2ef56095f90f9.jpg'})
-  ])
+  // const products = await Promise.all([
+  //   Product.create({
+  //     title: 'Happiness Potion',
+  //     description: 'Use this potion for eternal happiness!',
+  //     price: 1.5,
+  //     inventoryQuantity: 27,
+  //     category: ['Potion', 'Happiness'],
+  //     img: 'http://soappotions.com/wp-content/uploads/2017/10/round.jpg'}),
+  //   Product.create({
+  //     title: 'Puppy Potion',
+  //     description: 'Use this potion for eternal puppies!',
+  //     price: 5.75,
+  //     inventoryQuantity: 15,
+  //     category: ['Potion', 'Love'],
+  //     img:
+  //       'https://www.organicpavilion.com/products/puppy-potion-fresh-shampoo-500ml'}),
+  //   Product.create({
+  //     title:
+  //       'Your family tree must be a cactus ‘cause you’re all a bunch of pricks.',
+  //     description:
+  //       'Use this sassy comeback for temporary relief from prickery!',
+  //     price: 3.33,
+  //     inventoryQuantity: 40,
+  //     category: ['Sass', 'Happiness'],
+  //     img: 'https://i.pinimg.com/originals/03/5e/af/035eafc66394f26c94f2ef56095f90f9.jpg'})
+  // ])
  const products = await Promise.all([
     Product.create({
       title: 'Happiness Potion',
@@ -76,7 +76,52 @@ async function seed () {
       price: 3.33,
       inventoryQuantity: 40,
       category: ['Sass', 'Happiness'],
-      img: 'https://i.pinimg.com/originals/03/5e/af/035eafc66394f26c94f2ef56095f90f9.jpg'})
+      img: 'https://i.pinimg.com/originals/03/5e/af/035eafc66394f26c94f2ef56095f90f9.jpg'}),
+    Product.create({
+      title:
+        'I’d tell you how I really feel, but I wasn’t born with enough middle fingers to express myself in this case.',
+      description:
+        'Use this sassy comeback for temporary relief from prickery!',
+      price: 3.33,
+      inventoryQuantity: 40,
+      category: ['Sass', 'Happiness'],
+      img: 'https://i.pinimg.com/originals/03/5e/af/035eafc66394f26c94f2ef56095f90f9.jpg'}),
+    Product.create({
+      title:
+        'I’m trying my absolute hardest to see things from your perspective, but I just can’t get my head that far up my ass.',
+      description:
+        'Use this sassy comeback for temporary relief from prickery!',
+      price: 8.79,
+      inventoryQuantity: 40,
+      category: ['Sass', 'Happiness'],
+      img: 'https://i.pinimg.com/originals/03/5e/af/035eafc66394f26c94f2ef56095f90f9.jpg'}),
+    Product.create({
+      title:
+        'You only annoy me when you’re breathing, really.',
+      description:
+        'Use this sassy comeback when someone just won\'t stop breathing!',
+      price: 3.33,
+      inventoryQuantity: 40,
+      category: ['Sass', 'Happiness'],
+      img: 'https://i.pinimg.com/originals/03/5e/af/035eafc66394f26c94f2ef56095f90f9.jpg'}),
+    Product.create({
+      title:
+        'Do your hear that? It’s the sound of no one caring.',
+      description:
+        'Use this sassy comeback for temporary relief from prickery!',
+      price: 3.33,
+      inventoryQuantity: 40,
+      category: ['Sass', 'Happiness'],
+      img: 'https://i.pinimg.com/originals/03/5e/af/035eafc66394f26c94f2ef56095f90f9.jpg'}),
+    Product.create({
+      title:
+        'You’re about as useful as a screen door on a submarine.',
+      description:
+        'Use this sassy comeback for temporary relief from prickery!',
+      price: 3.33,
+      inventoryQuantity: 40,
+      category: ['Sass', 'Happiness'],
+      img: 'https://i.pinimg.com/originals/03/5e/af/035eafc66394f26c94f2ef56095f90f9.jpg'}),
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
