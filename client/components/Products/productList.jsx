@@ -23,8 +23,8 @@ handleChange(event) {
 
   render() {
     const products = this.state.products;
-    const filteredProducts = products.filter(artist =>
-      artist.name.match(this.state.searchValue));
+    const filteredProducts = products.filter(product =>
+      product.name.match(this.state.searchValue));
     return (
       <div className="productPage">
       <h3>Products</h3>
