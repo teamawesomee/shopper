@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 
 class ProductBox extends Component {
   render() {
+    const product = this.props.product;
+    console.log("my product is", product)
     return (
       <div className="product">
         <div className="imgBox">
           <img></img>
         </div>
         <div className="contentBox">
-          <h3>{this.props.name}</h3>
+          <h3>{product.name}</h3>
+          <h4>{product.description}</h4>
+          <p>{product.price}</p>
         </div>
 
 
