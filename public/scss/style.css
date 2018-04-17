@@ -48,9 +48,16 @@ div.productList .product {
   margin-left: 1em;
   margin-right: 1em;
   flex: 0 1 auto;
-  width: 20%;
+  width: 200px;
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 500px) {
+  div.productList .product {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 .productPage {

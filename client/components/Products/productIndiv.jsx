@@ -3,12 +3,11 @@ import React, { Component } from 'react';
 class ProductPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selectedItem: {}
-    }
   }
 
   render() {
+    const product = this.props.product;
+    console.log(product)
     return (
       <div>
         <div className="imgBox">
