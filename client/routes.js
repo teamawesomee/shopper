@@ -5,10 +5,7 @@ import PropTypes from 'prop-types'
 import {Login, Signup, UserHome} from './components'
 import {me} from './store'
 import ProductList from './components/products/ProductList.jsx';
-<<<<<<< HEAD
 import ProductPage from './components/products/ProductIndiv.jsx';
-=======
->>>>>>> 4a0b8546afc0764fdd4d2d0cf6d7bb4710dcdb8e
 
 /**
  * COMPONENT
@@ -27,10 +24,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/products" component={ProductList} />
-<<<<<<< HEAD
         <Route path="/products/:id" component={ProductPage} />
-=======
->>>>>>> 4a0b8546afc0764fdd4d2d0cf6d7bb4710dcdb8e
         {
           isLoggedIn &&
             <Switch>

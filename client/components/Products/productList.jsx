@@ -29,7 +29,7 @@ handleChange(event) {
       product.name.match(regExSearchValue));
     return (
       <div className="productPage">
-      <h3>Products</h3>
+      <h1>Products</h1>
       <form>
       <input name="searchValue" type="text" onChange={this.handleChange} />
       </form>
