@@ -8,16 +8,20 @@ const Product = db.define('product', {
     allowNull: false
   },
   description: {
-    type: Sequelize.TEXT
+    type: Sequelize.TEXT,
+    allowNull: false
   },
   price: {
-    type: Sequelize.FLOAT
+    type: Sequelize.FLOAT,
+    allowNull: false
   },
   inventoryQuantity: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    allowNull: false
   },
   category: {
-    type: Sequelize.ARRAY(Sequelize.STRING)
+    type: Sequelize.ARRAY(Sequelize.STRING),
+    allowNull: false
   },
   img: {
     type: Sequelize.STRING,
