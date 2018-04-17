@@ -23,8 +23,10 @@ handleChange(event) {
 
   render() {
     const products = this.state.products;
+    const searchValue = this.state.searchValue;
+    const regExSearchValue = new RegExp(searchValue, "gi")
     const filteredProducts = products.filter(product =>
-      product.name.match(this.state.searchValue));
+      product.name.match(regExSearchValue));
     return (
       <div className="productPage">
       <h3>Products</h3>
