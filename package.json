@@ -16,12 +16,9 @@
     "start": "node server",
     "start-dev": "NODE_ENV='development' npm run build-client-watch & npm run start-server",
     "start-server": "nodemon server -e html,js,scss --ignore public --ignore client",
-<<<<<<< HEAD
-    "test": "NODE_ENV='test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js ./client/**/**/*.spec.js --require @babel/polyfill --require @babel/register"
-=======
+
     "test": "NODE_ENV='test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --require @babel/polyfill --require @babel/register",
     "test-server": "NODE_ENV='test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js"
->>>>>>> 09183dfebec0746ecc24fb28dff6fd9efda396e2
   },
   "author": "Fullstack Academy of Code",
   "license": "MIT",

@@ -4,7 +4,13 @@ class ProductBox extends Component {
   render() {
     return (
       <div className="product">
-        <h3>{name}</h3>
+        <div className="imgBox">
+          <img></img>
+        </div>
+        <div className="contentBox">
+          <h3>{this.props.name}</h3>
+        </div>
+
 
       </div>
     );
