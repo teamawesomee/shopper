@@ -1,5 +1,5 @@
 {
-  "name": "boilermaker",
+  "name": "shopper",
   "version": "1.0.0",
   "description": "Some boilerplate code to get you started - get shakin'!",
   "engines": {
@@ -16,7 +16,9 @@
     "start": "node server",
     "start-dev": "NODE_ENV='development' npm run build-client-watch & npm run start-server",
     "start-server": "nodemon server -e html,js,scss --ignore public --ignore client",
-    "test": "NODE_ENV='test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --require @babel/polyfill --require @babel/register"
+
+    "test": "NODE_ENV='test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --require @babel/polyfill --require @babel/register",
+    "test-server": "NODE_ENV='test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js"
   },
   "author": "Fullstack Academy of Code",
   "license": "MIT",
@@ -67,6 +69,6 @@
     "redux-mock-store": "^1.2.3",
     "supertest": "^3.0.0",
     "webpack": "^4.0.1",
-    "webpack-cli": "^2.0.9"
+    "webpack-cli": "^2.0.14"
   }
 }
