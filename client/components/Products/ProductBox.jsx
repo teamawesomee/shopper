@@ -11,7 +11,9 @@ class ProductBox extends Component {
         </div>
         <div className="contentBox">
           <h3>{product.name}</h3>
-          <h4>{product.description}</h4>
+
+          <p>{product.description}</p>
+
           <p>{product.price}</p>
         </div>
 
