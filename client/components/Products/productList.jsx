@@ -3,7 +3,6 @@ import ProductBox from './ProductBox.jsx';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getAllProducts} from '../../store/product';
-import store from '../../store';
 
 class ProductList extends Component {
   constructor(props) {
@@ -44,6 +43,7 @@ catHandler(event){
   render() {
 
     let products = this.props.products
+    console.log("my products are", products)
     //if the selected category is not 'all', the "products" variable only includes items that are of the selected category
     if (this.state.selectedCategory != 'All'){
       products = this.props.products.filter(product => product.category.includes(this.state.selectedCategory))

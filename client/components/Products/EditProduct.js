@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {editProduct} from '../store/product'
+import {editProduct} from '../../store/product'
 /**
  * COMPONENT
  */
@@ -10,7 +10,7 @@ import {editProduct} from '../store/product'
     state = {
     error : null
     }
-  
+
     render() {
         const id = this.props.match.params.id
       return (
@@ -47,13 +47,13 @@ import {editProduct} from '../store/product'
               <button type="submit">Edit Product</button>
             </div>
             {this.state.error && <div> {this.state.error.data} </div>}
-          </form>  
+          </form>
         </div>
         )
-    }  
-    
+    }
+
   }
-  
+
   /**
    * CONTAINER
    */
@@ -76,5 +76,5 @@ import {editProduct} from '../store/product'
       }
     }
   }
-  
+
   export default connect(null, mapDispatch)(EditProduct)

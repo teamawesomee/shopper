@@ -10,8 +10,8 @@ class ProductBox extends Component {
           {/* <img></img> */}
         </div>
         <div className="contentBox">
-          <h3>{product.name}</h3>
-          <p>{product.description}</p>
+          <h3>{product.title}</h3>
+          {/* <p>{product.description}</p> */}
           <p>{product.price}</p>
         </div>
 

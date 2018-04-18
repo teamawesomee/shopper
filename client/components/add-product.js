@@ -14,7 +14,7 @@ export class AddProduct extends Component {
     render() {
       return (
         <div>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={ handleSubmit }>
             <div>
               <label htmlFor="title"><small>Title</small></label>
               <input name="title" type="text" />

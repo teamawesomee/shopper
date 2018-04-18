@@ -12,7 +12,7 @@ const GET_PRODUCT = 'GET_PRODUCT'
 /**
  * INITIAL STATE
  */
-const initialState = [];
+const productsArray = []
 
 /**
  * ACTION CREATORS
@@ -29,7 +29,7 @@ const getOneProduct = product => ({type: GET_PRODUCT, product})
 export const getAllProducts = () =>
 dispatch =>
   axios.get('/api/products')
-    .then(res =>{
+    .then(res => {
       // console.log(res.data)
       let action = getProducts(res.data)
       console.log(action)
@@ -54,18 +54,18 @@ export const editProduct = (title, description, price, inventoryQuantity, catego
         history.push('/home')
       })
 
-export const getOneProductThunk = (id) =>
-  dispatch =>
-      axios.get(`/api/products/${id}`)
-      .then(res => {
-        dispatch(getOneProduct(res.data))
-      })
-      .catch(err => console.log(err))
+// export const getOneProductThunk = (id) =>
+//   dispatch =>
+//       axios.get(`/api/products/${d}`)
+//       .then(res => {
+//         dispatch(getOneProduct(res.data))
+//       })
+//       .catch(err => console.log(err))
 
 /**
  * REDUCER
  */
-export default function (state = initialState, action) {
+export default function (state = productsArray, action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return  action.products
@@ -73,9 +73,6 @@ export default function (state = initialState, action) {
       return [...state, action.product]
     case EDIT_PRODUCT:
       return [...(state.filter(product => (product.id !== action.product.id))), action.product]
-    case GET_PRODUCT:
-      state.selectedProduct = action.product;
-      return action.product;
     default:
       return state
   }
