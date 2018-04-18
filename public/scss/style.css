@@ -1,3 +1,33 @@
+input, button, select {
+  font-size: 1.5rem;
+  height: 2rem;
+}
+
+select {
+  font-size: 1.2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 80px;
+  color: #351F39;
+}
+
+label {
+  font-size: 1.2rem;
+}
+
+button {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: #726A95;
+  color: #f9f9e8;
+}
+
+button.login {
+  background-color: #726A95;
+  color: #f9f9e8;
+  padding: 1rem;
+}
+
 html {
   box-sizing: border-box;
 }
@@ -10,6 +40,7 @@ body {
   font-family: sans-serif;
   margin: 0;
   padding: 0;
+  color: #351F39;
 }
 
 a {
@@ -18,15 +49,6 @@ a {
 
 label {
   display: block;
-}
-
-nav {
-  background-color: #709FB0;
-}
-
-nav a {
-  display: inline-block;
-  margin: 1em;
 }
 
 form div {
@@ -43,14 +65,17 @@ div.productList {
 }
 
 div.productList .product {
-  height: 20%;
+  height: 30%;
   margin-top: 2em;
-  margin-left: 1em;
-  margin-right: 1em;
+  margin-left: .5em;
+  margin-right: .5em;
+  padding: 1rem;
   flex: 0 1 auto;
   width: 200px;
   display: flex;
   flex-direction: column;
+  border: 6px solid #726A95;
+  background-color: #f9f9e8;
 }
 
 @media (max-width: 500px) {
@@ -60,8 +85,13 @@ div.productList .product {
   }
 }
 
+div.productList .product h3 {
+  margin-top: 0;
+}
+
 .productPage {
   padding: 2em;
+  color: #351F39;
 }
 
 .productPage h1 {
@@ -70,5 +100,71 @@ div.productList .product {
 
 .productList > h3 {
   height: 2em;
+}
+
+.pageTopper {
+  padding-top: 1rem;
+  background-color: #f9f9e8;
+  color: #726A95;
+  width: 100%;
+  padding-bottom: 0;
+}
+
+.pageTopper h1 {
+  padding-left: 2rem;
+}
+
+.pageTopper nav {
+  background-color: #709FB0;
+  border-bottom: 10px solid #726A95;
+  margin-bottom: 0;
+}
+
+.pageTopper nav a {
+  display: inline-block;
+  margin: 1em;
+  color: #f9f9e8;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: row;
+  background-color: #709FB0;
+  color: #f9f9e8;
+}
+
+@media (max-width: 700px) {
+  .formContainer {
+    flex-direction: column;
+  }
+}
+
+.formContainer .inputSurround {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@media (max-width: 500px) {
+  .formContainer .inputSurround {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .formContainer .inputSurround label {
+    margin-bottom: .5em;
+  }
+}
+
+.formContainer .inputSurround label {
+  margin-right: 2em;
+}
+
+.formContainer .inputSurround input {
+  background-color: #f9f9e8;
+}
+
+.formContainer .inputSurround select {
+  width: 80px;
 }
 /*# sourceMappingURL=style.css.map */

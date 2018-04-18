@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => {
+  return { selectedProduct: state.selectedProduct };
+};
 
 class ProductPage extends Component {
-  constructor(props) {
-    super(props);
-  }
+
 
   render() {
-    const product = this.props.product;
+    const product = this.state.selectedProduct;
     console.log(product)
     return (
       <div>
         <div className="imgBox">
-          <img></img>
+          {/* <img></img> */}
         </div>
         <div className="contentBox">
           <h3>{product.name}</h3>
@@ -24,4 +27,6 @@ class ProductPage extends Component {
   }
 }
 
-export default ProductPage;
+
+
+export default connect(mapStateToProps)(ProductPage);

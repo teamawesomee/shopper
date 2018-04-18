@@ -6,14 +6,17 @@ class ProductList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [{name: 'A Rock', category: ['cat1'], description: 'Your basic rock', quantity: '15', price: '$6.72'}, {name: 'A Hard Place', category: ['cat1'], description: 'sounds way more appealing than the rock', quantity: '6', price: '$6.72'}, {name: 'My Mom', category: ['cat1'], description: 'Insert mom joke here', quantity: '6', price: '$6.72'}, {name: 'YOUR mom', category: ['cat2'], description: 'insert another mom joke here', quantity: '6', price: '$6.72'}, {name: 'A dick in a box', category: ['cat2'], description: 'Step One: cut a hole in the box; Step two: put your junk in that box', quantity: '6', price: 'fucking priceless'}, {name: 'sassy comeback 101', category: ['cat2'], description: 'Step One: cut a hole in the box; Step two: put your junk in that box', quantity: '6', price: '$16.88'}],
+      products: [{name: 'A Rock', id: '1', category: ['cat1'], description: 'Your basic rock', quantity: '15', price: '$6.72'}, {name: 'A Hard Place', id: '2', category: ['cat1'], description: 'sounds way more appealing than the rock', quantity: '6', price: '$6.72'}, {name: 'My Mom', category: ['cat1'], description: 'Insert mom joke here', quantity: '6', price: '$6.72'}, {name: 'YOUR mom', id: '3', category: ['cat2'], description: 'insert another mom joke here', quantity: '6', price: '$6.72'}, {name: 'A dick in a box', id: '4', category: ['cat2'], description: 'Step One: cut a hole in the box; Step two: put your junk in that box', quantity: '6', price: 'fucking priceless'}, {name: 'sassy comeback 101', id: '5', category: ['cat2'], description: 'Step One: cut a hole in the box; Step two: put your junk in that box', quantity: '6', price: '$16.88'}],
       searchValue: '',
       selectedCategory: 'All'
     }
+    //binding our methods
     this.handleChange = this.handleChange.bind(this);
     this.catHandler = this.catHandler.bind(this);
 
   }
+
+                              /* METHODS */
 
 
 handleChange(event) {
@@ -21,7 +24,6 @@ handleChange(event) {
         [event.target.name]: event.target.value
     })
     console.log(this.state)
-
 }
 
 catHandler(event){
@@ -31,6 +33,8 @@ catHandler(event){
 }
 
 
+
+                                /* JSX */
   render() {
     let products = this.state.products
 
@@ -61,33 +65,42 @@ catHandler(event){
       // console log
     console.log("categories: ", prodCategories)
 
-    // here is the jsx
+                      /* RETURN STATEMENT */
     return (
       <div className="productPage">
-      <h1>Products</h1>
-      <form>
-        <input name="searchValue" type="text" onChange={this.handleChange} />
-        <select name ="prodCategory" onChange={this.catHandler}>
-          <option value = "All">All</option>
-          {/* this maps through our product categories within the dropdown selector */}
-          {prodCategories.map((cat, idx) => {
-            return (
-              <option key={ cat + idx } value = {cat}>{cat}</option>
-            )
-          })}
-        </select>
-      </form>
-      {/* this is the actual product list */}
+        <h1>Products</h1>
+        <form className="formContainer">
+          <div className="inputSurround">
+            <label htmlFor="searchValue">Search by name!</label>
+            <input  name="searchValue" type="text" onChange={this.handleChange} />
+          </div>
+
+          <div className="inputSurround">
+              <label htmlFor="prodCategory">Filter by Category</label>
+              <select name ="prodCategory" onChange={this.catHandler}>
+                <option value = "All">All</option>
+                {/* this maps through our product categories within the dropdown selector */}
+                {prodCategories.map((cat, idx) => {
+                  return (
+                    <option key={ cat + idx } value = {cat}>{cat}</option>
+                  )
+                })}
+              </select>
+            </div>
+        </form>
+                                  {/* PRODUCT LIST */}
         <div className="productList">
-          { filteredProducts ? filteredProducts.map(product => {
+          { filteredProducts ? filteredProducts.map(product => { //if filteredProducts is not empty map through it
             return (
-              <Link to={`/products/${product.id}`} key={product.name}>
+              <Link to={`/products/${product.id}`} key={product.name} className="product">
                 <ProductBox product={product}  />
               </Link>
             )
-          }) : products.map(product => {
+          }) : products.map(product => { //if filteredProducts is empty map through products!
             return (
-              <ProductBox product={product} key={product.name} />
+              <Link to={`/products/${product.id}`} key={product.name} className="product">
+                <ProductBox product={product} key={product.name} />
+              </Link>
             )
           })
           }
