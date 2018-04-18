@@ -6,6 +6,7 @@ import {Login, Signup, UserHome, EditProduct} from './components'
 import {me} from './store'
 import ProductList from './components/Products/productList.jsx';
 import ProductPage from './components/Products/productIndiv.jsx';
+import {getAllProducts} from './store/product';
 
 /**
  * COMPONENT
@@ -58,6 +59,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
       dispatch(me())
+      // dispatch(getAllProducts())
     }
   }
 }

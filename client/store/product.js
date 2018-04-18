@@ -12,10 +12,7 @@ const GET_PRODUCT = 'GET_PRODUCT'
 /**
  * INITIAL STATE
  */
-const initialState = {
-    initialProducts: [],
-    selectedProduct: {}
-}
+const initialState = [];
 
 /**
  * ACTION CREATORS
@@ -31,25 +28,30 @@ const getOneProduct = product => ({type: GET_PRODUCT, product})
 
 export const getAllProducts = () =>
 dispatch =>
-  axios.get('/products')
-    .then(res =>
-      dispatch(getProducts(res.data || initialState.initialProducts)))
+  axios.get('/api/products')
+    .then(res =>{
+      // console.log(res.data)
+      let action = getProducts(res.data)
+      console.log(action)
+      dispatch(action)})
     .catch(err => console.log(err))
 
+    //should be connecting to the admin route
 export const addNewProduct = (title, description, price, inventoryQuantity, category, img) =>
   dispatch =>
-    axios.post(`/products`, { title, description, price, inventoryQuantity, category, img })
+    axios.post(`/api/users/admin/products`, { title, description, price, inventoryQuantity, category, img })
       .then(res => {
         dispatch(addProduct(res.data))
         history.push('/home')
       })
 
+      //should be connecting to the admin route
 export const editProduct = (title, description, price, inventoryQuantity, category, img, id) =>
   dispatch =>
-    axios.put(`/products/:${id}`, { title, description, price, inventoryQuantity, category, img })
+    axios.put(`/api/users/admin/products/:${id}`, { title, description, price, inventoryQuantity, category, img })
       .then(res => {
         dispatch(editedProduct(res.data))
-        //history.push('/home')
+        history.push('/home')
       })
 
 export const getOneProductThunk = (id) =>
@@ -63,10 +65,10 @@ export const getOneProductThunk = (id) =>
 /**
  * REDUCER
  */
-export default function (state = initialState.initialProducts, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return action.products
+      return  action.products
     case ADD_PRODUCT:
       return [...state, action.product]
     case EDIT_PRODUCT:
