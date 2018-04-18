@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const mapStateToProps = (state) => {
-  return { products: state.productsArray };
+  return { products: state.products };
 };
 
 class ProductPage extends Component {
@@ -25,12 +25,12 @@ class ProductPage extends Component {
     console.log("my", product)
     return (
       product ?
-      <div>
+      <div className="productPage">
         <div className="imgBox">
           {/* <img></img> */}
         </div>
         <div className="contentBox">
-          <h3>{product.name}</h3>
+          <h3>{product.title}</h3>
           <p>{product.description}</p>
           <p>{product.price}</p>
         </div>

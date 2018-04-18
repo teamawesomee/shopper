@@ -184,4 +184,8 @@ div.productList .product h3 {
 .formContainer .inputSurround select {
   width: 80px;
 }
+
+.productPage {
+  padding: 2em;
+}
 /*# sourceMappingURL=style.css.map */

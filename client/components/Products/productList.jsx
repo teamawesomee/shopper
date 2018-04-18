@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import ProductBox from './ProductBox.jsx';
 import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {getAllProducts} from '../../store/product';
 
 class ProductList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [{name: 'A Rock', id: '1', category: ['cat1'], description: 'Your basic rock', quantity: '15', price: '$6.72'}, {name: 'A Hard Place', id: '2', category: ['cat1'], description: 'sounds way more appealing than the rock', quantity: '6', price: '$6.72'}, {name: 'My Mom', category: ['cat1'], description: 'Insert mom joke here', quantity: '6', price: '$6.72'}, {name: 'YOUR mom', id: '3', category: ['cat2'], description: 'insert another mom joke here', quantity: '6', price: '$6.72'}, {name: 'A dick in a box', id: '4', category: ['cat2'], description: 'Step One: cut a hole in the box; Step two: put your junk in that box', quantity: '6', price: 'fucking priceless'}, {name: 'sassy comeback 101', id: '5', category: ['cat2'], description: 'Step One: cut a hole in the box; Step two: put your junk in that box', quantity: '6', price: '$16.88'}],
       searchValue: '',
       selectedCategory: 'All'
     }
@@ -14,6 +15,10 @@ class ProductList extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.catHandler = this.catHandler.bind(this);
 
+  }
+
+  componentDidMount(){
+    this.props.getAll();
   }
 
                               /* METHODS */
@@ -36,13 +41,18 @@ catHandler(event){
 
                                 /* JSX */
   render() {
-    let products = this.state.products
 
+    let products = this.props.products
+    console.log("my products are", products)
+    //if the selected category is not 'all', the "products" variable only includes items that are of the selected category
+    if (this.state.selectedCategory != 'All'){
+      products = this.props.products.filter(product => product.category.includes(this.state.selectedCategory))
+    }
     // set helper array
     let helper = []
 
     //collect product categories from the products we have
-    let prodCategories = this.state.products.map(prod => prod.category)
+    let prodCategories = this.props.products.map(prod => prod.category)
     //and then concatenate them onto the end of the helper array to get one long array
     for (var i = 0; i < prodCategories.length; i++){
       helper = helper.concat(prodCategories[i])
@@ -55,12 +65,9 @@ catHandler(event){
     const searchValue = this.state.searchValue;
     const regExSearchValue = new RegExp(searchValue, "gi")
     const filteredProducts = products.filter(product =>
-      product.name.match(regExSearchValue));
+      product.title.match(regExSearchValue));
 
-    //if the selected category is not 'all', the "products" variable only includes items that are of the selected category
-    if (this.state.selectedCategory != 'All'){
-      products = this.state.products.filter(product => product.category.includes(this.state.selectedCategory))
-    }
+
 
       // console log
     console.log("categories: ", prodCategories)
@@ -92,14 +99,14 @@ catHandler(event){
         <div className="productList">
           { filteredProducts ? filteredProducts.map(product => { //if filteredProducts is not empty map through it
             return (
-              <Link to={`/products/${product.id}`} key={product.name} className="product">
+              <Link to={`/products/${product.id}`} key={product.title} className="product">
                 <ProductBox product={product}  />
               </Link>
             )
           }) : products.map(product => { //if filteredProducts is empty map through products!
             return (
-              <Link to={`/products/${product.id}`} key={product.name} className="product">
-                <ProductBox product={product} key={product.name} />
+              <Link to={`/products/${product.id}`} key={product.title} className="product">
+                <ProductBox product={product} key={product.title} />
               </Link>
             )
           })
@@ -115,4 +122,16 @@ catHandler(event){
   }
 }
 
-export default ProductList;
+// -----containers-----
+
+const mapState = (state) => ({...state});
+const mapDispatch = (dispatch) => {
+   return {getAll() {
+    dispatch(getAllProducts())
+  }}
+}
+
+
+
+
+export default connect(mapState, mapDispatch)(ProductList);

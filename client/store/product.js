@@ -29,24 +29,29 @@ const getOneProduct = product => ({type: GET_PRODUCT, product})
 export const getAllProducts = () =>
 dispatch =>
   axios.get('/api/products')
-    .then(res =>
-      dispatch(getProducts(res.data || initialState.initialProducts)))
+    .then(res => {
+      // console.log(res.data)
+      let action = getProducts(res.data)
+      console.log(action)
+      dispatch(action)})
     .catch(err => console.log(err))
 
+    //should be connecting to the admin route
 export const addNewProduct = (title, description, price, inventoryQuantity, category, img) =>
   dispatch =>
-    axios.post(`/api/products`, { title, description, price, inventoryQuantity, category, img })
+    axios.post(`/api/users/admin/products`, { title, description, price, inventoryQuantity, category, img })
       .then(res => {
         dispatch(addProduct(res.data))
         history.push('/home')
       })
 
+      //should be connecting to the admin route
 export const editProduct = (title, description, price, inventoryQuantity, category, img, id) =>
   dispatch =>
-    axios.put(`/api/products/:${id}/edit`, { title, description, price, inventoryQuantity, category, img })
+    axios.put(`/api/users/admin/products/:${id}`, { title, description, price, inventoryQuantity, category, img })
       .then(res => {
         dispatch(editedProduct(res.data))
-        //history.push('/home')
+        history.push('/home')
       })
 
 // export const getOneProductThunk = (id) =>
@@ -63,7 +68,7 @@ export const editProduct = (title, description, price, inventoryQuantity, catego
 export default function (state = productsArray, action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return action.products
+      return  action.products
     case ADD_PRODUCT:
       return [...state, action.product]
     case EDIT_PRODUCT:

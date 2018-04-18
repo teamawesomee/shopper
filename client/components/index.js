@@ -7,7 +7,7 @@ export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 export {default as EditProduct} from './products/EditProduct'
 export {Login, Signup} from './auth-form'
-export { ProductList } from './products/ProductList.jsx';
+export { default as ProductList } from './products/ProductList.jsx';
 export { default as ProductPage } from './products/ProductPage.jsx';
 export { default as AdminProductPage } from './products/AdminPages/AdminProductPage.jsx'
 
