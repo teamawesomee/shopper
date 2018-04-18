@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const mapStateToProps = (state) => {
-  return { selectedProduct: state.selectedProduct };
+  return { products: state.initialProducts };
 };
 
 class ProductPage extends Component {
 
 
   render() {
-    const product = this.state.selectedProduct;
-    console.log(product)
+    const productId = this.props.match.params.productId;
+    console.log("my product id is", productId);
+    console.log(this.state.products);
+
+    const product = this.state.products.filter(oneProduct => oneProduct.id === productId);
+    console.log("my", product)
     return (
       <div>
         <div className="imgBox">
@@ -21,6 +26,10 @@ class ProductPage extends Component {
           <p>{product.description}</p>
           <p>{product.price}</p>
         </div>
+
+        <Link to={`admin/products/${productId}/edit`}>
+          <button>Edit</button>
+        </Link>
 
       </div>
     );

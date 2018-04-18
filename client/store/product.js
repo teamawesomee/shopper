@@ -13,8 +13,7 @@ const GET_PRODUCT = 'GET_PRODUCT'
  * INITIAL STATE
  */
 const initialState = {
-    initialProducts: [],
-    selectedProduct: {}
+    initialProducts: []
 }
 
 /**
@@ -31,14 +30,14 @@ const getOneProduct = product => ({type: GET_PRODUCT, product})
 
 export const getAllProducts = () =>
 dispatch =>
-  axios.get('/products')
+  axios.get('/api/products')
     .then(res =>
       dispatch(getProducts(res.data || initialState.initialProducts)))
     .catch(err => console.log(err))
 
 export const addNewProduct = (title, description, price, inventoryQuantity, category, img) =>
   dispatch =>
-    axios.post(`/products`, { title, description, price, inventoryQuantity, category, img })
+    axios.post(`/api/products`, { title, description, price, inventoryQuantity, category, img })
       .then(res => {
         dispatch(addProduct(res.data))
         history.push('/home')
@@ -46,19 +45,19 @@ export const addNewProduct = (title, description, price, inventoryQuantity, cate
 
 export const editProduct = (title, description, price, inventoryQuantity, category, img, id) =>
   dispatch =>
-    axios.put(`/products/:${id}`, { title, description, price, inventoryQuantity, category, img })
+    axios.put(`/api/products/:${id}/edit`, { title, description, price, inventoryQuantity, category, img })
       .then(res => {
         dispatch(editedProduct(res.data))
         //history.push('/home')
       })
 
-export const getOneProductThunk = (id) =>
-  dispatch =>
-      axios.get(`/api/products/${id}`)
-      .then(res => {
-        dispatch(getOneProduct(res.data))
-      })
-      .catch(err => console.log(err))
+// export const getOneProductThunk = (id) =>
+//   dispatch =>
+//       axios.get(`/api/products/${d}`)
+//       .then(res => {
+//         dispatch(getOneProduct(res.data))
+//       })
+//       .catch(err => console.log(err))
 
 /**
  * REDUCER
