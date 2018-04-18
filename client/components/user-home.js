@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
  */
 export const UserHome = (props) => {
   const {email} = props
-
+  // if (!props.user) push history to login -- KHJJ
   return (
     <div>
       <h3>Welcome, {email}</h3>

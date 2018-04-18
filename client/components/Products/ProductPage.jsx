@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const mapStateToProps = (state) => {
-  return { products: state.products };
+const mapStateToProps = (state) => { // not consistent with other files -- KHJJ
+  return { products: state.products  }; // use [].find || {} and then have product sent to props
 };
 
 class ProductPage extends Component {
 
-
+// spacing -- KHJJ
 
   render() {
     const productId = +this.props.match.params.productId;
@@ -24,7 +24,7 @@ class ProductPage extends Component {
     product = product[0];
     console.log("my", product)
     return (
-      product ?
+      product.id ?
       <div className="productPage">
         <div className="imgBox">
           {/* <img></img> */}

@@ -27,7 +27,7 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   },
-
+// space is funnnnny -- KHJJ
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false

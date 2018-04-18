@@ -14,3 +14,4 @@ const store = createStore(reducer, middleware)
 
 export default store
 export * from './user'
+export * from './product' // since this is the pattern already created. Now you don't have to require in a sub file from somewhere else -- KHJJ

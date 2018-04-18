@@ -59,6 +59,8 @@ const mapDispatch = (dispatch) => {
     loadInitialData () {
       dispatch(me())
       dispatch(getAllProducts())
+      // pro you have everything and just filter for anything you want (no latency)
+      // con - could be HUGE
     }
   }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+// functional component -- KHJJ
 class ProductBox extends Component {
   render() {
     const product = this.props.product;

@@ -9,6 +9,13 @@ import App from './app'
 // establishes socket connection
 import './socket'
 
+// CSS -- KHJJ
+	// your own
+	// tachyons
+	// bulma
+	// react bootstrap (look at free templates)
+	// material ui
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>

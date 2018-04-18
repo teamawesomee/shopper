@@ -27,14 +27,14 @@ const getOneProduct = product => ({type: GET_PRODUCT, product})
  */
 
 export const getAllProducts = () =>
-dispatch =>
+dispatch => // indentation -- KHJJ
   axios.get('/api/products')
     .then(res => {
       // console.log(res.data)
       let action = getProducts(res.data)
-      console.log(action)
+      console.log(action) // remove from master -- KHJJ
       dispatch(action)})
-    .catch(err => console.log(err))
+    .catch(err => console.log(err)) // this is only for development. In production we want users to see there is an error -- KHJJ
 
     //should be connecting to the admin route
 export const addNewProduct = (title, description, price, inventoryQuantity, category, img) =>
@@ -42,19 +42,19 @@ export const addNewProduct = (title, description, price, inventoryQuantity, cate
     axios.post(`/api/users/admin/products`, { title, description, price, inventoryQuantity, category, img })
       .then(res => {
         dispatch(addProduct(res.data))
-        history.push('/home')
+        history.push('/home') // go to the product? -- KHJJ
       })
 
       //should be connecting to the admin route
-export const editProduct = (title, description, price, inventoryQuantity, category, img, id) =>
+export const editProduct = (product) =>
   dispatch =>
-    axios.put(`/api/users/admin/products/:${id}`, { title, description, price, inventoryQuantity, category, img })
+    axios.put(`/api/users/admin/products/:${product.id}`, product)
       .then(res => {
         dispatch(editedProduct(res.data))
         history.push('/home')
       })
 
-// export const getOneProductThunk = (id) =>
+// export const getOneProductThunk = (id) => // remove me -- kHJJ
 //   dispatch =>
 //       axios.get(`/api/products/${d}`)
 //       .then(res => {
@@ -72,6 +72,7 @@ export default function (state = productsArray, action) {
     case ADD_PRODUCT:
       return [...state, action.product]
     case EDIT_PRODUCT:
+      // map and if the id matches return the new product -- KHJJ
       return [...(state.filter(product => (product.id !== action.product.id))), action.product]
     default:
       return state

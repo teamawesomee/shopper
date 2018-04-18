@@ -69,7 +69,7 @@ import {editProduct} from '../../store/product'
         const category = evt.target.category.value
         const img = evt.target.img.value
         dispatch(editProduct(title, description, price, inventoryQuantity, category, img, id))
-        .catch((err) => {
+        .catch((err) => { // consistent across files of where to catch errors -- KHJJ
           console.error(err)
           this.setState({error : err})
         })

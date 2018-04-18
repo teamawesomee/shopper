@@ -1,3 +1,4 @@
+// be consistent on casing (caps, kebab, camel) -- KHJJ
 import React, { Component } from 'react';
 import ProductBox from './ProductBox.jsx';
 import { Link } from 'react-router-dom';
@@ -23,8 +24,9 @@ class ProductList extends Component {
 
                               /* METHODS */
 
+// indentation and spacing!??! -- KHJJ
 
-handleChange(event) {
+handleChange(event) { // make arrow functions so you don't have to bind -- KHJJ
     this.setState({
         [event.target.name]: event.target.value
     })
@@ -42,24 +44,26 @@ catHandler(event){
                                 /* JSX */
   render() {
 
-    let products = this.props.products
+    let products = this.state.selectedCategory === 'All' ? this.props.products : this.props.products.filter(product => product.category.includes(this.state.selectedCategory)) // this instead of if below -- KHJJ
+
     console.log("my products are", products)
     //if the selected category is not 'all', the "products" variable only includes items that are of the selected category
     if (this.state.selectedCategory != 'All'){
       products = this.props.products.filter(product => product.category.includes(this.state.selectedCategory))
     }
     // set helper array
-    let helper = []
+    let helper = new Set()
 
     //collect product categories from the products we have
     let prodCategories = this.props.products.map(prod => prod.category)
     //and then concatenate them onto the end of the helper array to get one long array
+    // based on your filter and map let's use foreach -- KHJJ
     for (var i = 0; i < prodCategories.length; i++){
-      helper = helper.concat(prodCategories[i])
+      helper = helper.add(prodCategories[i])
     }
 
     //this is the final array of our products
-    prodCategories = Array.from(new Set(helper))
+    prodCategories = Array.from(helper)
 
     //this is for filtering by name
     const searchValue = this.state.searchValue;
@@ -83,8 +87,8 @@ catHandler(event){
           </div>
 
           <div className="inputSurround">
-              <label htmlFor="prodCategory">Filter by Category</label>
-              <select name ="prodCategory" onChange={this.catHandler}>
+              <label htmlFor="selectedCategory">Filter by Category</label>
+              <select name ="selectedCategory" onChange={this.handleChange}>
                 <option value = "All">All</option>
                 {/* this maps through our product categories within the dropdown selector */}
                 {prodCategories.map((cat, idx) => {
@@ -110,6 +114,7 @@ catHandler(event){
               </Link>
             )
           })
+          /* see what happens if you just look at filtered.map -- KHJJ */
           }
           {filteredProducts.length === 0 && searchValue && <div className="alert"> <p>Sorry, there are no products that match your search!</p> </div>}
 

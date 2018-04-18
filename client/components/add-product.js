@@ -69,7 +69,7 @@ export class AddProduct extends Component {
         const inventoryQuantity = evt.target.inventoryQuantity.value
         const category = evt.target.category.value
         const img = evt.target.img.value
-        dispatch(addNewProduct(title, description, price, inventoryQuantity, category, img))
+        dispatch(addNewProduct({title, description, price, inventoryQuantity, category, img}))
         .catch((err) => {
           console.error(err)
           this.setState({error: err})
