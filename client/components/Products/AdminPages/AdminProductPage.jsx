@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const mapStateToProps = (state) => {
-  return { products: state.initialProducts };
-};
-
-class ProductPage extends Component {
-
-
+class AdminProductPage extends Component {
   render() {
-    const productId = this.props.match.params.productId;
+    const productId = +this.props.match.params.productId;
     console.log("my product id is", productId);
-    console.log(this.state.products);
+    console.log(this.state)
 
-    const product = this.state.products.filter(oneProduct => oneProduct.id === productId);
+    const products = this.props.products;
+    console.log(products)
+    let product = products.filter(oneProduct => {
+      console.log("I am in my filter")
+      return oneProduct.id == productId
+    });
+    product = product[0];
     console.log("my", product)
     return (
+      product ?
       <div>
         <div className="imgBox">
           {/* <img></img> */}
@@ -31,11 +31,9 @@ class ProductPage extends Component {
           <button>Edit</button>
         </Link>
 
-      </div>
+      </div> : <div className="alert">No product to display</div>
     );
   }
 }
 
-
-
-export default connect(mapStateToProps)(ProductPage);
+export default AdminProductPage;

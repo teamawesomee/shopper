@@ -12,9 +12,7 @@ const GET_PRODUCT = 'GET_PRODUCT'
 /**
  * INITIAL STATE
  */
-const initialState = {
-    initialProducts: []
-}
+const productsArray = []
 
 /**
  * ACTION CREATORS
@@ -62,7 +60,7 @@ export const editProduct = (title, description, price, inventoryQuantity, catego
 /**
  * REDUCER
  */
-export default function (state = initialState.initialProducts, action) {
+export default function (state = productsArray, action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return action.products
@@ -70,9 +68,6 @@ export default function (state = initialState.initialProducts, action) {
       return [...state, action.product]
     case EDIT_PRODUCT:
       return [...(state.filter(product => (product.id !== action.product.id))), action.product]
-    case GET_PRODUCT:
-      state.selectedProduct = action.product;
-      return action.product;
     default:
       return state
   }
