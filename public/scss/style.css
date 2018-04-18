@@ -28,6 +28,23 @@ button.login {
   padding: 1rem;
 }
 
+div.alert {
+  background-color: #726A95;
+  color: #f9f9e8;
+  width: 50%;
+  height: 4rem;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1em;
+}
+
+.productPage div.alert {
+  margin-top: 2em;
+}
+
 html {
   box-sizing: border-box;
 }

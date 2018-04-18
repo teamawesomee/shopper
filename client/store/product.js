@@ -58,6 +58,7 @@ export const getOneProductThunk = (id) =>
       .then(res => {
         dispatch(getOneProduct(res.data))
       })
+      .catch(err => console.log(err))
 
 /**
  * REDUCER

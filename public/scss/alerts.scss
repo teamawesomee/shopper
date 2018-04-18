@@ -1,0 +1,20 @@
+@import "variables";
+
+div.alert {
+  background-color: $purple;
+  color: $ivory;
+  width:50%;
+  height: 4rem;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding:1em;
+}
+
+.productPage {
+  div.alert {
+    margin-top:2em;
+  }
+}
