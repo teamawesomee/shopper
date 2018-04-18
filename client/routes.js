@@ -4,7 +4,8 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, EditProduct} from './components'
 import {me} from './store'
-import ProductList from './components/Products/productList.jsx';
+import ProductList from './components/products/ProductList.jsx';
+import ProductPage from './components/products/ProductIndiv.jsx';
 
 /**
  * COMPONENT
@@ -22,7 +23,10 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/products" component={ProductList} />
+        <Route exact path="/products" component={ProductList} />
+        <Route path="/products/:productId" component={ProductPage} />
+        <Route exact path="admin/products/:productId" component={ProductPage} />
+        <Route path="admin/products/:productId/edit" component={ProductPage} />
         {
           isLoggedIn &&
             <Switch>
@@ -32,7 +36,7 @@ class Routes extends Component {
             </Switch>
         }
         {/* Displays our Login component as a fallback */}
-        <Route path='/edit-product' component={EditProduct}/>{/*this was just for testing*/}
+        <Route path='/edit-product' component={EditProduct} />{/*this was just for testing*/}
         <Route component={Login} />
       </Switch>
     )

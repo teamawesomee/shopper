@@ -5,15 +5,13 @@ class ProductBox extends Component {
     const product = this.props.product;
     console.log("my product is", product)
     return (
-      <div className="product">
+      <div className="productBox">
         <div className="imgBox">
-          <img></img>
+          {/* <img></img> */}
         </div>
         <div className="contentBox">
           <h3>{product.name}</h3>
-
           <p>{product.description}</p>
-
           <p>{product.price}</p>
         </div>
 

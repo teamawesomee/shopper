@@ -1,0 +1,31 @@
+@import "variables";
+
+input, button, select {
+  font-size: 1.5rem;
+  height: 2rem;
+}
+
+select {
+  font-size: 1.2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 80px;
+  color: $darkpurple;
+}
+
+label {
+  font-size:1.2rem;
+}
+
+button {
+  padding-left:1rem;
+  padding-right:1rem;
+  background-color:$purple;
+  color:$ivory;
+}
+
+button.login {
+  background-color:$purple;
+  color:$ivory;
+  padding:1rem;
+}
