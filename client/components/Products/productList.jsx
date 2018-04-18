@@ -104,6 +104,9 @@ catHandler(event){
             )
           })
           }
+          {filteredProducts.length === 0 && searchValue && <div className="alert"> <p>Sorry, there are no products that match your search!</p> </div>}
+
+
         </div>
 
 

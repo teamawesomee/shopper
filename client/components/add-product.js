@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import addNewProduct from '../store/product.js'
 
 /**
  * COMPONENT
@@ -9,7 +10,7 @@ export class AddProduct extends Component {
     state = {
       error : {}
     }
-  
+
     render() {
       return (
         <div>
@@ -41,14 +42,14 @@ export class AddProduct extends Component {
             <div>
               <button type="submit">Add Product</button>
             </div>
-            {this.state.error && <div> {this.state.error.data} </div>}
-          </form>  
+            {this.state.error && <div className="alert"> {this.state.error.data} </div>}
+          </form>
         </div>
         )
-    }  
-    
+    }
+
   }
-  
+
   /**
    * CONTAINER
    */
@@ -71,10 +72,10 @@ export class AddProduct extends Component {
         dispatch(addNewProduct(title, description, price, inventoryQuantity, category, img))
         .catch((err) => {
           console.error(err)
-          this.setState({error = err})
+          this.setState({error: err})
         })
       }
     }
   }
-  
+
   export default connect(null, mapDispatch)(AddProduct)
