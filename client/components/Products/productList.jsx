@@ -37,7 +37,10 @@ catHandler(event){
                                 /* JSX */
   render() {
     let products = this.state.products
-
+    //if the selected category is not 'all', the "products" variable only includes items that are of the selected category
+    if (this.state.selectedCategory != 'All'){
+      products = this.state.products.filter(product => product.category.includes(this.state.selectedCategory))
+    }
     // set helper array
     let helper = []
 
@@ -57,10 +60,7 @@ catHandler(event){
     const filteredProducts = products.filter(product =>
       product.name.match(regExSearchValue));
 
-    //if the selected category is not 'all', the "products" variable only includes items that are of the selected category
-    if (this.state.selectedCategory != 'All'){
-      products = this.state.products.filter(product => product.category.includes(this.state.selectedCategory))
-    }
+
 
       // console log
     console.log("categories: ", prodCategories)

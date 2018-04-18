@@ -4,8 +4,8 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, EditProduct} from './components'
 import {me} from './store'
-import ProductList from './components/products/ProductList.jsx';
-import ProductPage from './components/products/ProductIndiv.jsx';
+import ProductList from './components/Products/productList.jsx';
+import ProductPage from './components/Products/productIndiv.jsx';
 
 /**
  * COMPONENT
