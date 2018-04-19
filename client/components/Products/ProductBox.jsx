@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class ProductBox extends Component {
-  render() {
-    const product = this.props.product;
-    console.log("my product is", product)
+const ProductBox = (props) => {
+    const product = props.product;
     return (
       <div className="productBox">
         <div className="imgBox">
-          {/* <img></img> */}
+           <img src={product.img} height='50px' width='50px' />
         </div>
         <div className="contentBox">
           <h3>{product.title}</h3>
@@ -18,7 +16,6 @@ class ProductBox extends Component {
 
       </div>
     );
-  }
 }
 
 export default ProductBox;
