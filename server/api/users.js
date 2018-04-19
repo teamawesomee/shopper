@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Order, Product} = require('../db/models')
 module.exports = router
 
 
@@ -18,6 +18,22 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   User.findById(req.params.id)
     .then(user => res.json(user))
-    .catch(err => console.log('Failed to retrieve user page, ', err))
+    .catch(next)
+})
+
+router.get('/:id/orders', (req, res, next) => {
+  Order.getOrdersByUser(req.params.id)
+    .then(orders => res.json(orders))
+    .catch(next)
+})
+
+router.get('/:id/:orderId', (req, res, next) => {
+  Order.findById(req.params.orderId, {
+    include: {
+      model: Product
+    }
+  })
+  .then(order => res.json(order))
+  .catch(next);
 })
 
