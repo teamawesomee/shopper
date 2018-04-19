@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
-module.exports = router
+module.exports = router;
 
 router.get('/products', (req, res, next) => {
   Product.findAll()

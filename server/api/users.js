@@ -27,13 +27,5 @@ router.get('/:id/orders', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/:id/:orderId', (req, res, next) => {
-  Order.findById(req.params.orderId, {
-    include: {
-      model: Product
-    }
-  })
-  .then(order => res.json(order))
-  .catch(next);
-})
+
 
