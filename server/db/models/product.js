@@ -12,12 +12,15 @@ const Product = db.define('product', {
     allowNull: false
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.DECIMAL(10,2),
     allowNull: false
   },
   inventoryQuantity: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    validate:{
+      min: 0
+    }
   },
   category: {
     type: Sequelize.ARRAY(Sequelize.STRING),
