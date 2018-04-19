@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const { Product } = require('../db/models');
+const isLoggedIn = require('../../utils').isLoggedIn;
+const isAdmin = require('../../utils').isAdmin;
 module.exports = router;
+
 
 router.get('/', (req, res, next) => {
   Product.findAll()
@@ -10,7 +13,7 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', isLoggedIn, isAdmin, (req, res, next) => {
   Product.create(req.body)
     .then(product => res.json(product))
     .catch(next);
@@ -22,19 +25,17 @@ router.get('/:productId', (req, res, next) => {
     .catch(next)
 });
 
-router.put('/:productId', (req, res, next) => {
+router.put('/:productId', isLoggedIn, isAdmin, (req, res, next) => {
   Product.findById(req.params.productId)
     .then(product => product.update(req.body))
     .then(product => res.json(product))
     .catch(next);
 });
 
-router.delete('/:productId', (req, res, next) => {
+router.delete('/:productId', isLoggedIn, isAdmin, (req, res, next) => {
   Product.findById(req.params.productId)
     .then(product => product.destroy(req.body))
-    .then(() => res.status(202).json('deleted!'))
+    .then(() => res.sendStatus(204))
     .catch(next);
 });
-
-
 
