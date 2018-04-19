@@ -23,7 +23,10 @@ function OrderBox (props){
         <div className="productOrderBox">
             {products.map(product => {
                 return (
-                    <Link to={}>
+                    <Link to={`/products/${product.id}`} key={product.id}>
+                        <img src={product.img} />
+                        <p>{product.title}</p>
+                        <p>{product.price}</p>
                     </Link>
                 )
             })}
@@ -32,4 +35,4 @@ function OrderBox (props){
     );
 }
 
-export default ProductBox;
+export default OrderBox;

@@ -10,5 +10,5 @@ export {Login, Signup} from './auth-form'
 export { default as ProductList } from './products/ProductList.jsx';
 export { default as ProductPage } from './products/ProductPage.jsx';
 export { default as AdminProductPage } from './products/AdminPages/AdminProductPage.jsx'
-
+export { default as OrderList } from './Orders/OrderList.jsx';
 

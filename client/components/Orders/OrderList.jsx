@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { getAllOrdersUser, getAllOrdersAdmin } from '../../store/order';
 
 class OrderList extends Component {
+        
     componentDidMount(){
-        //DEPENDING ON WHAT TYPE OF USER THEY ARE DISPATCH APPROPRIATE THUNK
+        //DISPATCH APPROPRIATE THUNK DEPENDING ON WHAT TYPE OF USER THEY ARE
         this.props.getAllOrdersAdmin();
         this.props.getAllOrdersUser();
     }
