@@ -1,5 +1,6 @@
 const User = require('./user')
 const Product = require(`./product`)
+const Order = require('./order')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -7,6 +8,30 @@ const Product = require(`./product`)
  *
  *    BlogPost.belongsTo(User)
  */
+User.hasMany(Order)
+Order.belongsTo(User)
+Product.belongsToMany(Order, {through: 'LineItem'})
+Order.belongsToMany(Product, {through: 'LineItem'})
+
+Order.prototype.getOrdersByUser = function(userId) {
+  Order.findAll({
+    where: {
+      userId
+    },
+    include: [
+      {model: Product}
+    ]
+  })
+}
+
+Order.prototype.getAllOrders = function() {
+  Order.findAll({
+    include: [
+      {model: Product},
+      {model: User}
+    ]
+  })
+}
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -16,5 +41,6 @@ const Product = require(`./product`)
  */
 module.exports = {
   User,
-  Product
+  Product,
+  Order,
 }
