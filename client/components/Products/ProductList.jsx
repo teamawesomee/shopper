@@ -67,11 +67,6 @@ catHandler(event){
     const filteredProducts = products.filter(product =>
       product.title.match(regExSearchValue));
 
-
-
-      // console log
-    console.log("categories: ", prodCategories)
-
                       /* RETURN STATEMENT */
     return (
       <div className="productPage">
