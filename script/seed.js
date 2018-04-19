@@ -26,32 +26,6 @@ async function seed () {
     User.create({email: 'normalUser@email.com', password: '123'})
   ])
 
-  // const products = await Promise.all([
-  //   Product.create({
-  //     title: 'Happiness Potion',
-  //     description: 'Use this potion for eternal happiness!',
-  //     price: 1.5,
-  //     inventoryQuantity: 27,
-  //     category: ['Potion', 'Happiness'],
-  //     img: 'http://soappotions.com/wp-content/uploads/2017/10/round.jpg'}),
-  //   Product.create({
-  //     title: 'Puppy Potion',
-  //     description: 'Use this potion for eternal puppies!',
-  //     price: 5.75,
-  //     inventoryQuantity: 15,
-  //     category: ['Potion', 'Love'],
-  //     img:
-  //       'https://www.organicpavilion.com/products/puppy-potion-fresh-shampoo-500ml'}),
-  //   Product.create({
-  //     title:
-  //       'Your family tree must be a cactus ‘cause you’re all a bunch of pricks.',
-  //     description:
-  //       'Use this sassy comeback for temporary relief from prickery!',
-  //     price: 3.33,
-  //     inventoryQuantity: 40,
-  //     category: ['Sass', 'Happiness'],
-  //     img: 'https://i.pinimg.com/originals/03/5e/af/035eafc66394f26c94f2ef56095f90f9.jpg'})
-  // ])
  const products = await Promise.all([
     Product.create({
       title: 'Happiness Potion',

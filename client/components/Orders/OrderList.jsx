@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getAllOrdersUser, getAllOrdersAdmin } from '../../store/order';
 
 class OrderList extends Component {
-        
+
     componentDidMount(){
         //DISPATCH APPROPRIATE THUNK DEPENDING ON WHAT TYPE OF USER THEY ARE
         this.props.getAllOrdersAdmin();
@@ -12,30 +12,27 @@ class OrderList extends Component {
     }
 
     render (){
-    const orders = this.props.orders;
-    return (
-        <div className="orderPage">
-            <h1>Orders</h1>
-            {/* ORDER LIST */}
-            {orders !== [] ? (
-            <div className="orderList">
-                {orders.map(order => {
-                return (
-                    <div key={order.id} className="order">
-                        <OrderBox order={order} />
-                    </div>
-                );
-                })}
+        const orders = this.props.orders;
+        return (
+            <div className="orderPage">
+                <h1>Orders</h1>
+                {/* ORDER LIST */}
+                {orders !== [] ? (
+                <div className="orderList">
+                    {orders.map(order => {
+                    return (
+                        <div key={order.id} className="order">
+                            <OrderBox order={order} />
+                        </div>
+                    );
+                    })}
+                </div>
+                ) : (
+                <p>Sorry, there are no orders to show!</p>
+                )}
             </div>
-            ) : (
-            <p>Sorry, there are no orders to show!</p>
-            )}
-        </div>
-    );
-
-
+        );
     }
-    
   }
 
 // -----containers-----

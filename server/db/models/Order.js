@@ -15,8 +15,6 @@ const Order = db.define('order', {
     }
   }
   //then we're going to want to find all items with an order id of ""
-
-
 })
 
 //add new order
