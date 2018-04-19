@@ -5,11 +5,6 @@ const isAdmin = require('../../utils').isAdmin;
 module.exports = router;
 
 
-function isAdmin(req, res, next){
-  if (!req.user.isAdmin) throwError(403, 'Forbidden')
-  next()
-}
-
 router.get('/', (req, res, next) => {
   Product.findAll()
     .then(products => {
@@ -40,9 +35,7 @@ router.put('/:productId', isLoggedIn, isAdmin, (req, res, next) => {
 router.delete('/:productId', isLoggedIn, isAdmin, (req, res, next) => {
   Product.findById(req.params.productId)
     .then(product => product.destroy(req.body))
-    .then(() => res.status(202).json('deleted!'))
+    .then(() => res.sendStatus(204))
     .catch(next);
 });
-
-
 
