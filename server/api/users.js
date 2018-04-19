@@ -1,10 +1,11 @@
 const router = require('express').Router()
 const {User, Order, Product} = require('../db/models')
+const isLoggedIn = require('../../utils').isLoggedIn;
+const isAdmin = require('../../utils').isAdmin;
 module.exports = router
 
 
-router.use('/admin', require('./admin-user'))
-router.get('/', (req, res, next) => {
+router.get('/', isLoggedIn, isAdmin, (req, res, next) => {
   User.findAll({
     // explicitly select only the id and email fields - even though
     // users' passwords are encrypted, it won't help if we just
@@ -27,5 +28,28 @@ router.get('/:id/orders', (req, res, next) => {
     .catch(next)
 })
 
+<<<<<<< HEAD
 
+=======
+router.get('/:id/:orderId', (req, res, next) => {
+  Order.findById(req.params.orderId, {
+    include: {
+      model: Product
+    }
+  })
+  .then(order => res.json(order))
+  .catch(next);
+
+  router.put('/:id', isLoggedIn, isAdmin, (req, res, next) => {
+  User.update(req.body, {where: {id: req.params.id}})
+    .then(user => res.json(user))
+    .catch(next)
+})
+
+router.delete('/:id', isLoggedIn, isAdmin, (req, res, next) => {
+  User.destroy( {where: {id: req.params.id}})
+  .then( () => res.sendStatus(204))
+  .catch(next)
+})
+>>>>>>> 5ef399fb1498f71b142b9e2b390e7d4beffbe988
 
