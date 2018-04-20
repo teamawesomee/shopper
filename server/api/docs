@@ -24,6 +24,7 @@ Orders:
 Cart: //cart does not currently handle sessions.  working on that!
 
     TO USE THESE ROUTES YOU MUST BE LOGGED IN AS THE USER OR AS AN ADMIN
+
   get user/session's Cart '/api/users/:userId/cart'
   add product to user/session '/api/users/:userId/cart/'
     --returns 201 status

@@ -2,6 +2,7 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+
 const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
@@ -33,8 +34,6 @@ const User = db.define('user', {
   }
 })
 
-module.exports = User
-
 /**
  * instanceMethods
  */
@@ -55,10 +54,10 @@ User.generateSalt = function () {
 
 User.encryptPassword = function (plainText, salt) {
   return crypto
-    .createHash('RSA-SHA256')
-    .update(plainText)
-    .update(salt)
-    .digest('hex')
+  .createHash('RSA-SHA256')
+  .update(plainText)
+  .update(salt)
+  .digest('hex')
 }
 
 
@@ -75,4 +74,9 @@ const setSaltAndPassword = user => {
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
 
+<<<<<<< HEAD
+
+module.exports = User;
+=======
 //user.deleteCart
+>>>>>>> 5514eb57bea084516f7459c1c399f09cebe76213
