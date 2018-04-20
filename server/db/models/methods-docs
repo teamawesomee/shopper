@@ -1,0 +1,15 @@
+
+//regular models
+Order
+  Order.getProducts() //this will get all products associated with an Order
+  Order.createNewOrder()
+Product
+User
+  instance methods
+    User.getProducts() //this will get their cart!
+    User.addProduct() //add to their cart
+
+
+//Join tables
+Cart
+LineItem
