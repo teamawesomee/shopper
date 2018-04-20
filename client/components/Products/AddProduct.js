@@ -1,24 +1,20 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {editProduct} from '../store/product'
+import addNewProduct from '../store/product.js'
+
 /**
  * COMPONENT
  */
-
- export class EditProduct extends Component {
+export class AddProduct extends Component {
 
     state = {
-    error : null
+      error : {}
     }
-  
+
     render() {
-        const id = this.props.match.params.id
       return (
         <div>
-          <form onSubmit={(evt) => {
-              evt.preventDefault()
-              this.props.handleSubmit.call(this, evt, id)}
-        }>
+          <form onSubmit={ handleSubmit }>
             <div>
               <label htmlFor="title"><small>Title</small></label>
               <input name="title" type="text" />
@@ -44,23 +40,28 @@ import {editProduct} from '../store/product'
               <input name="img" type="text" />
             </div>
             <div>
-              <button type="submit">Edit Product</button>
+              <button type="submit">Add Product</button>
             </div>
-            {this.state.error && <div> {this.state.error.data} </div>}
-          </form>  
+            {this.state.error && <div className="alert"> {this.state.error.data} </div>}
+          </form>
         </div>
         )
-    }  
-    
+    }
+
   }
-  
+
   /**
    * CONTAINER
    */
+  const mapState = (state) => {
+    return {
+      user: state.user
+    }
+  }
 
   const mapDispatch = (dispatch) => {
     return {
-      handleSubmit (evt, id) {
+      handleSubmit (evt) {
         evt.preventDefault()
         const title = evt.target.title.value
         const description = evt.target.description.value
@@ -68,13 +69,13 @@ import {editProduct} from '../store/product'
         const inventoryQuantity = evt.target.inventoryQuantity.value
         const category = evt.target.category.value
         const img = evt.target.img.value
-        dispatch(editProduct(title, description, price, inventoryQuantity, category, img, id))
+        dispatch(addNewProduct(title, description, price, inventoryQuantity, category, img))
         .catch((err) => {
           console.error(err)
-          this.setState({error : err})
+          this.setState({error: err})
         })
       }
     }
   }
-  
-  export default connect(null, mapDispatch)(EditProduct)
+
+  export default connect(null, mapDispatch)(AddProduct)

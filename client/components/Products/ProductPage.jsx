@@ -1,28 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const mapStateToProps = (state) => {
-  return { selectedProduct: state.selectedProduct };
+  return { products: state.products };
 };
 
 class ProductPage extends Component {
 
 
+
   render() {
-    const product = this.state.selectedProduct;
-    console.log(product)
+    const productId = +this.props.match.params.productId;
+
+    const products = this.props.products;
+    let product = products.filter(oneProduct => {
+      return oneProduct.id == productId
+    });
+    product = product[0];
     return (
-      <div>
+      product ?
+      <div className="productPage">
         <div className="imgBox">
           {/* <img></img> */}
         </div>
         <div className="contentBox">
-          <h3>{product.name}</h3>
+          <h3>{product.title}</h3>
           <p>{product.description}</p>
           <p>{product.price}</p>
         </div>
 
-      </div>
+      </div> : <div className="alert">No product to display</div>
     );
   }
 }

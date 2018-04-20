@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, EditProduct} from './components'
+import {Login, Signup, UserHome, EditProduct, ProductList, ProductPage, OrderList } from './components'
 import {me} from './store'
-import ProductList from './components/Products/productList.jsx';
-import ProductPage from './components/Products/productIndiv.jsx';
+
+import { getAllProducts } from './store/product';
 
 /**
  * COMPONENT
@@ -24,9 +24,10 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/products" component={ProductList} />
-        <Route path="/products/:productId" component={ProductPage} />
+        <Route exact path="/products/:productId" component={ProductPage} />
         <Route exact path="admin/products/:productId" component={ProductPage} />
-        <Route path="admin/products/:productId/edit" component={ProductPage} />
+        <Route path="admin/products/:productId/edit" component={EditProduct} />
+        <Route path="/orders" component={OrderList} />
         {
           isLoggedIn &&
             <Switch>
@@ -36,7 +37,7 @@ class Routes extends Component {
             </Switch>
         }
         {/* Displays our Login component as a fallback */}
-        <Route path='/edit-product' component={EditProduct} />{/*this was just for testing*/}
+        {/* <Route path='/edit-product' component={EditProduct} />this was just for testing */}
         <Route component={Login} />
       </Switch>
     )
@@ -58,6 +59,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
       dispatch(me())
+      dispatch(getAllProducts())
     }
   }
 }
