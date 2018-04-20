@@ -26,8 +26,8 @@ Cart: //cart does not currently handle sessions.  working on that!
     TO USE THESE ROUTES YOU MUST BE LOGGED IN AS THE USER OR AS AN ADMIN
 
   get user/session's Cart '/api/cart'
-  add product to user/session '/api/users/:userId/cart/'
+  add product to cart '/api/users/:userId/cart/'
     --returns 201 status
   delete product from user/session '/api/users/:userId/cart'
-    -- returns 204 status
+    -- returns 204 status3
   submit cart to orders (which deletes the cart) -- (post) '/api/orders/'
