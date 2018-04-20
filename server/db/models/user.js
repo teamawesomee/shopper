@@ -41,6 +41,10 @@ module.exports = User
 User.prototype.correctPassword = function (candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt()) === this.password()
 }
+User.prototype.deleteCart = function() {
+  const myProducts = this.getProducts();
+  this.deleteProducts(myProducts)
+}
 
 /**
  * classMethods
@@ -57,6 +61,7 @@ User.encryptPassword = function (plainText, salt) {
     .digest('hex')
 }
 
+
 /**
  * hooks
  */
@@ -69,3 +74,5 @@ const setSaltAndPassword = user => {
 
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
+
+user.deleteCart

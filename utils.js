@@ -14,6 +14,11 @@ const utilFuncs = {
   isAdmin: function (req, res, next){
     if (!req.user.isAdmin) throwError(403, 'Forbidden')
     next()
+  },
+  isMine: function (req, res, next) {
+    if (req.user.id !== req.params.userId && !utilFuncs.isAdmin) {throwError(403, 'Forbidden')
+    .next()
+  }
   }
 }
 
