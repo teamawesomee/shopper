@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const mapStateToProps = (state) => {
-  return { products: state.products };
+  return { products: state.products,
+  user: state.user };
 };
 
 class ProductPage extends Component {
@@ -19,7 +20,8 @@ class ProductPage extends Component {
     });
     product = product[0];
     return (
-      product ?
+    <div>
+      {product ?
       <div className="productPage">
         <div className="imgBox">
           {/* <img></img> */}
@@ -29,8 +31,13 @@ class ProductPage extends Component {
           <p>{product.description}</p>
           <p>{product.price}</p>
         </div>
-
       </div> : <div className="alert">No product to display</div>
+        }
+        {this.props.user.isAdmin &&
+          <div>
+              <Link to={`/products/${product.id}/edit`}><button disabled={!this.props.user.isAdmin}>edit</button></Link>
+          </div>}
+        </div>
     );
   }
 }
