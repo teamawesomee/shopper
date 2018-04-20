@@ -48,6 +48,8 @@ router.delete('/:id', isLoggedIn, isAdmin, (req, res, next) => {
   .then( () => res.sendStatus(204))
   .catch(next)
 })
+<<<<<<< HEAD
+=======
 
 //cart functionality
 router.get('/:userId/cart', isMine || isAdmin, (req, res, next) => {
@@ -71,3 +73,4 @@ router.delete('/:userId/cart/', isMine || isAdmin, (req, res, next) => {
   .then(() => res.sendStatus(204))
   .catch(next)
 })
+>>>>>>> 720033f4e3835793600d140b49d6481550418e87
