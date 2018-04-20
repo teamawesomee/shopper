@@ -14,26 +14,6 @@ Product.belongsToMany(User, {through: 'Cart'})
 Product.belongsToMany(Order, {through: 'LineItem'})
 Order.belongsToMany(Product, {through: 'LineItem'})
 
-Order.prototype.getOrdersByUser = function(userId) {
-  Order.findAll({
-    where: {
-      userId
-    },
-    include: [
-      {model: Product}
-    ]
-  })
-}
-
-Order.prototype.getAllOrders = function() {
-  Order.findAll({
-    include: [
-      {model: Product},
-      {model: User}
-    ]
-  })
-}
-
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'

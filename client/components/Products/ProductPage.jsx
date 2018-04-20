@@ -12,17 +12,12 @@ class ProductPage extends Component {
 
   render() {
     const productId = +this.props.match.params.productId;
-    console.log("my product id is", productId);
-    console.log(this.state)
 
     const products = this.props.products;
-    console.log(products)
     let product = products.filter(oneProduct => {
-      console.log("I am in my filter")
       return oneProduct.id == productId
     });
     product = product[0];
-    console.log("my", product)
     return (
       product ?
       <div className="productPage">
