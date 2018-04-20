@@ -41,7 +41,7 @@ async function seed () {
       inventoryQuantity: 15,
       category: ['Potion', 'Love'],
       img:
-        'https://www.organicpavilion.com/products/puppy-potion-fresh-shampoo-500ml'}),
+        'https://tailybuddy.com/products/2669/13680811_1112873898787196_1865386740556005539_n.jpg'}),
     Product.create({
       title:
         'Your family tree must be a cactus ‘cause you’re all a bunch of pricks.',

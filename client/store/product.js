@@ -30,9 +30,7 @@ export const getAllProducts = () =>
 dispatch =>
   axios.get('/api/products')
     .then(res => {
-      // console.log(res.data)
       let action = getProducts(res.data)
-      console.log(action)
       dispatch(action)})
     .catch(err => console.log(err))
 
@@ -54,13 +52,6 @@ export const editProduct = (title, description, price, inventoryQuantity, catego
         history.push('/home')
       })
 
-// export const getOneProductThunk = (id) =>
-//   dispatch =>
-//       axios.get(`/api/products/${d}`)
-//       .then(res => {
-//         dispatch(getOneProduct(res.data))
-//       })
-//       .catch(err => console.log(err))
 
 /**
  * REDUCER

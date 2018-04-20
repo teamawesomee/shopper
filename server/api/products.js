@@ -8,7 +8,6 @@ module.exports = router;
 router.get('/', (req, res, next) => {
   Product.findAll()
     .then(products => {
-      console.log('IN THE BACKEND FOR PRODUCTS!')
       return res.json(products)} )
     .catch(next);
 });

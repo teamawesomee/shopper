@@ -10,24 +10,31 @@ import { Link } from 'react-router-dom';
 //want it to display order info at the top and then map through array of products and show product info
 
 function OrderBox (props){
-    const order = this.props.order;
+    const order = props.order;
     const products = order.products;
     return (
       <div className="orderBox">
         <div className="headerBox">
-          <p>{order.id}</p>
-          <p>{order.address}</p>
-          <p>{order.email}</p>
+          <p>Order Id: {order.id}</p>
+          <p>Address: {order.address}</p>
+          <p>Email: {order.email}</p>
           <p>{order.createdAt}</p>
         </div>
         <div className="productOrderBox">
             {products.map(product => {
                 return (
-                    <Link to={`/products/${product.id}`} key={product.id}>
-                        <img src={product.img} />
-                        <p>{product.title}</p>
-                        <p>{product.price}</p>
-                    </Link>
+                    <div className="singleProductOrder" key={product.id}>
+                            <img src={product.img} />
+                        <div className="orderProductDetails">
+                            <p>{product.title}</p>
+                            <p>{product.price}</p>
+                        </div>
+                        <div className="orderBtn">
+                            <Link to={`/products/${product.id}`}>
+                                <button type="submit">See Product Details</button>
+                            </Link>
+                        </div>
+                    </div>
                 )
             })}
         </div>

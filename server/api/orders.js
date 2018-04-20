@@ -2,11 +2,13 @@ const router = require('express').Router();
 const { Order, Product, User } = require('../db/models');
 module.exports = router;
 
-router.get('/all', (req, res, next) => {
-  Order.getAllOrders()
+router.get('/', (req, res, next) => {
+  Order.findAll({
+    include: [{ model: Product }, { model: User }]
+  })
+  //Order.getAllOrders()
   .then(orders => {
-    console.log(orders);
-    return res.setDefaultEncoding(orders)
+    return res.json(orders)
   })
   .catch(next);
 });

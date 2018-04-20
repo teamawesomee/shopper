@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import OrderBox from './OrderBox.jsx';
 import { connect } from 'react-redux';
-import { getAllOrdersUser, getAllOrdersAdmin } from '../../store/order';
+import { getAllOrdersUser, getAllOrdersAdmin } from '../../store/orders';
 
 class OrderList extends Component {
 
     componentDidMount(){
-        //DISPATCH APPROPRIATE THUNK DEPENDING ON WHAT TYPE OF USER THEY ARE
+        //MAKE A CONDITIONAL THAT WILL DISPATCH APPROPRIATE THUNK DEPENDING ON WHAT TYPE OF USER THEY ARE
         this.props.getAllOrdersAdmin();
-        this.props.getAllOrdersUser();
+        //this.props.getAllOrdersUser();
     }
 
     render (){
