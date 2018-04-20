@@ -2,7 +2,7 @@
 //regular models
 Order
   Order.getProducts() //this will get all products associated with an Order
-  Order.createNewOrder()
+  Order.createNewOrder() //this creates a new order and simultaneously deletes all the items from the user's cart
 Product
 User
   instance methods
