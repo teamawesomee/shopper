@@ -1,0 +1,16 @@
+
+//regular models
+Order
+  Order.getProducts() //this will get all products associated with an Order
+  Order.createNewOrder() //this creates a new order and simultaneously deletes all the items from the user's cart
+Product
+User
+  instance methods
+    User.getProducts() //this will get their cart!
+    User.addProduct() //add to their cart
+    User.deleteCart() //deletes all items from cart
+
+
+//Join tables
+Cart
+LineItem

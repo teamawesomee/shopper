@@ -1,20 +1,22 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import addNewProduct from '../store/product.js'
+import {addNewProduct} from '../../store'
 
 /**
  * COMPONENT
  */
 export class AddProduct extends Component {
+    constructor(){
+      super()
+      this.state = {
 
-    state = {
-      error : {}
+      }
     }
 
     render() {
       return (
         <div>
-          <form onSubmit={ handleSubmit }>
+          <form onSubmit={ this.props.handleSubmit }>
             <div>
               <label htmlFor="title"><small>Title</small></label>
               <input name="title" type="text" />
@@ -53,11 +55,6 @@ export class AddProduct extends Component {
   /**
    * CONTAINER
    */
-  const mapState = (state) => {
-    return {
-      user: state.user
-    }
-  }
 
   const mapDispatch = (dispatch) => {
     return {
@@ -67,13 +64,12 @@ export class AddProduct extends Component {
         const description = evt.target.description.value
         const price = evt.target.price.value
         const inventoryQuantity = evt.target.inventoryQuantity.value
-        const category = evt.target.category.value
+        let category = []
+        let textCategories = evt.target.category.value
+        textCategories.split(',').forEach(word => category.push(word.trim()))
         const img = evt.target.img.value
-        dispatch(addNewProduct(title, description, price, inventoryQuantity, category, img))
-        .catch((err) => {
-          console.error(err)
-          this.setState({error: err})
-        })
+        const newProd = {title, description, price, inventoryQuantity, category, img}
+        dispatch(addNewProduct(newProd))
       }
     }
   }

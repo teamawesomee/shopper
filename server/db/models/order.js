@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db')
-const Product = require('./product')
-const User = require('./user')
+const { Product, User } = require('./index')
+
 
 const Order = db.define('order', {
   // total: {
@@ -20,7 +20,7 @@ const Order = db.define('order', {
 })
 
 //add new order
-Order.prototype.addNewOrder = function(submittedOrder) {
+Order.addNewOrder = function(submittedOrder) {
   let myOrder = Order.create({
     address: submittedOrder.address,
     email: submittedOrder.email
@@ -30,13 +30,17 @@ Order.prototype.addNewOrder = function(submittedOrder) {
 
   //sets the associated user
   myOrder.setUser(userId);
+  let myUser = myOrder.getUser();
+
+  myUser.deleteCart();
 
   //sets the associated products in line items
-  prods.forEach((productId) => {
-    myOrder.addProduct(productId)
-  })
+  myOrder.addProducts(prods)
+
   return myOrder;
+
 }
+
 Order.prototype.getOrdersByUser = function(userId) {
   Order.findAll({
     where: {
@@ -51,6 +55,8 @@ Order.prototype.getAllOrders = function() {
     include: [{ model: Product }, { model: User }]
   });
 };
+
+
 
 
 
