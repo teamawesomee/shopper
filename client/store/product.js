@@ -35,13 +35,14 @@ dispatch =>
     .catch(err => console.log(err))
 
     //should be for admins only
-export const addNewProduct = (title, description, price, inventoryQuantity, category, img) =>
+export const addNewProduct = (newProd) =>
   dispatch =>
-    axios.post(`/api/products`, { title, description, price, inventoryQuantity, category, img })
+    axios.post(`/api/products`, newProd)
       .then(res => {
         dispatch(addProduct(res.data))
         history.push('/home')
       })
+      .catch(err => console.log(err))
 
       //should be for admins only
 export const editProduct = (title, description, price, inventoryQuantity, category, img, id) =>
