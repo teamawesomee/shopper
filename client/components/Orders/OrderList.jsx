@@ -6,9 +6,13 @@ import { getAllOrdersUser, getAllOrdersAdmin } from '../../store/orders';
 class OrderList extends Component {
 
     componentDidMount(){
-        //MAKE A CONDITIONAL THAT WILL DISPATCH APPROPRIATE THUNK DEPENDING ON WHAT TYPE OF USER THEY ARE
-        this.props.getAllOrdersAdmin();
-        //this.props.getAllOrdersUser();
+        console.log(this.props.user)
+        if (this.props.user.isAdmin){
+            this.props.getAllOrdersAdmin();
+        }
+        else {
+            this.props.getAllOrdersUser(this.props.user);
+        }
     }
 
     render (){
@@ -39,7 +43,8 @@ class OrderList extends Component {
 
 const mapState = state => {
     return {
-        orders: state.orders
+        orders: state.orders,
+        user: state.user
     }
 }
 const mapDispatch = dispatch => {
@@ -47,8 +52,8 @@ const mapDispatch = dispatch => {
         getAllOrdersAdmin(){
             dispatch(getAllOrdersAdmin());
         },
-        getAllOrdersUser(){
-            dispatch(getAllOrdersUser());
+        getAllOrdersUser(user){
+            dispatch(getAllOrdersUser(user));
         }
     }
 };
