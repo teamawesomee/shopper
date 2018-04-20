@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const mapStateToProps = (state) => {
-  return { products: state.products };
-};
-
 class ProductPage extends Component {
-
-
-
   render() {
     const productId = +this.props.match.params.productId;
 
@@ -29,12 +22,27 @@ class ProductPage extends Component {
           <p>{product.description}</p>
           <p>{product.price}</p>
         </div>
+        <div>
+          <button>Add to cart</button>
+        </div>
 
       </div> : <div className="alert">No product to display</div>
     );
   }
 }
 
+const mapStateToProps = state => {
+  return { 
+    products: state.products 
+  };
+};
+
+
+const mapDispatchToProps = dispatch => {
+  return { 
+    addToCart 
+  };
+};
 
 
 export default connect(mapStateToProps)(ProductPage);
