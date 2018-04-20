@@ -34,19 +34,19 @@ dispatch =>
       dispatch(action)})
     .catch(err => console.log(err))
 
-    //should be connecting to the admin route
+    //should be for admins only
 export const addNewProduct = (title, description, price, inventoryQuantity, category, img) =>
   dispatch =>
-    axios.post(`/api/users/admin/products`, { title, description, price, inventoryQuantity, category, img })
+    axios.post(`/api/products`, { title, description, price, inventoryQuantity, category, img })
       .then(res => {
         dispatch(addProduct(res.data))
         history.push('/home')
       })
 
-      //should be connecting to the admin route
+      //should be for admins only
 export const editProduct = (title, description, price, inventoryQuantity, category, img, id) =>
   dispatch =>
-    axios.put(`/api/users/admin/products/:${id}`, { title, description, price, inventoryQuantity, category, img })
+    axios.put(`/api/products/:${id}`, { title, description, price, inventoryQuantity, category, img })
       .then(res => {
         dispatch(editedProduct(res.data))
         history.push('/home')

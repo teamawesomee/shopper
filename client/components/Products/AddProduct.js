@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import addNewProduct from '../store/product.js'
+import {addNewProduct} from '../../store'
 
 /**
  * COMPONENT
@@ -14,7 +14,7 @@ export class AddProduct extends Component {
     render() {
       return (
         <div>
-          <form onSubmit={ handleSubmit }>
+          <form onSubmit={ this.props.handleSubmit }>
             <div>
               <label htmlFor="title"><small>Title</small></label>
               <input name="title" type="text" />
