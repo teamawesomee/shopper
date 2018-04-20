@@ -8,6 +8,7 @@ User
   instance methods
     User.getProducts() //this will get their cart!
     User.addProduct() //add to their cart
+    User.deleteCart() //deletes all items from cart
 
 
 //Join tables
