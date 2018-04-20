@@ -74,9 +74,5 @@ const setSaltAndPassword = user => {
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
 
-<<<<<<< HEAD
 
 module.exports = User;
-=======
-//user.deleteCart
->>>>>>> 5514eb57bea084516f7459c1c399f09cebe76213
