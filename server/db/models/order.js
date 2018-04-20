@@ -54,16 +54,6 @@ Order.prototype.getAllOrders = function() {
     include: [{ model: Product }, { model: User }]
   });
 };
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 720033f4e3835793600d140b49d6481550418e87
-
-
-
-
-
 
 //find one order
 
