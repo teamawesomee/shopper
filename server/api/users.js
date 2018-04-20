@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const {User, Order, Product} = require('../db/models')
-const isLoggedIn = require('../../utils').isLoggedIn;
-const isAdmin = require('../../utils').isAdmin;
+const { isLoggedIn, isAdmin, isMine} = require('../../utils')
 module.exports = router
 
 
@@ -49,3 +48,29 @@ router.delete('/:id', isLoggedIn, isAdmin, (req, res, next) => {
   .then( () => res.sendStatus(204))
   .catch(next)
 })
+<<<<<<< HEAD
+=======
+
+//cart functionality
+router.get('/:userId/cart', isMine || isAdmin, (req, res, next) => {
+  User.getProducts({
+    where: {
+      userId: req.params.userId
+    }
+  })
+  .then((cart) => res.json(cart))
+  .catch(next)
+})
+
+router.post('/:userId/cart/', isMine || isAdmin, (req, res, next) => {
+  User.findById(req.params.userId).addProduct(req.body)
+  .then(() => res.sendStatus(201))
+  .catch(next)
+})
+
+router.delete('/:userId/cart/', isMine || isAdmin, (req, res, next) => {
+  User.findById(req.params.userId).deleteProduct(req.body)
+  .then(() => res.sendStatus(204))
+  .catch(next)
+})
+>>>>>>> 720033f4e3835793600d140b49d6481550418e87
