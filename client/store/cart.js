@@ -4,9 +4,9 @@ import history from '../history';
 /**
  * ACTION TYPES
  */
-const GET_CART = 'GET_ALL_ORDERS';
-const ADD_TO_CART = 'GET_USER_ORDERS';
-const REMOVE_FROM_CART = 'ADD_ORDER';
+const GET_CART = 'GET_CART';
+const ADD_TO_CART = 'ADD_TO_CART';
+const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 
 /**
  * INITIAL STATE
@@ -28,7 +28,16 @@ export const addItemToCart = (productId) => dispatch =>
   axios
     .get(`/api/products/${productId}`)
     .then(res => {
-      let action = addItemToCart(res.data);
+      let action = addToCart(res.data);
+      dispatch(action);
+    })
+    .catch(err => console.log(err));
+
+export const removeItemFromCart = (product) => dispatch =>
+  axios
+    .get(`/api/products/${product.id}`)
+    .then(res => {
+      let action = removeFromCart(res.data);
       dispatch(action);
     })
     .catch(err => console.log(err));
@@ -57,6 +66,7 @@ export default function(state = cart, action) {
     case GET_CART:
       return action.cart;
     case ADD_TO_CART:
+    console.log(cart)
       return [...state, action.product];
     case REMOVE_FROM_CART:
       return [...state.filter(product => product.id !== action.product.id)];

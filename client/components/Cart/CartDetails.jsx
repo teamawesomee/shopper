@@ -1,19 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 
 function CartDetails(props) {
-  const cart = props.order;
-  const products = order.products;
+  const cart = props.cart;
+  console.log(cart)
   return (
     <div className="orderBox">
       <div className="headerBox">
-        <h3>Order Id: {order.id}</h3>
-        <h3>Address: {order.address}</h3>
-        <h3>Email: {order.email}</h3>
-        <h3>{order.createdAt}</h3>
+        <h3>Total Items: {cart.length}</h3>
       </div>
       <div className="productOrderBox">
-        {products.map(product => {
+        {cart.map(product => {
           return (
             <div className="singleProductOrder" key={product.id}>
               <img src={product.img} />
@@ -22,9 +20,7 @@ function CartDetails(props) {
                 <p>{product.price}</p>
               </div>
               <div className="orderBtn">
-                <Link to={`/products/${product.id}`}>
-                  <button type="submit">See Product Details</button>
-                </Link>
+                <button type="submit" value={product} onClick={props.removeItemFromCart}>Remove From Cart</button>
               </div>
             </div>
           );
@@ -34,4 +30,20 @@ function CartDetails(props) {
   );
 }
 
-export default OrderBox;
+const mapStateToProps = state => {
+  return {
+    cart: state.cart,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    removeItemFromCart(product) {
+      dispatch(this.removeItemFromCart(product));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartDetails);
+
+

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { addItemToCart } from '../../store';
+
 
 class ProductPage extends Component {
   render() {
@@ -11,23 +13,19 @@ class ProductPage extends Component {
       return oneProduct.id == productId
     });
     product = product[0];
-    return (
-      product ?
-      <div className="productPage">
-        <div className="imgBox">
-          {/* <img></img> */}
-        </div>
+    return product ? <div className="productPage">
+        <div className="imgBox">{/* <img></img> */}</div>
         <div className="contentBox">
           <h3>{product.title}</h3>
           <p>{product.description}</p>
           <p>{product.price}</p>
         </div>
         <div>
-          <button>Add to cart</button>
+          <button value={productId} onClick={this.props.addItemToCart}>
+            Add to cart
+          </button>
         </div>
-
-      </div> : <div className="alert">No product to display</div>
-    );
+      </div> : <div className="alert">No product to display</div>;
   }
 }
 
@@ -39,10 +37,14 @@ const mapStateToProps = state => {
 
 
 const mapDispatchToProps = dispatch => {
-  return { 
-    addToCart 
+  return {
+    addItemToCart(evt){
+      evt.preventDefault();
+      console.log(evt.target.value)
+      dispatch(addItemToCart(evt.target.value));
+    }
   };
 };
 
 
-export default connect(mapStateToProps)(ProductPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductPage);
