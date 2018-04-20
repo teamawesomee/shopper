@@ -1,5 +1,7 @@
 const Sequelize = require('Sequelize');
 const db = require('../db')
+const Product = require('./product')
+const User = require('./user')
 
 const Order = db.define('order', {
   // total: {
@@ -15,8 +17,6 @@ const Order = db.define('order', {
     }
   }
   //then we're going to want to find all items with an order id of ""
-
-
 })
 
 //add new order
@@ -37,7 +37,20 @@ Order.prototype.addNewOrder = function(submittedOrder) {
   })
   return myOrder;
 }
+Order.prototype.getOrdersByUser = function(userId) {
+  Order.findAll({
+    where: {
+      userId
+    },
+    include: [{ model: Product }]
+  });
+};
 
+Order.prototype.getAllOrders = function() {
+  Order.findAll({
+    include: [{ model: Product }, { model: User }]
+  });
+};
 
 
 

@@ -36,6 +36,7 @@ router.get('/:id/:orderId', (req, res, next) => {
   })
   .then(order => res.json(order))
   .catch(next);
+})
 
   router.put('/:id', isLoggedIn, isAdmin, (req, res, next) => {
   User.update(req.body, {where: {id: req.params.id}})
@@ -48,4 +49,3 @@ router.delete('/:id', isLoggedIn, isAdmin, (req, res, next) => {
   .then( () => res.sendStatus(204))
   .catch(next)
 })
-
