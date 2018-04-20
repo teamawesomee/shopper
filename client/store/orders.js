@@ -26,7 +26,6 @@ const editOrder = order => ({ type: EDIT_ORDER, order });
  * THUNK CREATORS
  */
 
-//JUST FOR ADMIN -- CONNECT TO ADMIN ROUTE
 export const getAllOrdersAdmin = () => dispatch =>
   axios
     .get('/api/orders')
@@ -38,15 +37,13 @@ export const getAllOrdersAdmin = () => dispatch =>
 
 export const getAllOrdersUser = (user) => dispatch =>
   axios
-//CONSISTENCY -- YOU DON'T NEED : IN A THUNK .get(`/api/:${user.id}/orders`)
-    .get(`/api/${user.id}/orders`)
+    .get(`/api/orders/${user.id}`)
     .then(res => {
       let action = getUserOrders(res.data);
       dispatch(action);
     })
     .catch(err => console.log(err));
 
-//CHECK WHAT BACKEND ROUTES JERRA PUTS UP
 export const addNewOrder = (order) => dispatch =>
   axios
     .post(`/api/orders`, order)
