@@ -12,10 +12,7 @@ const GET_PRODUCT = 'GET_PRODUCT'
 /**
  * INITIAL STATE
  */
-const initialState = {
-    initialProducts: [],
-    selectedProduct: {}
-}
+const initialProducts = []
 
 /**
  * ACTION CREATORS
@@ -33,7 +30,7 @@ export const getAllProducts = () =>
 dispatch =>
   axios.get('/products')
     .then(res =>
-      dispatch(getProducts(res.data || initialState.initialProducts)))
+      dispatch(getProducts(res.data || initialProducts)))
     .catch(err => console.log(err))
 
 export const addNewProduct = (title, description, price, inventoryQuantity, category, img) =>
@@ -63,7 +60,7 @@ export const getOneProductThunk = (id) =>
 /**
  * REDUCER
  */
-export default function (state = initialState.initialProducts, action) {
+export default function (state = initialProducts, action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return action.products
