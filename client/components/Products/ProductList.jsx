@@ -28,7 +28,6 @@ handleChange(event) {
     this.setState({
         [event.target.name]: event.target.value
     })
-    console.log(this.state)
 }
 
 catHandler(event){
@@ -43,7 +42,6 @@ catHandler(event){
   render() {
 
     let products = this.props.products
-    console.log("my products are", products)
     //if the selected category is not 'all', the "products" variable only includes items that are of the selected category
     if (this.state.selectedCategory != 'All'){
       products = this.props.products.filter(product => product.category.includes(this.state.selectedCategory))
