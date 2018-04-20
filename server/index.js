@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
 module.exports = app
+const SessionDb = db.Session;
 
 /**
  * In your development environment, you can keep all of your
@@ -50,6 +51,7 @@ const createApp = () => {
   }))
   app.use(passport.initialize())
   app.use(passport.session())
+
 
   // auth and api routes
   app.use('/auth', require('./auth'))
@@ -102,6 +104,7 @@ if (require.main === module) {
     .then(syncDb)
     .then(createApp)
     .then(startListening)
+    .catch();
 } else {
   createApp()
 }
