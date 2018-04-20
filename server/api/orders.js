@@ -13,6 +13,19 @@ router.get('/', (req, res, next) => {
   .catch(next);
 });
 
+router.get('/:userId', (req, res, next) => {
+  Order.findAll({
+    where: {userId: req.params.userId},
+    include: [{ model: Product }, { model: User }]
+  })
+    //Order.getAllOrders()
+    .then(orders => {
+      return res.json(orders);
+    })
+    .catch(next);
+});
+
+
 
 router.post('/', (req, res, next) => {
   Order.addNewOrder(req.body)

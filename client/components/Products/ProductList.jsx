@@ -40,7 +40,6 @@ catHandler(event){
 
                                 /* JSX */
   render() {
-
     let products = this.props.products
     //if the selected category is not 'all', the "products" variable only includes items that are of the selected category
     if (this.state.selectedCategory != 'All'){

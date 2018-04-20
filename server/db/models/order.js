@@ -1,4 +1,4 @@
-const Sequelize = require('Sequelize');
+const Sequelize = require('sequelize');
 const db = require('../db')
 const { Product, User } = require('./index')
 
@@ -55,6 +55,7 @@ Order.prototype.getAllOrders = function() {
     include: [{ model: Product }, { model: User }]
   });
 };
+<<<<<<< HEAD:server/db/models/Order.js
 
 
 
@@ -62,6 +63,8 @@ Order.prototype.getAllOrders = function() {
 
 
 
+=======
+>>>>>>> 5514eb57bea084516f7459c1c399f09cebe76213:server/db/models/order.js
 
 //find one order
 
