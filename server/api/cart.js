@@ -29,7 +29,7 @@ router.get('/', (req, res, next) => {
     include: {
       model: Product
     }})
-      .then(guest => res.json(guest))
+      .then(guest => res.json(guest.products))
       .catch(next)
   }
   //IF we have a user, take the user id and get that cart
@@ -37,22 +37,49 @@ router.get('/', (req, res, next) => {
 }) // end of router.get
 
 router.post('/', (req, res, next) => {
-  if (req.session.passport && req.session.passport.user) {
+                /* IF */
+  if (req.session.passport && req.session.passport.user) { //THE USER IS LOGGED IN
     let userId = req.session.passport.user;
-    console.log(userId)
-    User.findById(userId)
-    .then((user) => user.addProduct(req.body))
-    .then(() => res.json("Your product has been added!"))
+
+    User.findById(userId)  //FIND THE USER
+              /* THEN */
+    .then((user) => user.addProduct(req.body.product)) //ADD THE PRODUCT TO THE USER
+    .then((product) => res.json(product)) //AND RETURN IT AS JSON
     .catch(next)
   }
-  else {
-    SessionDb.findOrCreate({
+          /* ELSE IF */
+  else {   //THE USER IS NOT LOGGED IN
+    SessionDb.findOrCreate({ //FIND OR CREATE THEM IN OUR SESSION DB
       where: {
         sessionId: req.session.id
       }})
-      .then(guest => guest.addProduct(req.body))
-      .then(() => res.json("Your product has been added!"))
-      .catch(next)
+          /*THEN*/
+      .then(guest => {
+                    /* IF */
+        if (SessionCart.findOne({
+          where: { //THE GUEST USER ALREADY HAS THIS ITEM IN THEIR CART
+            sessionId: req.session.id,
+            productId: req.body.product.id
+          }
+        })) {       /* THEN */
+            SessionCart.findOne({ //FIND AND RETURN ME THE PRODUCT IN QUESTION
+              where: {
+                sessionId: req.session.id,
+                productId: req.body.product.id
+              }
+            })
+            .then(product => {
+              product.quantity += req.body.quantity; //THEN UPDATE THE QUANTITY.
+              return product; //AND RETURN THE PRODUCT
+            })
+                  /* IF THEY DO NOT */
+        } else {
+          guest.addProduct(req.body) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
+        }
+      })
+              /* THEN */
+      .then((product) => res.json(product)) //SEND THE PRODUCT THROUGH JSON
+      .catch(next) //AND CATCH ALL ERRORS
   }
   })
 

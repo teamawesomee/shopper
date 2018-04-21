@@ -1,6 +1,7 @@
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
+const {Cart} = require('./index')
 
 
 const User = db.define('user', {
@@ -31,6 +32,19 @@ const User = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  cartTotal: {
+    type: Sequelize.VIRTUAL,
+    get() {
+      let total;
+      Cart.findAll({
+        where: {
+          userId: this.id
+        }
+      })
+      .then(products => products.reduce((product) => {total += product.price}))
+      return total;
+    }
   }
 })
 
