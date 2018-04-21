@@ -117,7 +117,7 @@ router.post('/', (req, res, next) => {
   router.delete('/', (req, res, next) => {
     if (isLoggedIn) { //if the user is logged in
       Cart.destroy({
-        where: {
+        where: { //go into the user cart database
           userId: req.session.passport.user,
           productId: req.body.product.id
         }
@@ -125,6 +125,15 @@ router.post('/', (req, res, next) => {
       .then(() => res.status(204).send('Delete successful!'))
       .catch(next)
 
+    } else { //if they are a guest user
+      Cart.destroy({
+        where: { //go into the guest database
+          sessionId: req.session.id,
+          productId: req.body.product.id
+        }
+      })
+      .then(() => res.status(204).send('Delete Successful!'))
+      .catch(next)
     }
   })
 
