@@ -4,8 +4,9 @@ const db = require('../db');
 const SessionCart = db.define('SessionCart', {
   quantity: {
     type: Sequelize.INTEGER,
+    defaultValue: 1,
     validate: {
-      min: 0
+      min: 1
     }
   }
 
