@@ -23,7 +23,11 @@ const Order = db.define('order', {
     }
   },
   orderStatus: {
-    type: Sequelize.ENUM('Pending', 'In Transit', 'Completed')
+    type: Sequelize.ENUM('Pending', 'In Transit', 'Completed'),
+    defaultValue: 'Pending'
+  },
+  adminInCharge: {
+    type: Sequelize.INTEGER
   }
 })
 
@@ -63,7 +67,7 @@ Order.addNewOrder = function(submittedOrder) {
 
 }
 
-Order.prototype.getOrdersByUser = function(userId) {
+Order.getOrdersByUser = function(userId) {
   Order.findAll({
     where: {
       userId
@@ -72,7 +76,7 @@ Order.prototype.getOrdersByUser = function(userId) {
   });
 };
 
-Order.prototype.getOrdersBySession = function(sessionId) {
+Order.getOrdersBySession = function(sessionId) {
   Order.findAll({
     where: {
       sessionId
@@ -81,7 +85,7 @@ Order.prototype.getOrdersBySession = function(sessionId) {
   });
 };
 
-Order.prototype.getAllOrders = function() {
+Order.getAllOrders = function() {
   Order.findAll({
     include: [{ model: Product }, { model: User }]
   });

@@ -1,8 +1,12 @@
 const router = require('express').Router();
 const { Order, Product, User } = require('../db/models');
+const {isLoggedIn, isMine, isAdmin } = require('../../utils');
+
 module.exports = router;
 
-router.get('/', (req, res, next) => {
+/* GET ALL ORDERS (FOR ADMIN) */
+
+router.get('/', isAdmin, (req, res, next) => {
   Order.findAll({
     include: [{ model: Product }, { model: User }]
   })
@@ -13,7 +17,9 @@ router.get('/', (req, res, next) => {
   .catch(next);
 });
 
-router.get('/:userId', (req, res, next) => {
+/* GET ORDERS BY USER */
+
+router.get('/:userId', isMine || isAdmin, (req, res, next) => {
   Order.findAll({
     where: {userId: req.params.userId},
     include: [{ model: Product }, { model: User }]
@@ -26,14 +32,14 @@ router.get('/:userId', (req, res, next) => {
 });
 
 
-
+/* SUBMIT CART TO ORDER */
 router.post('/', (req, res, next) => {
   Order.addNewOrder(req.body)
   .then(myOrder => res.json(myOrder))
   .catch(next);
 });
 
-
+/* GET SINGLE ORDER BY ID */
 router.get(':orderId', (req, res, next) => {
   Order.findById(req.params.orderId, {
     include: [{
@@ -43,4 +49,35 @@ router.get(':orderId', (req, res, next) => {
   })
   .then(order => res.json(order))
   .catch(next);
+})
+
+
+        /* ADMIN UPDATES ORDER STATUS */
+router.put('/:orderId/updateStatus', isAdmin, (req, res, next) => {
+  Order.findById(req.params.orderId)
+    .then(order => {
+      order.status = req.body.order.status;
+      order.adminInCharge = req.session.passport.user;
+      return order;
+    })
+    .then((order) => res.status('201').json(order).send('Order status has been updated!'))
+    .catch(next);
+})
+
+
+      /*  UPDATING ORDER INFO */
+router.put('/:orderId/updateInfo', (req, res, next) => {
+  let message;
+  Order.findById(req.params.orderId)
+    .then(order => {
+      if (order.userId === req.session.passport.user && order.orderStatus === 'pending') {
+        order = req.body
+        message = 'Your info has been updated!'
+        return order;
+      } else {
+        message = 'Forbidden'
+      }
+    })
+    .then(order => res.json(order).send(message))
+    .catch(next);
 })
