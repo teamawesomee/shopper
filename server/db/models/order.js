@@ -4,9 +4,6 @@ const { Product, User } = require('./index');
 
 
 const Order = db.define('order', {
-  // total: {
-  //   type: Sequelize.DECIMAL(10, 2) //eventually will be getter method
-  // },
   address: {
     type: Sequelize.STRING,
     validate: {
@@ -25,8 +22,9 @@ const Order = db.define('order', {
       isNumeric: true
     }
   },
-
-  //then we're going to want to find all items with an order id of ""
+  orderStatus: {
+    type: Sequelize.ENUM('Pending', 'In Transit', 'Completed')
+  }
 })
 
 //add new order
@@ -34,16 +32,30 @@ Order.addNewOrder = function(submittedOrder) {
   let myOrder = Order.create({
     address: submittedOrder.address,
     email: submittedOrder.email
-  })
-  let userId = submittedOrder.userId;
+  });
+
+  //whichever one the order has, will be given a real value
+  let userId = submittedOrder.userId
+  let sessionId = null;
+
+  if (!userId) {
+    sessionId = submittedOrder.sessionId
+  }
+
+
   let prods = submittedOrder.products; //this will be an array
 
   //sets the associated user
-  myOrder.setUser(userId);
-  let myUser = myOrder.getUser();
-
-  myUser.deleteCart();
-
+  if (userId) {
+    myOrder.setUser(userId);
+    let myUser = myOrder.getUser();
+    myUser.deleteCart();
+  }
+  else {
+    myOrder.setSession(sessionId);
+    let mySession = myOrder.getSession();
+    mySession.deleteCart();
+  }
   //sets the associated products in line items
   myOrder.addProducts(prods)
 
@@ -55,6 +67,15 @@ Order.prototype.getOrdersByUser = function(userId) {
   Order.findAll({
     where: {
       userId
+    },
+    include: [{ model: Product }]
+  });
+};
+
+Order.prototype.getOrdersBySession = function(sessionId) {
+  Order.findAll({
+    where: {
+      sessionId
     },
     include: [{ model: Product }]
   });
