@@ -44,7 +44,7 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
                 /* IF */
-  if (req.session.passport && req.session.passport.user) { //THE USER IS LOGGED IN
+  if (isLoggedIn) { //THE USER IS LOGGED IN
     let userId = req.session.passport.user;
 
     User.findById(userId)  //FIND THE USER
