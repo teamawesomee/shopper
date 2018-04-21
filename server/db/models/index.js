@@ -35,6 +35,5 @@ module.exports = {
   Product,
   Order,
   Session,
-  Cart,
-  SessionCart
+  Cart
 }

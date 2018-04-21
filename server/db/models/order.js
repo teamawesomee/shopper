@@ -8,13 +8,34 @@ const Order = db.define('order', {
   //   type: Sequelize.DECIMAL(10, 2) //eventually will be getter method
   // },
   address: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    validate: {
+      isAlphanumeric: true
+    }
   },
   email: {
     type: Sequelize.STRING,
     validate: {
       isEmail: true
     }
+  },
+  phone: {
+    type: Sequelize.STRING,
+    validate: {
+      isNumeric: true
+    }
+  },
+  total: {
+    // type: Sequelize.INTEGER,
+    // *******
+    // get() {
+    //   this.getProducts()
+    //     .then(products =>
+    //     products.forEach((product) => {
+    //       sum += product.price
+    //     }
+    //     ))
+    // }
   }
   //then we're going to want to find all items with an order id of ""
 })
