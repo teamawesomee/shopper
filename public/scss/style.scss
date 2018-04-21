@@ -104,14 +104,13 @@ div.productList {
   flex-direction: column;
   align-self: flex-end;
   p {
+    position: absolute;
     background-color: red;
     color: white;
     width: 1.5em;
     height: 1.5em;
     border-radius: 50%;
     text-align: center;
-    margin-bottom: -1.5em;
-    margin-right: 3em;
     padding-top: 0.25em;
     z-index: 2;
   }
