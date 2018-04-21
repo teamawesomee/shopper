@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
-const db = require('../db')
-const { Product, User } = require('./index')
+const db = require('../db');
+const { Product, User } = require('./index');
 
 
 const Order = db.define('order', {
@@ -8,14 +8,24 @@ const Order = db.define('order', {
   //   type: Sequelize.DECIMAL(10, 2) //eventually will be getter method
   // },
   address: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    validate: {
+      isAlphanumeric: true
+    }
   },
   email: {
     type: Sequelize.STRING,
     validate: {
       isEmail: true
     }
-  }
+  },
+  phone: {
+    type: Sequelize.STRING,
+    validate: {
+      isNumeric: true
+    }
+  },
+
   //then we're going to want to find all items with an order id of ""
 })
 

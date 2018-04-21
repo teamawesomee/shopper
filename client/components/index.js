@@ -13,4 +13,5 @@ export { default as ProductPage } from './Products/ProductPage.jsx';
 export { default as AdminProductPage } from './Products/AdminPages/AdminProductPage.jsx'
 export { default as OrderList } from './Orders/OrderList.jsx';
 export { default as CartDetails } from './Cart/CartDetails.jsx';
+export { default as CartIcon } from './Cart/CartIcon.jsx';
 

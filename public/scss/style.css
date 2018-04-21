@@ -127,8 +127,18 @@ div.productList .product h3 {
   padding-bottom: 0;
 }
 
+.pageTopper div.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .pageTopper h1 {
   padding-left: 2rem;
+}
+
+.pageTopper img {
+  height: 0.5em;
 }
 
 .pageTopper nav {
@@ -141,6 +151,33 @@ div.productList .product h3 {
   display: inline-block;
   margin: 1em;
   color: #f9f9e8;
+}
+
+.cartIcon {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+}
+
+.cartIcon p {
+  background-color: red;
+  color: white;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  text-align: center;
+  margin-bottom: -1.5em;
+  margin-right: 3em;
+  padding-top: 0.25em;
+  z-index: 2;
+}
+
+.cartIcon img {
+  height: 5em;
+  width: 5em;
+  margin-top: 0;
+  margin-right: 2em;
+  z-index: 0;
 }
 
 .formContainer {

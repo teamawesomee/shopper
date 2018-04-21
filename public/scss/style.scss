@@ -75,10 +75,18 @@ div.productList {
   background-color:$ivory;
   color:$purple;
   width:100%;
+  div.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
   h1 {
     padding-left:2rem;
   }
   padding-bottom:0;
+  img {
+    height: 0.5em;
+  }
   nav {
     background-color: $blue;
     border-bottom:10px solid $purple;
@@ -88,6 +96,31 @@ div.productList {
     color: $ivory;
     }
     margin-bottom:0;
+  }
+}
+
+.cartIcon {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  p {
+    background-color: red;
+    color: white;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    text-align: center;
+    margin-bottom: -1.5em;
+    margin-right: 3em;
+    padding-top: 0.25em;
+    z-index: 2;
+  }
+  img {
+    height: 5em;
+    width: 5em;
+    margin-top: 0;
+    margin-right: 2em;
+    z-index: 0;
   }
 }
 
