@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { removeItemFromCart } from '../../store';
 
+//based on backend routes i may need to pass in the userId and the product
 
 function CartDetails(props) {
   const cart = props.cart;
-  console.log(cart)
   return (
     <div className="orderBox">
       <div className="headerBox">
@@ -12,6 +13,7 @@ function CartDetails(props) {
       </div>
       <div className="productOrderBox">
         {cart.map(product => {
+            let productId = product.id
           return (
             <div className="singleProductOrder" key={product.id}>
               <img src={product.img} />
@@ -20,7 +22,7 @@ function CartDetails(props) {
                 <p>{product.price}</p>
               </div>
               <div className="orderBtn">
-                <button type="submit" value={product} onClick={props.removeItemFromCart}>Remove From Cart</button>
+                <button type="submit" value={productId} onClick={props.removeItemFromCart}>Remove From Cart</button>
               </div>
             </div>
           );
@@ -33,13 +35,16 @@ function CartDetails(props) {
 const mapStateToProps = state => {
   return {
     cart: state.cart,
+    user: state.user
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    removeItemFromCart(product) {
-      dispatch(this.removeItemFromCart(product));
+    removeItemFromCart(evt) {
+        evt.preventDefault();
+        let productId = evt.target.value
+      dispatch(removeItemFromCart(productId));
     }
   };
 };

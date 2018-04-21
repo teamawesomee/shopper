@@ -5,10 +5,8 @@ const {isLoggedIn, isMine, isAdmin } = require('../../utils');
 module.exports = router;
 
 router.get('/', (req, res, next) => {
-  console.log(req.session)
   if (req.session.passport.user) {
     let userId = req.session.passport.user;
-    console.log(userId)
     User.findById(userId, {
       include: {
         model: Product
@@ -21,7 +19,6 @@ router.get('/', (req, res, next) => {
     // if a session exists in the Session database with the same session id as our session's ID, we just get the products associated with the session
     if (SessionDb.findOne({where: {sessionId: req.session.id}})) {
       let sessionId = req.session.id
-      console.log(sessionId)
       SessionDb.findOne({
         where: {
           sessionId

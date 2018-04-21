@@ -33,30 +33,23 @@ export const addItemToCart = (productId) => dispatch =>
     })
     .catch(err => console.log(err));
 
-export const removeItemFromCart = (product) => dispatch =>
+export const removeItemFromCart = (productId) => dispatch =>
   axios
-    .get(`/api/products/${product.id}`)
+    .get(`/api/products/${productId}`)
     .then(res => {
       let action = removeFromCart(res.data);
       dispatch(action);
     })
     .catch(err => console.log(err));
 
-// export const getAllOrdersUser = user => dispatch =>
-//   axios
-//     .get(`/api/orders/${user.id}`)
-//     .then(res => {
-//       let action = getUserOrders(res.data);
-//       dispatch(action);
-//     })
-//     .catch(err => console.log(err));
-
-// export const addNewOrder = order => dispatch =>
-//   axios.post(`/api/orders`, order).then(res => {
-//     let action = addOrder(res.data);
-//     dispatch(action);
-//     history.push('/home');
-//   });
+export const getUserCart = () => dispatch =>
+    axios
+      .get('/api/cart')
+      .then(res => {
+        let action = getCart(res.data);
+        dispatch(action);
+      })
+      .catch(err => console.log(err))
 
 /**
  * REDUCER
