@@ -1,8 +1,8 @@
 const User = require('./user')
 const Product = require(`./product`)
 const Order = require('./order')
-const SessionCart = require('./sessionCart')
 const Cart = require('./cart')
+const Session = require('./session')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -34,5 +34,4 @@ module.exports = {
   Order,
   Session,
   Cart,
-  SessionCart
 }

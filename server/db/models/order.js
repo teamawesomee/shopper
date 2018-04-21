@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
-const db = require('../db')
-const { Product, User } = require('./index')
+const db = require('../db');
+const { Product, User } = require('./index');
 
 
 const Order = db.define('order', {
@@ -25,18 +25,7 @@ const Order = db.define('order', {
       isNumeric: true
     }
   },
-  total: {
-    // type: Sequelize.INTEGER,
-    // *******
-    // get() {
-    //   this.getProducts()
-    //     .then(products =>
-    //     products.forEach((product) => {
-    //       sum += product.price
-    //     }
-    //     ))
-    // }
-  }
+
   //then we're going to want to find all items with an order id of ""
 })
 
