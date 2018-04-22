@@ -6,7 +6,6 @@ import { addItemToCart } from '../../store';
 class ProductPage extends Component {
   render() {
     const productId = +this.props.match.params.productId;
-
     const products = this.props.products;
     let product = products.filter(oneProduct => {
       return oneProduct.id === productId
@@ -14,10 +13,10 @@ class ProductPage extends Component {
     product = product[0];
     return (
     <div>
-      {product ?
-      <div className="singleProductPage">
+      {product.id ?
+      <div className="productPage">
         <div className="imgBox">
-          <img src={product.img} />
+          <img src= {product.img}/>
         </div>
         <div className="infoAndBtns">
           <div className="contentBox">

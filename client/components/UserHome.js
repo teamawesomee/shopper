@@ -1,13 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import history from '../history'
 
 /**
  * COMPONENT
  */
 export const UserHome = (props) => {
   const {email} = props
-
+  if (!props.email){
+    history.push('/login')
+  }
   return (
     <div className="userHome">
       <div className="head">

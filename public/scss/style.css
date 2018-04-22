@@ -383,6 +383,21 @@ div.productList .product h3 {
   color: #726A95;
 }
 
+.productBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.productBox img {
+  height: 5em;
+  width: 5em;
+}
+
+.productBox .contentBox {
+  color: #4A2152;
+}
+
 .singleProductPage {
   display: flex;
   flex-direction: row;
