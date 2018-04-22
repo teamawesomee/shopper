@@ -2,8 +2,8 @@ const User = require('./user')
 const Product = require(`./product`)
 const Order = require('./order')
 const Cart = require('./cart')
-const Session = require('./session')
-const SessionCart = require('./sessionCart')
+const Guest = require('./guest')
+const GuestCart = require('./guestCart')
 const LineItem = require('./lineItem')
 
 /**
@@ -14,14 +14,14 @@ const LineItem = require('./lineItem')
  */
 User.hasMany(Order)
 Order.belongsTo(User)
-Order.belongsTo(Session)
-Session.hasMany(Order)
+Order.belongsTo(Guest)
+Guest.hasMany(Order)
 
 Product.belongsToMany(User, {through: 'Cart'})
 User.belongsToMany(Product, {through: 'Cart'})
 
-Product.belongsToMany(Session, {through: 'SessionCart'})
-Session.belongsToMany(Product, {through: 'SessionCart'})
+Product.belongsToMany(Guest, {through: 'GuestCart'})
+Guest.belongsToMany(Product, {through: 'GuestCart'})
 
 Product.belongsToMany(Order, {through: 'LineItem'})
 Order.belongsToMany(Product, {through: 'LineItem'})
@@ -36,8 +36,8 @@ module.exports = {
   User,
   Product,
   Order,
-  Session,
+  Guest,
   Cart,
-  SessionCart,
+  GuestCart,
   LineItem
 }

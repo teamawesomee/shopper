@@ -40,10 +40,10 @@ Order.addNewOrder = function(submittedOrder) {
 
   //whichever one the order has, will be given a real value
   let userId = submittedOrder.userId
-  let sessionId = null;
+  let guestId = null;
 
   if (!userId) {
-    sessionId = submittedOrder.sessionId
+    guestId = submittedOrder.guestId
   }
 
 
@@ -56,9 +56,9 @@ Order.addNewOrder = function(submittedOrder) {
     myUser.deleteCart();
   }
   else {
-    myOrder.setSession(sessionId);
-    let mySession = myOrder.getSession();
-    mySession.deleteCart();
+    myOrder.setGuest(guestId);
+    let myGuest = myOrder.getGuest();
+    myGuest.deleteCart();
   }
   //sets the associated products in line items
   myOrder.addProducts(prods)
@@ -76,10 +76,10 @@ Order.getOrdersByUser = function(userId) {
   });
 };
 
-Order.getOrdersBySession = function(sessionId) {
+Order.getOrdersByGuest = function(guestId) {
   Order.findAll({
     where: {
-      sessionId
+      guestId
     },
     include: [{ model: Product }]
   });

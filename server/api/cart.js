@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Cart, Order, Product, SessionCart, Session } = require('../db/models');
+const { User, Cart, Order, Product, GuestCart, Guest } = require('../db/models');
 const { isLoggedIn } = require('../../utils');
 module.exports = router;
 
@@ -20,9 +20,9 @@ router.get('/', (req, res, next) => {
     .catch(next)
   } //
   else {
-    Session.findOrCreate({
+    Guest.findOrCreate({
       where: {
-        sessionId: req.session.id
+        guestId: req.session.id
       },
     include: {
       model: Product
@@ -31,7 +31,7 @@ router.get('/', (req, res, next) => {
       .catch(next)
   }
   //IF we have a user, take the user id and get that cart
-  //ELSE take the session ID and get THAT cart
+  //ELSE take the guest ID and get THAT cart
 }) // end of router.get
 
             /* //////////// */
@@ -45,31 +45,34 @@ router.post('/', (req, res, next) => {
 
     //Variables
     const userId = req.session.passport.user;
-    const productId = req.body.productId;
+    let productId = req.body.productId;
     let alreadyPresent;
 
 
     User.findById(userId)  //FIND THE USER
               /* THEN */
     .then((user) => {
-      let myProduct;
       Cart.findOne({where: {userId, productId}})
-        .then(item => {alreadyPresent = item}) //Find out if the item is already present
-        .then(() => {
+        .then(item => { //Find out if the item is already present
                         /* IF THE ITEM IS ALREADY PRESENT*/
-          if (alreadyPresent) {
+          if (item.quantity >= 1) {
             const num = 1
-            myProduct = alreadyPresent.update({quantity: alreadyPresent.quantity + num})
+            item.quantity += num;
           } //then increase the quantity of the thing by one
 
                 /* IF IT IS NOT ALREADY PRESENT */
           else {
-          myProduct = user.addProduct(+req.body.productId) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
+          user.addProduct(productId)
+            .then(returned => {console.log("this is what I am getting back", returned)}) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
+          Product.findById(itemId)
+            .then(foundItem => {item = foundItem})
           }
-          return myProduct;
+          console.log("my product is", item)
+
+          return item;
         })
         .then((cart) => {
-          const productId = cart[0][0].dataValues.productId;
+          productId = cart[0][0].dataValues.productId;
           Product.findById(productId)
             .then((product) => res.json(product));
         }) //SEND THE PRODUCT THROUGH JSON
@@ -81,38 +84,34 @@ router.post('/', (req, res, next) => {
           /* ////////////////// */
 
   else {
-    Session.findOrCreate({ //FIND OR CREATE THEM IN OUR SESSION DB
+    Guest.findOrCreate({ //FIND OR CREATE THEM IN OUR GUEST DB
       where: {
-        sessionId: req.session.id
+        guestId: req.session.id
       }})
           /*THEN*/
       .then((guest) => {
-        let sessionId = guest[0].id
+        let guestId = guest[0].id
         let productId = req.body.productId;
-        let myProduct;
-        // Session.findOne({where: {sessionId: req.session.id}})
-        //   .then(session => {sessionId = session.id})
-        //   console.log(sessionId, productId)
-        SessionCart.findOne({ where: { sessionId, productId } })
+        console.log(productId)
+        GuestCart.findOne({where: {guestId, productId}})
           .then(item => {
-            if (item) {
-              //if it is
-              console.log('I am already present!');
-              myProduct = item.update({ quantity: item.quantity + 1 });
+            if (item) { //if it is
+              const num = 1
+                item.quantity += num
             } //then increase the quantity of the thing by one
             /* IF THEY DO NOT ALREADY HAVE THE ITEM */
             else {
-              myProduct = guest[0].addProduct(+req.body.productId); //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
+              item = guest[0].addProduct(+req.body.productId) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
             }
-            return myProduct;
-          }) /* THEN */
+            return item
+          })    /* THEN */
           .then(cart => {
-            const productId = cart[0][0].dataValues.productId;
+            productId = cart[0][0].dataValues.productId;
             Product.findById(productId).then(product =>
               res.json(product)
             );
-          }) //SEND THE PRODUCT THROUGH JSON
-          .catch(next); //AND CATCH ALL ERRORS
+          }) //SEND THE PRODUCT THROUGH JSON //SEND THE PRODUCT THROUGH JSON
+          .catch(next) //AND CATCH ALL ERRORS
 
       })
   }
@@ -133,9 +132,9 @@ router.delete('/:productId', (req, res, next) => {
     .catch(next)
 
   } else { //if they are a guest user
-    Cart.destroy({
+    GuestCart.destroy({
       where: { //go into the guest database
-        sessionId: req.session.id,
+        guestId: req.session.id,
         productId: req.params.productId
       }
     })
