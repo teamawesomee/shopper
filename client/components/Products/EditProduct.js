@@ -11,36 +11,39 @@ import {editProduct} from '../../store/product'
       const id = this.props.match.params.productId
       const product = this.props.products.filter(product => product.id === Number(this.props.match.params.productId))[0]
       return (
-        <div>
-          <form onSubmit={(evt) => {
+        <div className="pageForm edit">
+          <div className="titleHolder">
+            <h1>Edit product!</h1>
+          </div>
+          <form className="formContainer" onSubmit={(evt) => {
               evt.preventDefault()
               this.props.handleSubmit.call(this, evt, id)}
             }>
-            <div>
+            <div className="inputSurround">
               <label htmlFor="title"><small>Title</small></label>
               <input name="title" defaultValue= {product.title} type="text" />
             </div>
-            <div>
+            <div className="inputSurround">
               <label htmlFor="description"><small>Description</small></label>
-              <input name="description" defaultValue= {product.description} type="text" />
+              <textarea name="description" defaultValue= {product.description} type="text" />
             </div>
-            <div>
+            <div className="inputSurround">
               <label htmlFor="price"><small>Price</small></label>
               <input name="price" type="text" defaultValue= {product.price}/>
             </div>
-            <div>
+            <div className="inputSurround">
               <label htmlFor="inventoryQuantity"><small>Inventory Quantity</small></label>
               <input name="inventoryQuantity" type="text" defaultValue= {product.inventoryQuantity} />
             </div>
-            <div>
+            <div className="inputSurround">
               <label htmlFor="category"><small>Category</small></label>
               <input name="category" type="text" defaultValue= {product.category} />
             </div>
-            <div>
+            <div className="inputSurround">
               <label htmlFor="img"><small>Image</small></label>
               <input name="img" type="text" defaultValue= {product.img}/>
             </div>
-            <div>
+            <div className="buttonholder">
               <button type="submit">Edit Product</button>
             </div>
           </form>

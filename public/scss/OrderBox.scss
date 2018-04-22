@@ -1,0 +1,42 @@
+@import "variables";
+
+.orderBox {
+  display: flex;
+  flex-direction: column;
+  div.headerBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border: 6px solid $purple;
+    background-color: $ivory;
+  }
+  div.productOrderBox {
+    display: flex;
+    flex-direction: column;
+    border: 6px solid $purple;
+    div.singleProductOrder {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      img {
+      height: 150px;
+      width: 150px;
+      }
+      div.orderProductDetails {
+        padding: 1em;
+        width: 50%;
+      }
+      div.orderBtn {
+        justify-self: end;
+        padding: 2em;
+        button {
+          padding-left: 1rem;
+          padding-right: 1rem;
+          background-color: $purple;
+          color: $ivory;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

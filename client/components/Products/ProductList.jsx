@@ -67,7 +67,7 @@ catHandler(event){
 
                       /* RETURN STATEMENT */
     return (
-      <div className="productPage">
+      <div className="productPage page">
         <h1>Products</h1>
         <form className="formContainer">
           <div className="inputSurround">

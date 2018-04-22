@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,UAAU,CAAC;EACT,OAAO,EAAC,GAAG;CAQZ;;AATD,AAEI,UAFM,CAEN,GAAG,AAAA,UAAU,CAAC;EACd,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;CAIvB;;AARH,AAKI,UALM,CAEN,GAAG,AAAA,UAAU,CAGb,GAAG,AAAA,MAAM,CAAC;EACR,cAAc,EAAE,GAAG;CACpB",
+    "sources": [
+        "orderPage.scss",
+        "variables.scss"
+    ],
+    "names": [],
+    "file": "orderPage.css"
+}

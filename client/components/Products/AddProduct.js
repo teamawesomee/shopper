@@ -1,42 +1,43 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {addNewProduct} from '../../store'
 
 /**
  * COMPONENT
  */
-export class AddProduct extends Component {
-
-    render() {
+export function AddProduct(){
       return (
-        <div>
+        <div className="pageForm">
+          <div className="titleHolder">
+            <h1>Add a product!</h1>
+          </div>
           {!this.props.user.isAdmin ? <div className="alert">You must be an admin to add a Product</div> :
-          <form onSubmit={ this.props.handleSubmit }>
-            <div>
+          <form onSubmit={ this.props.handleSubmit } className="formContainer">
+            <div className="inputSurround">
               <label htmlFor="title"><small>Title</small></label>
               <input name="title" type="text" />
             </div>
-            <div>
+            <div className="inputSurround">
               <label htmlFor="description"><small>Description</small></label>
-              <input name="description" type="text" />
+              <textarea name="description" type="textbox"/>
             </div>
-            <div>
+            <div className="inputSurround">
               <label htmlFor="price"><small>Price</small></label>
               <input name="price" type="text" />
             </div>
-            <div>
+            <div className="inputSurround">
               <label htmlFor="inventoryQuantity"><small>Inventory Quantity</small></label>
               <input name="inventoryQuantity" type="text" />
             </div>
-            <div>
+            <div className="inputSurround">
               <label htmlFor="category"><small>Category</small></label>
               <input name="category" type="text" />
             </div>
-            <div>
+            <div className="inputSurround">
               <label htmlFor="img"><small>Image</small></label>
               <input name="img" type="text" />
             </div>
-            <div>
+            <div className="buttonholder">
               <button type="submit">Add Product</button>
             </div>
           </form>
@@ -45,7 +46,6 @@ export class AddProduct extends Component {
         )
     }
 
-  }
 
   /**
    * CONTAINER
