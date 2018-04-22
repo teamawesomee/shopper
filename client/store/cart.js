@@ -28,6 +28,7 @@ export const addItemToCart = (product) => dispatch =>
   axios
     .post(`/api/cart`, product)
     .then(res => {
+      console.log("My res.data is", res.data)
       let action = addToCart(res.data);
       dispatch(action);
     })

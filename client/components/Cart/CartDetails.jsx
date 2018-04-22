@@ -7,6 +7,7 @@ import { removeItemFromCart } from '../../store';
 function CartDetails(props) {
   const cart = props.cart;
   return (
+    cart ?
     <div className="orderBox">
       <div className="headerBox">
         <h3>Total Items: {cart.length}</h3>
@@ -14,7 +15,7 @@ function CartDetails(props) {
       <div className="productOrderBox">
         {cart.map(product => {
           return (
-            <div className="singleProductOrder" key={product.id}>
+            <div className="singleProductOrder" key={product.title + product.id}>
               <img src={product.img} />
               <div className="orderProductDetails">
                 <p>{product.title}</p>
@@ -27,7 +28,8 @@ function CartDetails(props) {
           );
         })}
       </div>
-    </div>
+    </div> :
+    <div className="alert">There are no products to display!</div>
   );
 }
 

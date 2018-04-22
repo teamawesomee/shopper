@@ -25,7 +25,7 @@ class ProductPage extends Component {
           <p>{product.price}</p>
         </div>
         <div>
-          <button value={product} onClick={this.props.addItemToCart}>
+          <button value={product.id} onClick={this.props.addItem}>
             Add to cart
           </button>
         </div>
@@ -43,10 +43,11 @@ class ProductPage extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addItemToCart(evt){
+    addItem(evt){
       evt.preventDefault();
       let product = evt.target.value;
-      dispatch(addItemToCart(product));
+      console.log("my product is", product)
+      dispatch(addItemToCart({productId: evt.target.value}));
     }
   };
 };
