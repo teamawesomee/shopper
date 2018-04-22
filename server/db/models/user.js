@@ -1,7 +1,7 @@
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
-const {Cart} = require('./index')
+const {Cart, Product} = require('./index')
 
 
 const User = db.define('user', {
@@ -40,9 +40,12 @@ const User = db.define('user', {
       Cart.findAll({
         where: {
           userId: this.id
+        },
+        include: {
+          model: Product
         }
       })
-      .then(products => products.reduce((product) => {total += product.price}))
+      .then(cart => cart.products.reduce((product) => {total += product.price}))
       return total;
     }
   }

@@ -71,7 +71,7 @@ router.put('/:orderId/updateInfo', (req, res, next) => {
   Order.findById(req.params.orderId)
     .then(order => {
       if (order.userId === req.session.passport.user && order.orderStatus === 'pending') {
-        order = req.body
+        order.update(req.body)
         message = 'Your info has been updated!'
         return order;
       } else {
