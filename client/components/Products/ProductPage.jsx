@@ -2,29 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const mapStateToProps = (state) => {
-  return { products: state.products,
-  user: state.user };
-};
 
 class ProductPage extends Component {
 
-
-
   render() {
     const productId = +this.props.match.params.productId;
-
     const products = this.props.products;
     let product = products.filter(oneProduct => {
-      return oneProduct.id == productId
+      return oneProduct.id === productId
     });
     product = product[0];
     return (
     <div>
-      {product ?
+      {product.id ?
       <div className="productPage">
         <div className="imgBox">
-          {/* <img></img> */}
+          <img src= {product.img}/>
         </div>
         <div className="contentBox">
           <h3>{product.title}</h3>
@@ -43,5 +36,11 @@ class ProductPage extends Component {
 }
 
 
+const mapStateToProps = (state) => {
+  return {
+    products: state.products,
+    user: state.user
+  };
+};
 
-export default connect(mapStateToProps)(ProductPage);
+export default connect(mapStateToProps, null)(ProductPage);
