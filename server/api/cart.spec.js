@@ -160,9 +160,9 @@ describe("Cart routes", () => {
           .send(productOne)
           .expect(200)
           .then(res => {
-            const cartItem = res.body;
+            const cartItem = res.body[0][0].dataValues;
             console.log("I am in the first 'then")
-            return Cart.findById(cartItem.id)
+            return cartItem
           })
           .then(foundItem => {
             expect(foundItem.title)
