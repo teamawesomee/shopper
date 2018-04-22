@@ -44,6 +44,7 @@ router.post('/', (req, res, next) => {
   if (req.session.passport && req.session.passport.user) {
 
     //Variables
+    console.log("req.body in add product is...", req.body)
     const userId = req.session.passport.user;
     const productId = req.body.productId;
     let alreadyPresent;
@@ -69,7 +70,9 @@ router.post('/', (req, res, next) => {
         })
     })
           /* THEN */
-      .then((product) => res.json(product)) //SEND THE PRODUCT THROUGH JSON
+      .then((product) => {
+        console.log("MY PRODUCT IS", product)
+        res.json(product)}) //SEND THE PRODUCT THROUGH JSON
       .catch(next) //AND CATCH ALL ERRORS
   }
             /* ///////////////// */
@@ -83,6 +86,10 @@ router.post('/', (req, res, next) => {
       }})
           /*THEN*/
       .then((guest) => {
+        console.log("session id is", req.session.id)
+        console.log("product id is", req.body.productId)
+        let sessionId = req.session.id;
+        let productId = req.body.productId;
         let alreadyPresent;
         guest = guest[0];
         SessionCart.findOne({where: {sessionId, productId}})
@@ -99,7 +106,10 @@ router.post('/', (req, res, next) => {
           })
       })
         /* THEN */
-    .then((product) => res.json(product)) //SEND THE PRODUCT THROUGH JSON
+    .then((product) => {
+      console.log("MY PRODUCT IS", product)
+      res.json(product)
+    }) //SEND THE PRODUCT THROUGH JSON
     .catch(next) //AND CATCH ALL ERRORS
   }
 })
@@ -109,10 +119,13 @@ router.post('/', (req, res, next) => {
 
 router.delete('/', (req, res, next) => {
   if (isLoggedIn) { //if the user is logged in
+    console.log("userId is...", req.session.passport.user);
+    console.log("req.body is...", req.body)
+    console.log("productId is...", req.body.productId)
     Cart.destroy({
       where: { //go into the user cart database
         userId: req.session.passport.user,
-        productId: req.body.product.id
+        productId: req.body.productId
       }
     })
     .then(() => res.status(204).send('Delete successful!'))
@@ -122,7 +135,7 @@ router.delete('/', (req, res, next) => {
     Cart.destroy({
       where: { //go into the guest database
         sessionId: req.session.id,
-        productId: req.body.product.id
+        productId: req.body.productId
       }
     })
     .then(() => res.status(204).send('Delete Successful!'))

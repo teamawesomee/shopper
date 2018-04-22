@@ -22,7 +22,7 @@ function CartDetails(props) {
                 <p>{product.price}</p>
               </div>
               <div className="orderBtn">
-                <button type="submit" value={product} onClick={props.removeItemFromCart}>Remove From Cart</button>
+                <button type="submit" value={product.id} onClick={props.removeItemFromCart}>Remove From Cart</button>
               </div>
             </div>
           );
@@ -43,9 +43,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     removeItemFromCart(evt) {
-        evt.preventDefault();
-        let product = evt.target.value
-      dispatch(removeItemFromCart(product));
+      evt.preventDefault();
+      dispatch(removeItemFromCart({ productId: evt.target.value }));
     }
   };
 };
