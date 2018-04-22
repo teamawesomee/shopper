@@ -33,19 +33,19 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
-  cartTotal: {
-    type: Sequelize.VIRTUAL,
-    get() {
-      let total;
-      Cart.findAll({
-        where: {
-          userId: this.id
-        }
-      })
-      .then(products => products.reduce((product) => {total += product.price}))
-      return total;
-    }
-  }
+  // cartTotal: {
+  //   type: Sequelize.VIRTUAL,
+  //   get() {
+  //     let total;
+  //     Cart.findAll({
+  //       where: {
+  //         userId: this.id
+  //       }
+  //     })
+  //     .then(products => products.reduce((product) => {total += product.price}))
+  //     return total;
+  //   }
+  // }
 })
 
 /**

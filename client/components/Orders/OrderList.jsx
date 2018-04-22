@@ -6,7 +6,6 @@ import { getAllOrdersUser, getAllOrdersAdmin } from '../../store/orders';
 class OrderList extends Component {
 
     componentDidMount(){
-        console.log(this.props.user)
         if (this.props.user.isAdmin){
             this.props.getAllOrdersAdmin();
         }

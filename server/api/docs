@@ -1,0 +1,33 @@
+Possible routes
+
+Users:
+  get Users '/api/users/'
+  get one user '/api/users/:id'
+  get orders by user  '/api/users/:id/orders'
+    (including products column)
+
+Products:
+  get products '/api/products/'
+  add product  (post) 'api/products'
+  get single product '/api/:productId'
+  edit product (put) '/api/:productId'
+  delete product (delete) '/api/:productId'
+
+Orders:
+  all orders '/api/orders/all'
+      (including products AND user columns)
+  single order '/api/:orderId'
+      (including products and user column)
+  add new order '/api/orders/'
+  //future implementation, find by date
+
+Cart: //cart does not currently handle sessions.  working on that!
+
+    TO USE THESE ROUTES YOU MUST BE LOGGED IN AS THE USER OR AS AN ADMIN
+
+  get user/session's Cart '/api/cart'
+  add product to cart '/api/users/:userId/cart/'
+    --returns 201 status
+  delete product from user/session '/api/users/:userId/cart'
+    -- returns 204 status3
+  submit cart to orders (which deletes the cart) -- (post) '/api/orders/'
