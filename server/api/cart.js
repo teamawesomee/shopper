@@ -1,10 +1,11 @@
 const router = require('express').Router();
-const {User, Cart, Order, Product, SessionCart, Session} = require('../db/models');
-const db = require('../db')
-const {isLoggedIn, isMine, isAdmin } = require('../../utils');
+const { User, Cart, Order, Product, SessionCart, Session } = require('../db/models');
+const { isLoggedIn } = require('../../utils');
 module.exports = router;
 
-/* GET CART */
+              /* ////////// */
+              /* GET CART */
+              /* ///////// */
 
 router.get('/', (req, res, next) => {
   console.log(req.session.id)
@@ -96,35 +97,36 @@ router.post('/', (req, res, next) => {
               guest.addProduct(+req.body.productId) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
             }
           })
-              /* THEN */
-      .then((product) => res.json(product)) //SEND THE PRODUCT THROUGH JSON
-      .catch(next) //AND CATCH ALL ERRORS
+      })
+        /* THEN */
+    .then((product) => res.json(product)) //SEND THE PRODUCT THROUGH JSON
+    .catch(next) //AND CATCH ALL ERRORS
   }
-  })
+})
             /* /////////// */
         /* DELETE ITEM FROM CART */
           /* ///////////// */
 
-  router.delete('/', (req, res, next) => {
-    if (isLoggedIn) { //if the user is logged in
-      Cart.destroy({
-        where: { //go into the user cart database
-          userId: req.session.passport.user,
-          productId: req.body.product.id
-        }
-      })
-      .then(() => res.status(204).send('Delete successful!'))
-      .catch(next)
+router.delete('/', (req, res, next) => {
+  if (isLoggedIn) { //if the user is logged in
+    Cart.destroy({
+      where: { //go into the user cart database
+        userId: req.session.passport.user,
+        productId: req.body.product.id
+      }
+    })
+    .then(() => res.status(204).send('Delete successful!'))
+    .catch(next)
 
-    } else { //if they are a guest user
-      Cart.destroy({
-        where: { //go into the guest database
-          sessionId: req.session.id,
-          productId: req.body.product.id
-        }
-      })
-      .then(() => res.status(204).send('Delete Successful!'))
-      .catch(next)
-    }
-  })
+  } else { //if they are a guest user
+    Cart.destroy({
+      where: { //go into the guest database
+        sessionId: req.session.id,
+        productId: req.body.product.id
+      }
+    })
+    .then(() => res.status(204).send('Delete Successful!'))
+    .catch(next)
+  }
+})
 
