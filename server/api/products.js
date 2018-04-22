@@ -13,6 +13,9 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', isLoggedIn, isAdmin, (req, res, next) => {
+  if (req.body.img.trim() === ''){
+    delete req.body.img
+  }
   Product.create(req.body)
     .then(product => res.json(product))
     .catch(next);

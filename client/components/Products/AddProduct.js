@@ -6,16 +6,11 @@ import {addNewProduct} from '../../store'
  * COMPONENT
  */
 export class AddProduct extends Component {
-    constructor(){
-      super()
-      this.state = {
-
-      }
-    }
 
     render() {
       return (
         <div>
+          {!this.props.user.isAdmin ? <div className="alert">You must be an admin to add a Product</div> :
           <form onSubmit={ this.props.handleSubmit }>
             <div>
               <label htmlFor="title"><small>Title</small></label>
@@ -44,8 +39,8 @@ export class AddProduct extends Component {
             <div>
               <button type="submit">Add Product</button>
             </div>
-            {this.state.error && <div className="alert"> {this.state.error.data} </div>}
           </form>
+          }
         </div>
         )
     }
@@ -55,6 +50,10 @@ export class AddProduct extends Component {
   /**
    * CONTAINER
    */
+
+   const mapState = (state) => {
+     return {user: state.user}
+   }
 
   const mapDispatch = (dispatch) => {
     return {
@@ -74,4 +73,4 @@ export class AddProduct extends Component {
     }
   }
 
-  export default connect(null, mapDispatch)(AddProduct)
+  export default connect(mapState, mapDispatch)(AddProduct)

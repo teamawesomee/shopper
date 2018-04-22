@@ -7,46 +7,42 @@ import {editProduct} from '../../store/product'
 
  export class EditProduct extends Component {
 
-    state = {
-    error : null
-    }
-
     render() {
-        const id = this.props.match.params.id
+      const id = this.props.match.params.productId
+      const product = this.props.products.filter(product => product.id === Number(this.props.match.params.productId))[0]
       return (
         <div>
           <form onSubmit={(evt) => {
               evt.preventDefault()
               this.props.handleSubmit.call(this, evt, id)}
-        }>
+            }>
             <div>
               <label htmlFor="title"><small>Title</small></label>
-              <input name="title" type="text" />
+              <input name="title" defaultValue= {product.title} type="text" />
             </div>
             <div>
               <label htmlFor="description"><small>Description</small></label>
-              <input name="description" type="text" />
+              <input name="description" defaultValue= {product.description} type="text" />
             </div>
             <div>
               <label htmlFor="price"><small>Price</small></label>
-              <input name="price" type="text" />
+              <input name="price" type="text" defaultValue= {product.price}/>
             </div>
             <div>
               <label htmlFor="inventoryQuantity"><small>Inventory Quantity</small></label>
-              <input name="inventoryQuantity" type="text" />
+              <input name="inventoryQuantity" type="text" defaultValue= {product.inventoryQuantity} />
             </div>
             <div>
               <label htmlFor="category"><small>Category</small></label>
-              <input name="category" type="text" />
+              <input name="category" type="text" defaultValue= {product.category} />
             </div>
             <div>
               <label htmlFor="img"><small>Image</small></label>
-              <input name="img" type="text" />
+              <input name="img" type="text" defaultValue= {product.img}/>
             </div>
             <div>
               <button type="submit">Edit Product</button>
             </div>
-            {this.state.error && <div> {this.state.error.data} </div>}
           </form>
         </div>
         )
@@ -57,6 +53,9 @@ import {editProduct} from '../../store/product'
   /**
    * CONTAINER
    */
+  const mapState = (state) =>{
+    return {products: state.products}
+  }
 
   const mapDispatch = (dispatch) => {
     return {
@@ -66,15 +65,14 @@ import {editProduct} from '../../store/product'
         const description = evt.target.description.value
         const price = evt.target.price.value
         const inventoryQuantity = evt.target.inventoryQuantity.value
-        const category = evt.target.category.value
+        let category = []
+        let textCategories = evt.target.category.value
+        textCategories.split(',').forEach(word => category.push(word.trim()))
         const img = evt.target.img.value
-        dispatch(editProduct(title, description, price, inventoryQuantity, category, img, id))
-        .catch((err) => {
-          console.error(err)
-          this.setState({error : err})
-        })
+        const editedProd = {title, description, price, inventoryQuantity, category, img, id}
+        dispatch(editProduct(editedProd))
       }
     }
   }
 
-  export default connect(null, mapDispatch)(EditProduct)
+  export default connect(mapState, mapDispatch)(EditProduct)
