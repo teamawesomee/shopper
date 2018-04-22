@@ -3,10 +3,14 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import CartIcon from './Cart/CartIcon.jsx'
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div className="pageTopper">
-    <h1>Cures for What Ails You</h1>
+    <div className="header">
+      <h1>Cures for What Ails You</h1>
+      <Link to="/cart"> <CartIcon /> </Link>
+    </div>
     <nav>
       {isLoggedIn ? (
         <div>
@@ -17,6 +21,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           </a>
           <Link to="/products">Products</Link>
           <Link to="/orders">Orders</Link>
+          <Link to="/cart">Cart</Link>
         </div>
       ) : (
         <div>
@@ -24,6 +29,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
           <Link to="/products">Products</Link>
+          <Link to="/cart">Cart</Link>
         </div>
       )}
     </nav>

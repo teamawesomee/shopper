@@ -7,7 +7,6 @@ import Adapter from 'enzyme-adapter-react-16';
 import OrderList from './Orders/OrderList';
 import OrderBox from './Orders/OrderBox';
 
-console.log(OrderBox)
 
 const adapter = new Adapter();
 enzyme.configure({ adapter });

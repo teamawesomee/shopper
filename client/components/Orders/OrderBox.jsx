@@ -1,14 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-
-//orderId, address, email, userId - pull info, createdAt
-//for all orders page show products
-//products are an array of objects
-//admin view orders by date
-//GET ORDERS AND GET ORDERS BY USER WILL RETURN ME ALL OF THE ORDER INFO PLUS AN ARRAY OF THE PRODUCTS
-//want it to display order info at the top and then map through array of products and show product info
-
 function OrderBox (props){
     const order = props.order;
     const products = order.products;
