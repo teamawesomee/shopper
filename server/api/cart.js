@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Cart, Order, Product, SessionCart, Session } = require('../db/models');
+const { User, Cart, Order, Product, GuestCart, Guest } = require('../db/models');
 const { isLoggedIn } = require('../../utils');
 module.exports = router;
 
@@ -20,9 +20,9 @@ router.get('/', (req, res, next) => {
     .catch(next)
   } //
   else {
-    Session.findOrCreate({
+    Guest.findOrCreate({
       where: {
-        sessionId: req.session.id
+        guestId: req.session.id
       },
     include: {
       model: Product
@@ -31,7 +31,7 @@ router.get('/', (req, res, next) => {
       .catch(next)
   }
   //IF we have a user, take the user id and get that cart
-  //ELSE take the session ID and get THAT cart
+  //ELSE take the guest ID and get THAT cart
 }) // end of router.get
 
             /* //////////// */
@@ -84,16 +84,16 @@ router.post('/', (req, res, next) => {
           /* ////////////////// */
 
   else {
-    Session.findOrCreate({ //FIND OR CREATE THEM IN OUR SESSION DB
+    Guest.findOrCreate({ //FIND OR CREATE THEM IN OUR GUEST DB
       where: {
-        sessionId: req.session.id
+        guestId: req.session.id
       }})
           /*THEN*/
       .then((guest) => {
-        let sessionId = guest[0].id
+        let guestId = guest[0].id
         let productId = req.body.productId;
         console.log(productId)
-        SessionCart.findOne({where: {sessionId, productId}})
+        GuestCart.findOne({where: {guestId, productId}})
           .then(item => {
             if (item) { //if it is
               const num = 1
@@ -132,9 +132,9 @@ router.delete('/:productId', (req, res, next) => {
     .catch(next)
 
   } else { //if they are a guest user
-    Cart.destroy({
+    GuestCart.destroy({
       where: { //go into the guest database
-        sessionId: req.session.id,
+        guestId: req.session.id,
         productId: req.params.productId
       }
     })

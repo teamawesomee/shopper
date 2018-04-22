@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-const SessionCart = db.define('SessionCart', {
+const GuestCart = db.define('GuestCart', {
   quantity: {
     type: Sequelize.INTEGER,
     defaultValue: 1,
@@ -12,8 +12,8 @@ const SessionCart = db.define('SessionCart', {
 
 })
 
-SessionCart.prototype.increaseQuantity = function(num) {
+GuestCart.prototype.increaseQuantity = function(num) {
   this.quantity = this.getDataValue('quantity') + num;
 }
 
-module.exports = SessionCart
+module.exports = GuestCart
