@@ -7,15 +7,16 @@ import { removeItemFromCart } from '../../store';
 function CartDetails(props) {
   const cart = props.cart;
   return (
-    cart ?
+    cart.length ?
     <div className="orderBox">
       <div className="headerBox">
         <h3>Total Items: {cart.length}</h3>
       </div>
       <div className="productOrderBox">
         {cart.map(product => {
+          console.log("my product is", product)
           return (
-            <div className="singleProductOrder" key={product.title + product.id}>
+            <div className="singleProductOrder" key={product.title}>
               <img src={product.img} />
               <div className="orderProductDetails">
                 <p>{product.title}</p>

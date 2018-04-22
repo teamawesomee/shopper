@@ -53,27 +53,25 @@ router.post('/', (req, res, next) => {
     User.findById(userId)  //FIND THE USER
               /* THEN */
     .then((user) => {
+      let myProduct;
       Cart.findOne({where: {userId, productId}})
         .then(item => {alreadyPresent = item}) //Find out if the item is already present
         .then(() => {
                         /* IF THE ITEM IS ALREADY PRESENT*/
           if (alreadyPresent) {
-            console.log("I am already present!")
             const num = 1
-            alreadyPresent.update({quantity: alreadyPresent.quantity + num})
+            myProduct = alreadyPresent.update({quantity: alreadyPresent.quantity + num})
           } //then increase the quantity of the thing by one
 
                 /* IF IT IS NOT ALREADY PRESENT */
           else {
-          user.addProduct(+req.body.productId) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
+          myProduct = user.addProduct(+req.body.productId) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
           }
+          return myProduct;
         })
+        .then((product) => res.json(product)) //SEND THE PRODUCT THROUGH JSON
+        .catch(next) //AND CATCH ALL ERRORS
     })
-          /* THEN */
-      .then((product) => {
-        console.log("MY PRODUCT IS", product)
-        res.json(product)}) //SEND THE PRODUCT THROUGH JSON
-      .catch(next) //AND CATCH ALL ERRORS
   }
             /* ///////////////// */
           /* ELSE IF THE USER IS NOT LOGGED IN */
@@ -86,31 +84,29 @@ router.post('/', (req, res, next) => {
       }})
           /*THEN*/
       .then((guest) => {
-        console.log("session id is", req.session.id)
-        console.log("product id is", req.body.productId)
-        let sessionId = req.session.id;
+        let sessionId = guest[0].id
         let productId = req.body.productId;
-        let alreadyPresent;
-        guest = guest[0];
+        let myProduct;
+        console.log(productId)
+        // Session.findOne({where: {sessionId: req.session.id}})
+        //   .then(session => {sessionId = session.id})
+        //   console.log(sessionId, productId)
         SessionCart.findOne({where: {sessionId, productId}})
-          .then(item => {alreadyPresent = item}) //Find out if the item is already present
-          .then(() => {
-            if (alreadyPresent) { //if it is
+          .then(item => {
+            if (item) { //if it is
               console.log("I am already present!")
-              alreadyPresent.update({quantity: alreadyPresent.quantity + 1})
+              myProduct = item.update({quantity: item.quantity + 1})
             } //then increase the quantity of the thing by one
             /* IF THEY DO NOT ALREADY HAVE THE ITEM */
             else {
-              guest.addProduct(+req.body.productId) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
+              myProduct = guest[0].addProduct(+req.body.productId) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
             }
-          })
+            return myProduct
+          })    /* THEN */
+          .then((product) => res.json(product)) //SEND THE PRODUCT THROUGH JSON
+          .catch(next) //AND CATCH ALL ERRORS
+
       })
-        /* THEN */
-    .then((product) => {
-      console.log("MY PRODUCT IS", product)
-      res.json(product)
-    }) //SEND THE PRODUCT THROUGH JSON
-    .catch(next) //AND CATCH ALL ERRORS
   }
 })
             /* /////////// */
