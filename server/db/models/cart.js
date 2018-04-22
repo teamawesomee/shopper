@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const db = require('../db')
-const { Product, User } = require('./index')
 
 const Cart = db.define('Cart', {
   quantity: {

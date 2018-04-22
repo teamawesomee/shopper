@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Order, Product, User } = require('../db/models');
-const {isLoggedIn, isMine, isAdmin } = require('../../utils');
+const { isMine, isAdmin } = require('../../utils');
 
 module.exports = router;
 
@@ -68,16 +68,24 @@ router.put('/:orderId/updateStatus', isAdmin, (req, res, next) => {
       /*  UPDATING ORDER INFO */
 router.put('/:orderId/updateInfo', (req, res, next) => {
   let message;
+  let myStatus;
   Order.findById(req.params.orderId)
     .then(order => {
       if (order.userId === req.session.passport.user && order.orderStatus === 'pending') {
         order = req.body
+        myStatus = 204;
         message = 'Your info has been updated!'
         return order;
-      } else {
-        message = 'Forbidden'
+      } else if (order.userId === req.session.passport.user && order.orderStatus !== 'pending') {
+        myStatus = 400
+        message = 'Your order cannot be updated after it\'s been shipped!'
+        return message;
+      } else if (order.userId !== req.session.passport.user) {
+        myStatus = 404
+        message = 'You do not have permission to edit this message'
+        return message;
       }
     })
-    .then(order => res.json(order).send(message))
+    .then(returned => res.status(myStatus).json(returned))
     .catch(next);
 })
