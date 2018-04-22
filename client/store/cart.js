@@ -24,29 +24,30 @@ const removeFromCart = product => ({ type: REMOVE_FROM_CART, product });
  * THUNK CREATORS
  */
 
-export const addItemToCart = (productId) => dispatch =>
+export const addItemToCart = (product) => dispatch =>
   axios
-    .get(`/api/products/${productId}`)
+    .post(`/api/cart`, product)
     .then(res => {
       let action = addToCart(res.data);
       dispatch(action);
     })
     .catch(err => console.log(err));
 
-export const removeItemFromCart = (productId) => dispatch =>
+export const removeItemFromCart = (product) => dispatch =>
   axios
-    .get(`/api/products/${productId}`)
+    .delete(`/api/cart`, product)
     .then(res => {
       let action = removeFromCart(res.data);
       dispatch(action);
     })
     .catch(err => console.log(err));
 
-export const getUserCart = () => dispatch =>
+export const getTheCart = () => dispatch =>
     axios
       .get('/api/cart')
       .then(res => {
         let action = getCart(res.data);
+        console.log(res.data)
         dispatch(action);
       })
       .catch(err => console.log(err))

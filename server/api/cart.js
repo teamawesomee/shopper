@@ -1,10 +1,6 @@
 const router = require('express').Router();
-const {User, Cart} = require('../db/models');
+const {User, Cart, Order, Product, SessionCart, Session} = require('../db/models');
 const db = require('../db')
-const Order = db.model('order')
-const Product = db.model('product');
-const SessionCart = db.model('SessionCart')
-const SessionDb = require('../db/models').Session
 const {isLoggedIn, isMine, isAdmin } = require('../../utils');
 module.exports = router;
 
@@ -23,7 +19,7 @@ router.get('/', (req, res, next) => {
     .catch(next)
   } //
   else {
-    SessionDb.findOrCreate({
+    Session.findOrCreate({
       where: {
         sessionId: req.session.id
       },
@@ -43,89 +39,71 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
                 /* IF */
-  if (isLoggedIn) { //THE USER IS LOGGED IN
+  if (req.session.passport && req.session.passport.user) { //THE USER IS LOGGED IN
+    console.log(req.user)
     let userId = req.session.passport.user;
-<<<<<<< HEAD
-    console.log(userId)
-    User.findById(userId)
-    .then((user) => user.addProduct(req.body))
-    .then((result) => res.json(result))
-=======
-
     User.findById(userId)  //FIND THE USER
               /* THEN */
-<<<<<<< HEAD
-    .then((user) => user.addProduct(req.body.product)) //ADD THE PRODUCT TO THE USER
-    .then((product) => res.json(product)) //AND RETURN IT AS JSON
->>>>>>> e574b93fdca92e74a7b361c71f0fec3515601ce0
-    .catch(next)
-=======
       .then((user) => {
-        if (Cart.findOne({ /* IF */
-        where: { //THE USER ALREADY HAS THIS ITEM IN THEIR CART
-          userId,
-          productId: req.body.product.id
-        }
-      })) {       /* THEN */
-          SessionCart.findOne({ //FIND AND RETURN ME THE PRODUCT IN QUESTION
-            where: {
-              userId,
-              productId: req.body.product.id
-            }
-          })
-          .then(product => {
-            product.quantity += req.body.quantity; //THEN UPDATE THE QUANTITY.
-            return product; //AND RETURN THE PRODUCT
-          })
+      //   if (Cart.findOne({ /* IF */
+      //   where: { //THE USER ALREADY HAS THIS ITEM IN THEIR CART
+      //     userId,
+      //     productId: req.body.id
+      //   }
+      // })) {       /* THEN */
+      //     Cart.findOne({ //FIND AND RETURN ME THE PRODUCT IN QUESTION
+      //       where: {
+      //         userId,
+      //         productId: req.body.id
+      //       }
+      //     })
+      //   .then(product => {
+          //   product.quantity += req.body.quantity; //THEN UPDATE THE QUANTITY.
+          //   return product; //AND RETURN THE PRODUCT
+          // })
                 /* IF THEY DO NOT */
-      } else {
+      // } else {
         user.addProduct(req.body) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
-      }
+      // }
   })
           /* THEN */
   .then((product) => res.json(product)) //SEND THE PRODUCT THROUGH JSON
   .catch(next) //AND CATCH ALL ERRORS
->>>>>>> 3a861561aed82aa7e3f80cb242d535e076c79a77
   }
           /* ELSE IF */
   else {   //THE USER IS NOT LOGGED IN
-    SessionDb.findOrCreate({ //FIND OR CREATE THEM IN OUR SESSION DB
+    Session.findOrCreate({ //FIND OR CREATE THEM IN OUR SESSION DB
       where: {
         sessionId: req.session.id
       }})
-<<<<<<< HEAD
-      .then(guest => guest.addProduct(req.body))
-      .then((result) => res.json(result))
-      .catch(next)
-=======
           /*THEN*/
       .then(guest => {
+        console.log(guest)
                     /* IF */
-        if (SessionCart.findOne({
-          where: { //THE GUEST USER ALREADY HAS THIS ITEM IN THEIR CART
-            sessionId: req.session.id,
-            productId: req.body.product.id
-          }
-        })) {       /* THEN */
-            SessionCart.findOne({ //FIND AND RETURN ME THE PRODUCT IN QUESTION
-              where: {
-                sessionId: req.session.id,
-                productId: req.body.product.id
-              }
-            })
-            .then(product => {
-              product.quantity += req.body.quantity; //THEN UPDATE THE QUANTITY.
-              return product; //AND RETURN THE PRODUCT
-            })
-                  /* IF THEY DO NOT */
-        } else {
+        // if (SessionCart.findOne({
+        //   where: { //THE GUEST USER ALREADY HAS THIS ITEM IN THEIR CART
+        //     sessionId: req.session.id,
+        //     productId: req.body.id
+        //   }
+        // })) {       /* THEN */
+        //     SessionCart.findOne({ //FIND AND RETURN ME THE PRODUCT IN QUESTION
+        //       where: {
+        //         sessionId: req.session.id,
+        //         productId: req.body.id
+        //       }
+        //     })
+        //     .then(product => {
+        //       product.quantity += req.body.quantity; //THEN UPDATE THE QUANTITY.
+        //       return product; //AND RETURN THE PRODUCT
+        //     })
+        //           /* IF THEY DO NOT */
+        // } else {
           guest.addProduct(req.body) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
-        }
+        // }
       })
               /* THEN */
       .then((product) => res.json(product)) //SEND THE PRODUCT THROUGH JSON
       .catch(next) //AND CATCH ALL ERRORS
->>>>>>> e574b93fdca92e74a7b361c71f0fec3515601ce0
   }
   })
             /* /////////// */

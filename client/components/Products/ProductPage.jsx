@@ -9,7 +9,7 @@ class ProductPage extends Component {
 
     const products = this.props.products;
     let product = products.filter(oneProduct => {
-      return oneProduct.id == productId
+      return oneProduct.id === productId
     });
     product = product[0];
     return (
@@ -25,7 +25,7 @@ class ProductPage extends Component {
           <p>{product.price}</p>
         </div>
         <div>
-          <button value={productId} onClick={this.props.addItemToCart}>
+          <button value={product} onClick={this.props.addItemToCart}>
             Add to cart
           </button>
         </div>
@@ -45,8 +45,8 @@ const mapDispatchToProps = dispatch => {
   return {
     addItemToCart(evt){
       evt.preventDefault();
-      let productId = evt.target.value;
-      dispatch(addItemToCart(productId));
+      let product = evt.target.value;
+      dispatch(addItemToCart(product));
     }
   };
 };

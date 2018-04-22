@@ -13,7 +13,6 @@ function CartDetails(props) {
       </div>
       <div className="productOrderBox">
         {cart.map(product => {
-            let productId = product.id
           return (
             <div className="singleProductOrder" key={product.id}>
               <img src={product.img} />
@@ -22,7 +21,7 @@ function CartDetails(props) {
                 <p>{product.price}</p>
               </div>
               <div className="orderBtn">
-                <button type="submit" value={productId} onClick={props.removeItemFromCart}>Remove From Cart</button>
+                <button type="submit" value={product} onClick={props.removeItemFromCart}>Remove From Cart</button>
               </div>
             </div>
           );
@@ -43,8 +42,8 @@ const mapDispatchToProps = dispatch => {
   return {
     removeItemFromCart(evt) {
         evt.preventDefault();
-        let productId = evt.target.value
-      dispatch(removeItemFromCart(productId));
+        let product = evt.target.value
+      dispatch(removeItemFromCart(product));
     }
   };
 };
