@@ -153,6 +153,35 @@ div.productList .product h3 {
   color: #f9f9e8;
 }
 
+.singleProductPage {
+  display: flex;
+  flex-direction: row;
+  padding: 2em;
+  color: #351F39;
+}
+
+.singleProductPage img {
+  height: 20em;
+  width: 20em;
+  padding-right: 4em;
+}
+
+.singleProductPage h1 {
+  margin-top: 0;
+}
+
+.singleProductPage div.infoAndBtns {
+  display: flex;
+  flex-direction: column;
+  padding-right: 4em;
+}
+
+.singleProductPage div.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .cartIcon {
   display: flex;
   flex-direction: column;

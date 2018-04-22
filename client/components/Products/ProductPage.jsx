@@ -15,24 +15,24 @@ class ProductPage extends Component {
     return (
     <div>
       {product ?
-      <div className="productPage">
+      <div className="singleProductPage">
         <div className="imgBox">
           <img src={product.img} />
         </div>
-        <div className="contentBox">
-          <h3>{product.title}</h3>
-          <p>{product.description}</p>
-          <p>{product.price}</p>
+        <div className="infoAndBtns">
+          <div className="contentBox">
+            <h3>{product.title}</h3>
+            <p>{product.description}</p>
+            <p>{product.price}</p>
+          </div>
+          <div className="buttons">
+            <button value={product.id} onClick={this.props.addItemToCart}>
+              Add to cart
+            </button>
+          {this.props.user.isAdmin &&
+                <Link to={`/products/${product.id}/edit`}><button disabled={!this.props.user.isAdmin}>Edit</button></Link>}
+          </div>
         </div>
-        <div>
-          <button value={product.id} onClick={this.props.addItemToCart}>
-            Add to cart
-          </button>
-        </div>
-         {this.props.user.isAdmin &&
-          <div>
-              <Link to={`/products/${product.id}/edit`}><button disabled={!this.props.user.isAdmin}>Edit</button></Link>
-          </div>}
       </div> : <div className="alert">No product to display</div>
         }
         </div>
