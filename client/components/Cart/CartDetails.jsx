@@ -14,7 +14,6 @@ function CartDetails(props) {
       </div>
       <div className="productOrderBox">
         {cart.map(product => {
-          console.log("my product is", product)
           return (
             <div className="singleProductOrder" key={product.title}>
               <img src={product.img} />
@@ -23,14 +22,14 @@ function CartDetails(props) {
                 <p>{product.price}</p>
               </div>
               <div className="orderBtn">
-                <button type="submit" value={product.id} onClick={props.removeItemFromCart}>Remove From Cart</button>
+                <button type="submit" onClick={() => props.removeItemFromCart(product)}>Remove</button>
               </div>
             </div>
           );
         })}
       </div>
     </div> :
-    <div className="alert">There are no products to display!</div>
+    <div className="alert">Your Cart is Empty</div>
   );
 }
 
@@ -43,9 +42,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    removeItemFromCart(evt) {
-      evt.preventDefault();
-      dispatch(removeItemFromCart({ productId: evt.target.value }));
+    removeItemFromCart(product) {
+      dispatch(removeItemFromCart(product));
     }
   };
 };

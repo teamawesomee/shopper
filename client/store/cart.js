@@ -34,13 +34,12 @@ export const addItemToCart = (productId) => dispatch =>
     })
     .catch(err => console.log(err));
 
-export const removeItemFromCart = (productId) => {
-console.log(productId);
-return (dispatch) =>
+export const removeItemFromCart = (product) => {
+  return (dispatch) =>
   axios
-    .delete(`/api/cart`, productId)
-    .then(res => {
-      let action = removeFromCart(res.data);
+    .delete(`/api/cart/${product.id}`)
+    .then(() => {
+      let action = removeFromCart(product);
       dispatch(action);
     })
     .catch(err => console.log(err));

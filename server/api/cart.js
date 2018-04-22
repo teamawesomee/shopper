@@ -44,7 +44,6 @@ router.post('/', (req, res, next) => {
   if (req.session.passport && req.session.passport.user) {
 
     //Variables
-    console.log("req.body in add product is...", req.body)
     const userId = req.session.passport.user;
     const productId = req.body.productId;
     let alreadyPresent;
@@ -69,7 +68,11 @@ router.post('/', (req, res, next) => {
           }
           return myProduct;
         })
-        .then((product) => res.json(product)) //SEND THE PRODUCT THROUGH JSON
+        .then((cart) => {
+          const productId = cart[0][0].dataValues.productId;
+          Product.findById(productId)
+            .then((product) => res.json(product));
+        }) //SEND THE PRODUCT THROUGH JSON
         .catch(next) //AND CATCH ALL ERRORS
     })
   }
@@ -87,24 +90,29 @@ router.post('/', (req, res, next) => {
         let sessionId = guest[0].id
         let productId = req.body.productId;
         let myProduct;
-        console.log(productId)
         // Session.findOne({where: {sessionId: req.session.id}})
         //   .then(session => {sessionId = session.id})
         //   console.log(sessionId, productId)
-        SessionCart.findOne({where: {sessionId, productId}})
+        SessionCart.findOne({ where: { sessionId, productId } })
           .then(item => {
-            if (item) { //if it is
-              console.log("I am already present!")
-              myProduct = item.update({quantity: item.quantity + 1})
+            if (item) {
+              //if it is
+              console.log('I am already present!');
+              myProduct = item.update({ quantity: item.quantity + 1 });
             } //then increase the quantity of the thing by one
             /* IF THEY DO NOT ALREADY HAVE THE ITEM */
             else {
-              myProduct = guest[0].addProduct(+req.body.productId) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
+              myProduct = guest[0].addProduct(+req.body.productId); //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
             }
-            return myProduct
-          })    /* THEN */
-          .then((product) => res.json(product)) //SEND THE PRODUCT THROUGH JSON
-          .catch(next) //AND CATCH ALL ERRORS
+            return myProduct;
+          }) /* THEN */
+          .then(cart => {
+            const productId = cart[0][0].dataValues.productId;
+            Product.findById(productId).then(product =>
+              res.json(product)
+            );
+          }) //SEND THE PRODUCT THROUGH JSON
+          .catch(next); //AND CATCH ALL ERRORS
 
       })
   }
@@ -113,15 +121,12 @@ router.post('/', (req, res, next) => {
         /* DELETE ITEM FROM CART */
           /* ///////////// */
 
-router.delete('/', (req, res, next) => {
-  if (isLoggedIn) { //if the user is logged in
-    console.log("userId is...", req.session.passport.user);
-    console.log("req.body is...", req.body)
-    console.log("productId is...", req.body.productId)
+router.delete('/:productId', (req, res, next) => {
+  if (req.session.passport && req.session.passport.user) { //if the user is logged in
     Cart.destroy({
-      where: { //go into the user cart database
+      where: { //go into the user cart database3
         userId: req.session.passport.user,
-        productId: req.body.productId
+        productId: req.params.productId
       }
     })
     .then(() => res.status(204).send('Delete successful!'))
@@ -131,7 +136,7 @@ router.delete('/', (req, res, next) => {
     Cart.destroy({
       where: { //go into the guest database
         sessionId: req.session.id,
-        productId: req.body.productId
+        productId: req.params.productId
       }
     })
     .then(() => res.status(204).send('Delete Successful!'))
