@@ -45,7 +45,7 @@ router.post('/', (req, res, next) => {
 
     //Variables
     const userId = req.session.passport.user;
-    const productId = req.body.productId;
+    let productId = req.body.productId;
     let alreadyPresent;
 
 
@@ -71,10 +71,13 @@ router.post('/', (req, res, next) => {
 
           return item;
         })
-        .then(product => res.json(product)) //SEND THE PRODUCT THROUGH JSON
+        .then((cart) => {
+          productId = cart[0][0].dataValues.productId;
+          Product.findById(productId)
+            .then((product) => res.json(product));
+        }) //SEND THE PRODUCT THROUGH JSON
         .catch(next) //AND CATCH ALL ERRORS
     })
-
   }
             /* ///////////////// */
           /* ELSE IF THE USER IS NOT LOGGED IN */
@@ -102,23 +105,27 @@ router.post('/', (req, res, next) => {
             }
             return item
           })    /* THEN */
-          .then((product) => res.json(product)) //SEND THE PRODUCT THROUGH JSON
+          .then(cart => {
+            productId = cart[0][0].dataValues.productId;
+            Product.findById(productId).then(product =>
+              res.json(product)
+            );
+          }) //SEND THE PRODUCT THROUGH JSON //SEND THE PRODUCT THROUGH JSON
           .catch(next) //AND CATCH ALL ERRORS
 
       })
-
   }
 })
             /* /////////// */
         /* DELETE ITEM FROM CART */
           /* ///////////// */
 
-router.delete('/', (req, res, next) => {
-  if (isLoggedIn) { //if the user is logged in
+router.delete('/:productId', (req, res, next) => {
+  if (req.session.passport && req.session.passport.user) { //if the user is logged in
     Cart.destroy({
-      where: { //go into the user cart database
+      where: { //go into the user cart database3
         userId: req.session.passport.user,
-        productId: req.body.product.id
+        productId: req.params.productId
       }
     })
     .then(() => res.status(204).send('Delete successful!'))
@@ -128,7 +135,7 @@ router.delete('/', (req, res, next) => {
     Cart.destroy({
       where: { //go into the guest database
         sessionId: req.session.id,
-        productId: req.body.product.id
+        productId: req.params.productId
       }
     })
     .then(() => res.status(204).send('Delete Successful!'))
