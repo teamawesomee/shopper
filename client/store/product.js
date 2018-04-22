@@ -7,7 +7,7 @@ import history from '../history'
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const EDIT_PRODUCT = 'EDIT_PRODUCT'
-const GET_PRODUCT = 'GET_PRODUCT'
+
 
 /**
  * INITIAL STATE
@@ -20,7 +20,6 @@ const productsArray = []
 const getProducts = products => ({type: GET_PRODUCTS, products})
 const addProduct = product => ({type: ADD_PRODUCT, product})
 const editedProduct = product => ({type: EDIT_PRODUCT, product})
-const getOneProduct = product => ({type: GET_PRODUCT, product})
 
 /**
  * THUNK CREATORS
@@ -30,8 +29,7 @@ export const getAllProducts = () =>
 dispatch =>
   axios.get('/api/products')
     .then(res => {
-      let action = getProducts(res.data)
-      dispatch(action)})
+      dispatch(getProducts(res.data))})
     .catch(err => console.log(err))
 
     //should be for admins only
