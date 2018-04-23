@@ -6,9 +6,9 @@ const { Product, User } = require('./index');
 const Order = db.define('order', {
   address: {
     type: Sequelize.STRING,
-    validate: {
-      isAlphanumeric: true
-    }
+    // validate: {
+    //   isAlphanumeric: true
+    // }
   },
   email: {
     type: Sequelize.STRING,
