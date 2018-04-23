@@ -19,7 +19,10 @@
     height: 0.5em;
   }
   nav {
-    padding-left:1.2rem;
+    padding-left:.5rem;
+    @media (min-width: 700px) {
+      padding-left: 1.2rem;
+    }
     background-color: $blue;
     border-bottom:10px solid $purple;
     height:4rem;
