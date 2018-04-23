@@ -21,13 +21,22 @@ const AuthForm = (props) => {
             <label htmlFor="password"><small>Password</small></label>
             <input name="password" type="password" />
           </div>
-          <div>
+          <div className="loginButton">
             <button type="submit">{displayName}</button>
           </div>
         </div>
-          {error && error.response && <div className="alert"> <p>{error.response.data}</p> </div>}
+          {error && error.response && <div className="alertHolder">
+          <div className="alert"> <p>{error.response.data}</p> </div>
+          </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      <div className="titleHolder">
+        <h3>-OR-</h3>
+      </div>
+      <div className="alertHolder">
+        <div className="alert happy">
+          <a href="/auth/google">{displayName} with Google</a>
+        </div>
+      </div>
     </div>
   )
 }

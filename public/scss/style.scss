@@ -4,6 +4,7 @@
 @import "OrderBox";
 @import "orderPage";
 @import "header";
+@import "ProductPage";
 
 html {
   box-sizing: border-box;
@@ -45,15 +46,17 @@ div.productList {
   height: 90vh;
   justify-content: center;
   flex-flow: row wrap;
+  align-content: flex-start;
   width: 100%;
   .product {
-    height: 30%;
+    height: 33%;
     margin-top: 2em;
     margin-left: .5em;
     margin-right: .5em;
     padding:1rem;
+    padding-top: 2px;
     flex: 0 1 auto;
-    width: 200px;
+    width: 250px;
     display: flex;
     flex-direction:column;
     border: 6px solid $purple;
@@ -68,7 +71,7 @@ div.productList {
   }
 }
 
-.productPage {
+.productList.page {
   padding:2em;
   color: $darkpurple;
   h1 {
@@ -87,43 +90,50 @@ div.productList {
   display: flex;
   flex-direction: column;
   align-items: center;
-  img {
-    height: 5em;
-    width: 5em;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  .imgBox {
+    flex: 1 1 auto;
+    // height: 5em;
+    // width: 5em;
+    img {
+      height: 8rem;
+      width: auto;
+      // height: 100%;
+      // width: auto;
+    }
+
   }
   .contentBox {
+    flex: 1 1 auto;
     color: $darkpurple;
+    height:25%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: space-between;
+    h3 {
+      flex: 2 2 auto;
+      margin-bottom: 0;
+    }
+    p {
+      flex: 1 1 auto;
+    }
   }
 }
 
 
-
-
-
-.singleProductPage {
-  display: flex;
-  flex-direction: row;
+.productPage {
   padding:2em;
-  color: $darkpurple;
-  img {
-    height: 20em;
-    width: 20em;
-    padding-right: 4em;
-  }
-  h1 {
-    margin-top: 0;
-  }
-  div.infoAndBtns {
-    display: flex;
-    flex-direction: column;
-    padding-right: 4em;
-  }
-  div.buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
 }
+
+button.addProduct {
+  font-size: 1rem;
+}
+
+
+
 
 .cartIcon {
   display: flex;

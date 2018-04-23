@@ -7,6 +7,9 @@
   align-items: center;
   color:$purple;
   padding-top:4rem;
+  &.success {
+    padding-top: 2rem;
+  }
 }
 div.alert {
   background-color: $purple;
@@ -20,6 +23,15 @@ div.alert {
   justify-content: center;
   text-align: center;
   padding:1em;
+  &.success, &.happy {
+    background-color:$blue;
+  }
+  a {
+    color: $ivory;
+    &:visited {
+      color: $ivory;
+    }
+  }
 }
 
 .productPage {

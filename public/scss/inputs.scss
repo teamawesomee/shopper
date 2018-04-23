@@ -52,14 +52,14 @@ button {
   padding-right:1rem;
   background-color:$button-background;
   color:$button-text-color;
+  transition: outline .1s;
+  -webkit-transition: outline .1s;
+  &:focus {
+    outline: 3px solid $bluegreen;
+  }
 }
 
-button.login {
-  background-color:$button-background;
-  color:$input-text-color;
-  padding:1rem;
-  border: 3px solid $darkpurple;
-}
+
 
         /* FOR ALL SMALL FORMS ON A PAGE WITH OTHER STUFF */
 .formContainer {
@@ -69,6 +69,23 @@ button.login {
   color:$button-text-color;
   @media (max-width:700px) {
     flex-direction: column;
+  }
+  div.loginButton {
+    width:120px;
+    display: flex;
+    justify-content:center;
+    flex-direction:column;
+    button.login {
+      flex: 1 1 auto;
+      background-color:$button-background;
+      color:$input-text-color;
+      border: 3px solid $darkpurple;
+      padding:1rem;
+      border: 3px solid $darkpurple;
+      &:active {
+        outline: $ivory;
+      }
+    }
   }
   .inputSurround {
 
@@ -114,6 +131,7 @@ button.login {
     -webkit-transition: width .5s;
     transition: width .5s;
     width:100%;
+    justify-content:center;
     @media (min-width:500px) {
       width:90%;
       padding:1rem;
