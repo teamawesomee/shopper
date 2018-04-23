@@ -7,10 +7,10 @@ function OrderBox (props){
     return (
       <div className="orderBox">
         <div className="headerBox">
-          <h3>Order Id: {order.id}</h3>
-          <h3>Address: {order.address}</h3>
-          <h3>Email: {order.email}</h3>
-          <h3>{order.createdAt}</h3>
+          <h3 className="id">Order Id: {order.id}</h3>
+          <h3 className="address">Address: {order.address}</h3>
+          <h3 className="email">Email: {order.email}</h3>
+          <h3 className="createdAt">{order.createdAt}</h3>
         </div>
         <div className="productOrderBox">
             {products.map(product => {
