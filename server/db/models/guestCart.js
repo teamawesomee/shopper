@@ -12,8 +12,5 @@ const GuestCart = db.define('GuestCart', {
 
 })
 
-GuestCart.prototype.increaseQuantity = function(num) {
-  this.quantity = this.getDataValue('quantity') + num;
-}
 
 module.exports = GuestCart

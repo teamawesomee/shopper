@@ -6,6 +6,7 @@ module.exports = router;
               /* ////////// */
               /* GET CART */
               /* ///////// */
+//TO-DO: router.use to log in as a guest if there's no user.
 
 router.get('/', (req, res, next) => {
   console.log(req.session.id)
@@ -87,7 +88,8 @@ router.post('/', (req, res, next) => {
           /*THEN*/
       .then((guest) => {
         let guestId = guest[0].id
-
+//TO-DO: findorcreate with quantity of 0
+//guest cart could associate with the session id rather than guest
         GuestCart.findOne({where: {guestId, productId}})
           .then(item => {
             if (item) {
@@ -110,6 +112,8 @@ router.post('/', (req, res, next) => {
             /* /////////// */
         /* DELETE ITEM FROM CART */
           /* ///////////// */
+//TO-DO: middleware that calls/loads the cart
+//TO-DO: middleware that logs you in as a guest if you're not logged in
 
 router.delete('/:productId', (req, res, next) => {
   if (req.session.passport && req.session.passport.user) { //if the user is logged in

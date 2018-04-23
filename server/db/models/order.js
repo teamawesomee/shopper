@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 const { Product, User } = require('./index');
 
-
+//TO-DO: recommend simplifying if we run into too many errors
 const Order = db.define('order', {
   address: {
     type: Sequelize.STRING,
@@ -26,7 +26,7 @@ const Order = db.define('order', {
     type: Sequelize.ENUM('Pending', 'In Transit', 'Completed'),
     defaultValue: 'Pending'
   },
-  adminInCharge: {
+  adminInCharge: {  //TO-DO: Association
     type: Sequelize.INTEGER
   }
 })

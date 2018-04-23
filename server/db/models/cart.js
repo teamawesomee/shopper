@@ -12,8 +12,5 @@ const Cart = db.define('Cart', {
 
 });
 
-Cart.prototype.increaseQuantity = function(num) {
-  this.quantity = this.getDataValue('quantity') + num;
-}
 
 module.exports = Cart

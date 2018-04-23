@@ -25,11 +25,16 @@ const SessionDb = db.Session;
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
 // passport registration
-passport.serializeUser((user, done) => done(null, user.id))
-passport.deserializeUser((id, done) =>
-  db.models.user.findById(id)
+//TO-DO: Make this handle guest users
+//TO-DO: can change what model user is referencing
+
+passport.serializeUser((user, done) => done(null, JSON.stringify({model: user._modelOptions.name.singular, id: user.id})))
+passport.deserializeUser((json, done) =>{
+  const {model, id} = JSON.parse(json)
+  db.models[model].findById(id)
+//TO-DO: this means now we can log guests in
     .then(user => done(null, user))
-    .catch(done))
+    .catch(done)})
 
 const createApp = () => {
   // logging middleware
