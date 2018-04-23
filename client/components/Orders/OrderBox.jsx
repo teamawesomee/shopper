@@ -20,6 +20,7 @@ function OrderBox (props){
                         <div className="orderProductDetails">
                             <p>{product.title}</p>
                             <p>{product.price}</p>
+                            <p>{product.quantity}</p>
                         </div>
                         <div className="orderBtn">
                             <Link to={`/products/${product.id}`}>
