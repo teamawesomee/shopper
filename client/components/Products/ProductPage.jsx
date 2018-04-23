@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addItemToCart } from '../../store';
+import Reviews from '../Reviews'
 
 class ProductPage extends Component {
   constructor(props) {
@@ -50,10 +51,12 @@ class ProductPage extends Component {
           </div>
 
         </div>
+
       </div> : <div className="alert">No product to display</div>
         }
         {this.state.success ? <div className="alertHolder success"><div className="alert success"> <p>The item has been added to your cart!</p> </div></div> : null
         }
+        <Reviews product={product}/>
         </div>
     );
   }
