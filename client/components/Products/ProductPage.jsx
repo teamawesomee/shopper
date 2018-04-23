@@ -20,6 +20,7 @@ class ProductPage extends Component {
       return oneProduct.id === productId
     });
     product = product[0];
+    //TO-DO: make an instance method, move outside of render or react toast or add a reducer
     const onClickenzee = (evt) => {
       this.props.addItemToCart(evt)
       this.setState({success: true})
