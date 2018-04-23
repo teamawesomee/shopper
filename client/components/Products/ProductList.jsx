@@ -49,8 +49,11 @@ render (){
 
                       /* RETURN STATEMENT */
     return (
-      <div className="productPage">
-        <h1>Products</h1>
+      <div className="productList page">
+        <div className="titleHolder">
+          <h1>Products</h1>
+        </div>
+
         <form className="formContainer">
           <div className="inputSurround">
             <label htmlFor="searchValue">Search by name!</label>
@@ -71,7 +74,7 @@ render (){
             </div>
             {this.props.user.isAdmin &&
             <div>
-                <Link to='/addProduct'><button disabled={!this.props.user.isAdmin}>Add Product</button></Link>
+                <Link to='/addProduct'><button className="addProduct" disabled={!this.props.user.isAdmin}>Add Product</button></Link>
             </div>}
         </form>
                                   {/* PRODUCT LIST */}

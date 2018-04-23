@@ -1,0 +1,50 @@
+@import "variables";
+
+.productDetailBox {
+  display: flex;
+  flex-direction: row;
+  color: $darkpurple;
+  background-color: $ivory;
+  border: 10px solid $purple;
+  .imgBox{
+    flex: 0 1 auto;
+    height: 20rem;
+    width: 20rem;
+    display: flex;
+    margin-right: 4rem;
+    img {
+      flex: 0 1 auto;
+      width: 20rem;
+      padding: 1em;
+    }
+  }
+
+  h1 {
+    margin-top: 0;
+  }
+  div.infoAndBtns {
+    flex: 0 1 auto;
+    display: flex;
+    flex-direction: column;
+    // padding-right: 4em;
+    .contentBox {
+      font-size:1.2em;
+      padding:1em;
+      background-color:$ivory;
+      height: 50%;
+    }
+    div.buttons {
+      display: flex;
+      flex: 0 1 auto;
+      height: 50%;
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      button {
+        flex: 0 1 auto;
+      }
+    }
+  }
+
+}

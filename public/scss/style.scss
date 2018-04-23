@@ -1,6 +1,10 @@
 @import "variables";
 @import "inputs";
 @import "alerts";
+@import "OrderBox";
+@import "orderPage";
+@import "header";
+@import "ProductPage";
 
 html {
   box-sizing: border-box;
@@ -28,21 +32,31 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+div.page {
+  h1 {
+    margin-top: 0;
+  }
+}
 
 div.productList {
+  h3 {
+    height: 2em;
+  }
   display:flex;
   height: 90vh;
   justify-content: center;
   flex-flow: row wrap;
+  align-content: flex-start;
   width: 100%;
   .product {
-    height: 30%;
+    height: 33%;
     margin-top: 2em;
     margin-left: .5em;
     margin-right: .5em;
     padding:1rem;
+    padding-top: 2px;
     flex: 0 1 auto;
-    width: 200px;
+    width: 250px;
     display: flex;
     flex-direction:column;
     border: 6px solid $purple;
@@ -57,7 +71,7 @@ div.productList {
   }
 }
 
-.productPage {
+.productList.page {
   padding:2em;
   color: $darkpurple;
   h1 {
@@ -65,86 +79,71 @@ div.productList {
   }
 }
 
-
-.productList > h3 {
-  height: 2em;
-}
-
-.pageTopper {
-  padding-top: 1rem;
-  background-color:$ivory;
+.titleHolder {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   color:$purple;
-  width:100%;
-  div.header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  h1 {
-    padding-left:2rem;
-  }
-  padding-bottom:0;
-  img {
-    height: 0.5em;
-  }
-  nav {
-    background-color: $blue;
-    border-bottom:10px solid $purple;
-    a {
-    display: inline-block;
-    margin: 1em;
-    color: $ivory;
-    }
-    margin-bottom:0;
-  }
 }
 
 .productBox {
   display: flex;
   flex-direction: column;
   align-items: center;
-  img {
-    height: 5em;
-    width: 5em;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  .imgBox {
+    flex: 1 1 auto;
+    // height: 5em;
+    // width: 5em;
+    img {
+      height: 8rem;
+      width: auto;
+      // height: 100%;
+      // width: auto;
+    }
+
   }
   .contentBox {
+    flex: 1 1 auto;
     color: $darkpurple;
+    height:25%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: space-between;
+    h3 {
+      flex: 2 2 auto;
+      margin-bottom: 0;
+    }
+    p {
+      flex: 1 1 auto;
+    }
   }
 }
 
-.singleProductPage {
-  display: flex;
-  flex-direction: row;
+
+.productPage {
   padding:2em;
-  color: $darkpurple;
-  img {
-    height: 20em;
-    width: 20em;
-    padding-right: 4em;
-  }
-  h1 {
-    margin-top: 0;
-  }
-  div.infoAndBtns {
-    display: flex;
-    flex-direction: column;
-    padding-right: 4em;
-  }
-  div.buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
 }
+
+button.addProduct {
+  font-size: 1rem;
+}
+
+
+
 
 .cartIcon {
   display: flex;
   flex-direction: column;
   align-self: flex-end;
+  justify-content: center;
   p {
     position: absolute;
-    background-color: red;
-    color: white;
+    background-color:$bluegreen;
+    color: $ivory;
     width: 1.5em;
     height: 1.5em;
     border-radius: 50%;
@@ -161,37 +160,6 @@ div.productList {
   }
 }
 
-.formContainer {
-  display: flex;
-  flex-direction: row;
-  background-color:$blue;
-  color:$ivory;
-  @media (max-width:700px) {
-    flex-direction: column;
-  }
-  .inputSurround {
-    flex: 1 1 auto;
-    display:flex;
-    flex-direction: row;
-    align-items: center;
-    @media (max-width:500px) {
-      flex-direction: column;
-      align-items: flex-start;
-      label {
-        margin-bottom:.5em;
-      }
-    }
-    label {
-      margin-right: 2em;
-    }
-    input {
-      background-color:$ivory;
-    }
-    select {
-      width:80px;
-    }
-  }
-}
 
 .productPage {
     padding:2em;
@@ -208,43 +176,4 @@ div.productList {
   }
 }
 
-.orderBox {
-  display: flex;
-  flex-direction: column;
-  div.headerBox {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    border: 6px solid #726A95;
-    background-color: #f9f9e8;
-  }
-  div.productOrderBox {
-    display: flex;
-    flex-direction: column;
-    border: 6px solid #726A95;
-    div.singleProductOrder {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      img {
-      height: 150px;
-      width: 150px;
-      }
-      div.orderProductDetails {
-        padding: 1em;
-        width: 50%;
-      }
-      div.orderBtn {
-        justify-self: end;
-        padding: 2em;
-        button {
-          padding-left: 1rem;
-          padding-right: 1rem;
-          background-color: #726A95;
-          color: #f9f9e8;
-          cursor: pointer;
-        }
-      }
-    }
-  }
-}
+

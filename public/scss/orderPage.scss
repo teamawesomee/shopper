@@ -1,0 +1,12 @@
+@import "variables";
+
+.orderPage {
+  padding:2em;
+    div.orderList {
+    display: flex;
+    flex-direction: column;
+    div.order {
+      padding-bottom: 2em;
+    }
+  }
+}

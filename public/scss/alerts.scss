@@ -1,16 +1,37 @@
 @import "variables";
-
+.alertHolder {
+  width: 100%;
+  height: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:$purple;
+  padding-top:4rem;
+  &.success {
+    padding-top: 2rem;
+  }
+}
 div.alert {
   background-color: $purple;
   color: $ivory;
   width:50%;
   height: 4rem;
   font-size: 1.2rem;
+  flex: 0 1 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding:1em;
+  &.success, &.happy {
+    background-color:$blue;
+  }
+  a {
+    color: $ivory;
+    &:visited {
+      color: $ivory;
+    }
+  }
 }
 
 .productPage {

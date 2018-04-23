@@ -12,8 +12,21 @@ export const UserHome = (props) => {
     history.push('/login')
   }
   return (
-    <div>
-      <h3>Welcome, {email}</h3>
+    <div className="userHome">
+      <div className="head">
+        <h3>Welcome, {email}</h3>
+      </div>
+      <div className="body">
+        <div className="optionsBox">
+        <img></img>
+        <h5>Buy Products!</h5>
+        </div>
+        <div className="optionsBox">
+
+        </div>
+        <div className="optionsBox">
+        </div>
+      </div>
     </div>
   )
 }

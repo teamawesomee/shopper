@@ -29,7 +29,9 @@ function CartDetails(props) {
         })}
       </div>
     </div> :
-    <div className="alert">Your Cart is Empty</div>
+    <div className="alertHolder">
+      <div className="alert">Your Cart is Empty</div>
+    </div>
   );
 }
 
