@@ -16,9 +16,11 @@ const utilFuncs = {
     next()
   },
   isMine: function (req, res, next) {
-    if (req.user.id !== req.params.userId && !utilFuncs.isAdmin) {throwError(403, 'Forbidden')
-    .next()
+    console.log("here")
+    if (req.user.id !== req.params.userId && !utilFuncs.isAdmin) {
+      throwError(403, 'Forbidden')
   }
+  next()
   }
 }
 

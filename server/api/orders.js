@@ -19,13 +19,15 @@ router.get('/', isAdmin, (req, res, next) => {
 
 /* GET ORDERS BY USER */
 
-router.get('/:userId', isMine || isAdmin, (req, res, next) => {
+router.get('/:userId', isMine, (req, res, next) => {
+  console.log("HELLLLOOOOO")
   Order.findAll({
     where: {userId: req.params.userId},
     include: [{ model: Product }, { model: User }]
   })
     //Order.getAllOrders()
     .then(orders => {
+      console.log("orders:", orders)
       return res.json(orders);
     })
     .catch(next);
@@ -40,16 +42,16 @@ router.post('/', (req, res, next) => {
 });
 
 /* GET SINGLE ORDER BY ID */
-router.get(':orderId', (req, res, next) => {
-  Order.findById(req.params.orderId, {
-    include: [{
-      model: Product
-    },
-    {model: User}]
-  })
-  .then(order => res.json(order))
-  .catch(next);
-})
+// router.get(':orderId', (req, res, next) => {
+//   Order.findById(req.params.orderId, {
+//     include: [{
+//       model: Product
+//     },
+//     {model: User}]
+//   })
+//   .then(order => res.json(order))
+//   .catch(next);
+// })
 
 
         /* ADMIN UPDATES ORDER STATUS */
