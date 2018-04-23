@@ -72,10 +72,13 @@ div.productList {
 }
 
 .productList.page {
-  padding:2em;
+  padding:1em;
   color: $darkpurple;
   h1 {
     margin-top: 0;
+  }
+  @media (min-width: 500px) {
+    padding:2em;
   }
 }
 
@@ -162,7 +165,10 @@ button.addProduct {
 
 
 .productPage {
-    padding:2em;
+    padding:1em;
+    @media(min-width: 700px) {
+      padding:2em;
+    }
 }
 
 .orderPage {

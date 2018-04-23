@@ -39,43 +39,39 @@ router.get('/', (req, res, next) => {
           /* //////////// */
 
 router.post('/', (req, res, next) => {
+  let num = req.body.productQuantity || 1;
+  let productId = req.body.productId;
 
                 /* IF THE USER IS LOGGED IN*/
   if (req.session.passport && req.session.passport.user) {
 
     //Variables
     const userId = req.session.passport.user;
-    let productId = req.body.productId;
-    let alreadyPresent;
-
 
     User.findById(userId)  //FIND THE USER
               /* THEN */
     .then((user) => {
-      Cart.findOne({where: {userId, productId}})
-        .then(item => { //Find out if the item is already present
+      Cart.findOne({where: {userId, productId}} )
+        .then(item => {
+          console.log(item)
                         /* IF THE ITEM IS ALREADY PRESENT*/
-          if (item.quantity >= 1) {
-            const num = 1
-            item.quantity += num;
+          if (item) {
+            console.log("my quantity is", item.quantity)
+            item = item.update({quantity: item.getDataValue('quantity') + num})
+            res.json(item.Cart)
           } //then increase the quantity of the thing by one
 
                 /* IF IT IS NOT ALREADY PRESENT */
           else {
-          user.addProduct(productId)
-            .then(returned => {console.log("this is what I am getting back", returned)}) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
-          Product.findById(itemId)
-            .then(foundItem => {item = foundItem})
+            user.addProduct(productId)
+              .then(returned => res.json(returned[0][0].Cart)) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
           }
-          console.log("my product is", item)
-
-          return item;
         })
-        .then((cart) => {
-          productId = cart[0][0].dataValues.productId;
-          Product.findById(productId)
-            .then((product) => res.json(product));
-        }) //SEND THE PRODUCT THROUGH JSON
+        // .then((cart) => {
+        //   productId = cart[0][0].dataValues.productId;
+        //   Product.findById(productId)
+        //     .then((product) => res.json(product));
+        // }) //SEND THE PRODUCT THROUGH JSON
         .catch(next) //AND CATCH ALL ERRORS
     })
   }
@@ -91,26 +87,21 @@ router.post('/', (req, res, next) => {
           /*THEN*/
       .then((guest) => {
         let guestId = guest[0].id
-        let productId = req.body.productId;
-        console.log(productId)
+
         GuestCart.findOne({where: {guestId, productId}})
           .then(item => {
-            if (item) { //if it is
-              const num = 1
-                item.quantity += num
-            } //then increase the quantity of the thing by one
+            if (item) {
+              /* IF THE ITEM IS ALREADY IN THE CART */
+              item = item.update({quantity: item.getDataValue('quantity') + num}) //then increase the quantity of the thing by one
+              res.json(item)
+            }
+
             /* IF THEY DO NOT ALREADY HAVE THE ITEM */
             else {
-              item = guest[0].addProduct(+req.body.productId) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
+              item = guest[0].addProduct(+req.body.productId) //add product to cart
+              res.json(item) //return product through json
             }
-            return item
-          })    /* THEN */
-          .then(cart => {
-            productId = cart[0][0].dataValues.productId;
-            Product.findById(productId).then(product =>
-              res.json(product)
-            );
-          }) //SEND THE PRODUCT THROUGH JSON //SEND THE PRODUCT THROUGH JSON
+          })
           .catch(next) //AND CATCH ALL ERRORS
 
       })
