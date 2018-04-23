@@ -7,8 +7,7 @@ module.exports = router;
 
 router.get('/', (req, res, next) => {
   Product.findAll()
-    .then(products => {
-      return res.json(products)} )
+    .then(products => res.json(products) )
     .catch(next);
 });
 
@@ -17,7 +16,7 @@ router.post('/', isLoggedIn, isAdmin, (req, res, next) => {
     delete req.body.img
   }
   Product.create(req.body)
-    .then(product => res.json(product))
+    .then(product => res.status(201).json(product))
     .catch(next);
 });
 

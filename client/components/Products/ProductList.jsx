@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ProductBox from './ProductBox.jsx';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getAllProducts} from '../../store/product';
 
 class ProductList extends Component {
   constructor(props) {
@@ -11,36 +10,19 @@ class ProductList extends Component {
       searchValue: '',
       selectedCategory: 'All'
     }
-    //binding our methods
-    this.handleChange = this.handleChange.bind(this);
-    this.catHandler = this.catHandler.bind(this);
-
   }
 
-  componentDidMount(){
-    this.props.getAll();
-  }
 
                               /* METHODS */
 
-
-handleChange(event) {
+handleChange = (event) => {
     this.setState({
         [event.target.name]: event.target.value
     })
 }
 
-catHandler(event){
-  this.setState({
-    selectedCategory: event.target.value
-  })
-}
-
-
-
                                 /* JSX */
-  render() {
-
+render (){
     let products = this.props.products
     //if the selected category is not 'all', the "products" variable only includes items that are of the selected category
     if (this.state.selectedCategory != 'All'){
@@ -76,8 +58,8 @@ catHandler(event){
           </div>
 
           <div className="inputSurround">
-              <label htmlFor="prodCategory">Filter by Category</label>
-              <select name ="prodCategory" onChange={this.catHandler}>
+              <label htmlFor="selectedCategory">Filter by Category</label>
+              <select name ="selectedCategory" onChange={this.handleChange}>
                 <option value = "All">All</option>
                 {/* this maps through our product categories within the dropdown selector */}
                 {prodCategories.map((cat, idx) => {
@@ -94,26 +76,15 @@ catHandler(event){
         </form>
                                   {/* PRODUCT LIST */}
         <div className="productList">
-          { filteredProducts ? filteredProducts.map(product => { //if filteredProducts is not empty map through it
+          {filteredProducts.map(product => { //if filteredProducts is not empty map through it
             return (
               <Link to={`/products/${product.id}`} key={product.title} className="product">
                 <ProductBox product={product}  />
               </Link>
             )
-          }) : products.map(product => { //if filteredProducts is empty map through products!
-            return (
-              <Link to={`/products/${product.id}`} key={product.title} className="product">
-                <ProductBox product={product} key={product.title} />
-              </Link>
-            )
-          })
-          }
+          })}
           {filteredProducts.length === 0 && searchValue && <div className="alert"> <p>Sorry, there are no products that match your search!</p> </div>}
-
-
         </div>
-
-
       </div>
     );
   }
@@ -122,13 +93,4 @@ catHandler(event){
 // -----containers-----
 
 const mapState = (state) => ({...state});
-const mapDispatch = (dispatch) => {
-   return {getAll() {
-    dispatch(getAllProducts())
-  }}
-}
-
-
-
-
-export default connect(mapState, mapDispatch)(ProductList);
+export default connect(mapState, null)(ProductList);
