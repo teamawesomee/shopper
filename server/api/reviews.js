@@ -37,23 +37,15 @@ router.get('/product/:productId', (req, res, next) => {
   Review.findAll({
     where: {productId: req.params.productId}
   })
-    .then(reviews => {
-      return res.status(200).json(reviews);
-    })
+    .then(reviews => res.status(200).json(reviews))
     .catch(next);
 });
 
 
   /* SUBMIT REVIEW */
 router.post('/', (req, res, next) => {
-  Promise.all(User.findById(req.body.userId, Product.findById(req.body.productId)))
-  .then(promised => promised[0].addProduct(promised[1]))
-  .then(review => {
-    review.rating = req.body.rating
-    review.title = req.body.title
-    review.message = req.body.message
-    return review.save()
-  })
+  console.log(req.body)
+  Review.create(req.body)
   .then(review => res.status(200).json(review))
   .catch(next);
 });

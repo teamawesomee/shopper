@@ -16,6 +16,12 @@ const Review = db.define('review', {
   },
   message: {
     type: Sequelize.TEXT
+  },
+  userId: {
+    type: Sequelize.INTEGER
+  },
+  productId: {
+    type: Sequelize.INTEGER
   }
 
 });

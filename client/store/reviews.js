@@ -37,7 +37,7 @@ export const addReview = (review) => dispatch =>{
 }
 
 export const getAllProdReviews = (productId) => dispatch =>{
-  axios.get(`/api/reviews/${productId}`)
+  axios.get(`/api/reviews/product/${productId}`)
     .then(res => {
       dispatch(getProdReviews(res.data))
     })
