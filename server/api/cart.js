@@ -8,7 +8,6 @@ module.exports = router;
               /* ///////// */
 
 router.get('/', (req, res, next) => {
-  console.log(req.session.id)
   if (req.session.passport && req.session.passport.user) {
     let userId = req.session.passport.user;
     User.findById(userId, {
@@ -53,25 +52,30 @@ router.post('/', (req, res, next) => {
     .then((user) => {
       Cart.findOne({where: {userId, productId}} )
         .then(item => {
-          console.log(item)
                         /* IF THE ITEM IS ALREADY PRESENT*/
           if (item) {
-            console.log("my quantity is", item.quantity)
-            item = item.update({quantity: item.getDataValue('quantity') + num})
-            res.json(item.Cart)
+            item.update({quantity: item.getDataValue('quantity') + num})
+            .then((updatedItem) => {
+              let productId = updatedItem.productId;
+              Product.findById(productId).then(product => {
+                console.log('product is...', product);
+                res.json(product); //return product through json
+              });
+            })
           } //then increase the quantity of the thing by one
 
                 /* IF IT IS NOT ALREADY PRESENT */
           else {
             user.addProduct(productId)
-              .then(returned => res.json(returned[0][0].Cart)) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
+              .then(returned => {
+                let productId = returned[0][0].productId;
+                Product.findById(productId).then(product => {
+                  console.log("product is...", product)
+                  res.json(product); //return product through json
+                });
+              }) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
           }
         })
-        // .then((cart) => {
-        //   productId = cart[0][0].dataValues.productId;
-        //   Product.findById(productId)
-        //     .then((product) => res.json(product));
-        // }) //SEND THE PRODUCT THROUGH JSON
         .catch(next) //AND CATCH ALL ERRORS
     })
   }
@@ -87,22 +91,36 @@ router.post('/', (req, res, next) => {
           /*THEN*/
       .then((guest) => {
         let guestId = guest[0].id
-
-        GuestCart.findOne({where: {guestId, productId}})
+        GuestCart.findOne({ where: { guestId, productId } })
           .then(item => {
+            /* IF THE ITEM IS ALREADY PRESENT*/
             if (item) {
-              /* IF THE ITEM IS ALREADY IN THE CART */
-              item = item.update({quantity: item.getDataValue('quantity') + num}) //then increase the quantity of the thing by one
-              res.json(item)
-            }
+              item
+                .update({
+                  quantity: item.getDataValue('quantity') + num
+                })
+                .then(updatedItem => {
+                  let productId = updatedItem.productId;
+                  Product.findById(productId).then(product => {
+                    console.log('product is...', product);
+                    res.json(product); //return product through json
+                  });
+                });
+            } //then increase the quantity of the thing by one
 
             /* IF THEY DO NOT ALREADY HAVE THE ITEM */
             else {
-              item = guest[0].addProduct(+req.body.productId) //add product to cart
-              res.json(item) //return product through json
+              guest[0]
+                .addProduct(+req.body.productId) //add product to cart
+                .then(cart => {
+                  let productId = cart[0][0].productId;
+                  Product.findById(productId).then(product => {
+                    res.json(product); //return product through json
+                  });
+                });
             }
           })
-          .catch(next) //AND CATCH ALL ERRORS
+          .catch(next); //AND CATCH ALL ERRORS
 
       })
   }
@@ -123,6 +141,8 @@ router.delete('/:productId', (req, res, next) => {
     .catch(next)
 
   } else { //if they are a guest user
+    console.log("guestId is...", req.session.id)
+    console.log("productId is...", req.params.productId)
     GuestCart.destroy({
       where: { //go into the guest database
         guestId: req.session.id,
