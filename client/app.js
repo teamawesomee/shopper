@@ -1,15 +1,15 @@
 import React from 'react'
 
-import {Navbar} from './components'
-import Routes from './routes'
+
+import StripeElement from './stripe.js';
+import { StripeProvider } from 'react-stripe-elements';
 
 
 const App = () => {
   return (
-    <div>
-      <Navbar />
-      <Routes />
-    </div>
+    <StripeProvider apiKey='pk_test_I4irKTfvhc4aXA6UzFIOvueM'>
+      <StripeElement />
+    </StripeProvider>
   )
 }
 

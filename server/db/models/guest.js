@@ -3,7 +3,7 @@ const db = require('../db');
 
 
 const Guest = db.define('guest', {
-  guestId: {
+  guestSessionId: {
     type: Sequelize.STRING,
     unique: true
   }
