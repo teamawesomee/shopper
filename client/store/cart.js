@@ -30,8 +30,7 @@ export const addItemToCart = (productId) => dispatch =>
   axios
     .post(`/api/cart`, productId)
     .then(res => {
-      console.log("My res.data is", res.data)
-      let action = addToCart(res.data);
+      let action = getCart(res.data);
       dispatch(action);
     })
     .catch(err => console.log(err));
@@ -47,15 +46,18 @@ export const removeItemFromCart = (product) => {
     .catch(err => console.log(err));
   }
 
-export const getTheCart = () => dispatch =>
+export const getTheCart = () => dispatch => {
+    console.log("in get cart thunk")
     axios
       .get('/api/cart')
       .then(res => {
-        console.log(res.data)
+        console.log("res is...", res)
+        console.log("res.data is...", res.data)
         let action = getCart(res.data);
         dispatch(action);
       })
       .catch(err => console.log(err))
+    }
 
 export const clearCurrentCart = () => dispatch => {
   let action = clearCart();
@@ -70,7 +72,6 @@ export default function(state = cart, action) {
     case GET_CART:
       return action.cart;
     case ADD_TO_CART:
-    console.log(cart)
       return [...state, action.product];
     case REMOVE_FROM_CART:
       return [...state.filter(product => product.id !== action.product.id)];

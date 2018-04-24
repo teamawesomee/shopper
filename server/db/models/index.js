@@ -28,11 +28,9 @@ Guest.belongsToMany(Product, {through: 'GuestCart'})
 Product.belongsToMany(Order, {through: 'LineItem'})
 Order.belongsToMany(Product, {through: 'LineItem'})
 
-User.belongsToMany(Product, {through: 'review'}) //why are we capital casing the other ones?
-Product.belongsToMany(User, {through: 'review'})
+// User.belongsToMany(Product, {through: 'review'}) //why are we capital casing the other ones?
+// Product.belongsToMany(User, {through: 'review'})
 
-Guest.belongsToMany(Product, {through: 'guestcart'})//should I have separated this by a dash?
-Product.belongsToMany(Guest, {through: 'guestcart'})
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,

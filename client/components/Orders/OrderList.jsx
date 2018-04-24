@@ -16,7 +16,6 @@ class OrderList extends Component {
 
   render (){
     const orders = this.props.orders;
-    console.log("my orders are", orders)
 
     return (
       <div className="orderPage page">

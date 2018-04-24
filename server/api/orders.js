@@ -26,7 +26,6 @@ router.get('/:userId', isMine, (req, res, next) => {
   })
     //Order.getAllOrders()
     .then(orders => {
-      console.log("orders:", orders)
       return res.json(orders);
     })
     .catch(next);
