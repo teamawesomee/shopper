@@ -11,43 +11,19 @@ const Review = db.define('review', {
       max: 5
     }
   },
-  title: Sequelize.STRING,
+  title: {
+    type: Sequelize.STRING
+  },
   message: {
     type: Sequelize.TEXT
+  },
+  userId: {
+    type: Sequelize.INTEGER
+  },
+  productId: {
+    type: Sequelize.INTEGER
   }
 
 });
-
-Review.addNewReview = function(submittedReview) {
-    let myReview = Review.create({
-      rating: submittedReview.rating,
-      title: submittedReview.title,
-      message: submittedOrder.message
-    });
-
-    //whichever one the order has, will be given a real value
-    let userId = submittedReview.userId
-    let guestId = null;
-
-    if (!userId) {
-      guestId = submittedReview.guestId
-    }
-
-
-    let prod = submittedReview.product; //this will be an array
-
-    //sets the associated user
-    if (userId) {
-      myReview.setUser(userId);
-    }
-    else {
-      myReview.setGuest(guestId);
-    }
-    //sets the associated products in line items
-    myReview.addProduct(prod)
-
-    return myReview;
-
-  }
 
 module.exports = Review
