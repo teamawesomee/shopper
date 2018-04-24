@@ -6,7 +6,6 @@ const Guest = require('./guest')
 const GuestCart = require('./guestCart')
 const LineItem = require('./lineItem')
 const Review = require('./review')
-const GuestReview = require('./guestReview')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -28,12 +27,6 @@ Guest.belongsToMany(Product, {through: 'GuestCart'})
 Product.belongsToMany(Order, {through: 'LineItem'})
 Order.belongsToMany(Product, {through: 'LineItem'})
 
-User.belongsToMany(Product, {through: 'review'}) //why are we capital casing the other ones?
-Product.belongsToMany(User, {through: 'review'})
-
-Guest.belongsToMany(Product, {through: 'guestcart'})//should I have separated this by a dash?
-Product.belongsToMany(Guest, {through: 'guestcart'})
-
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
@@ -49,5 +42,4 @@ module.exports = {
   GuestCart,
   LineItem,
   Review
-
 }

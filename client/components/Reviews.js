@@ -61,6 +61,7 @@ export class Reviews extends Component {
               <textarea name="message" type="textbox"/>
             </div>
             <input type = "hidden" name="userId" value={this.props.user.id} />
+            <input type = "hidden" name="productId" value={this.props.product.id} />
             <div className="buttonholder">
               <button type="submit">Submit Review</button>
             </div>
@@ -84,7 +85,8 @@ const mapDispatch = (dispatch) => {
       const title = event.target.title.value;
       const message = event.target.message.value;
       const userId = event.target.userId.value
-      const newReview = { userId, rating, title, message}
+      const productId = event.target.productId.value
+      const newReview = { userId, productId, rating, title, message}
       dispatch(addReview(newReview))
     },
     getReviews(productId){
