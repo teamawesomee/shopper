@@ -56,10 +56,9 @@ export const addNewOrder = (order) => dispatch =>
 //should be connecting to the admin route
 export const editOneOrder = (order) => dispatch =>
   axios
-    .put(`/api/orders/${order.id}`, order)
+    .put(`/api/orders/${order.id}/updateStatus`, order)
     .then(res => {
       dispatch(editOrder(res.data));
-      history.push('/home');
     });
 
 
