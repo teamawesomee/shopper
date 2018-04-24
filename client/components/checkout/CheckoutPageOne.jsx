@@ -21,7 +21,7 @@ class CheckoutPageOne extends Component {
           </div>
           <div className="inputSurround">
             <label htmlFor="email">Email</label>
-            <input name="email" type="text" value={this.state.email}/>
+            <input name="email" type="text" value={this.state.email} />
           </div>
           {/* <div className="inputSurround">
             <label htmlFor=""></label>
@@ -34,14 +34,24 @@ class CheckoutPageOne extends Component {
           <div className="inputSurround">
             <label htmlFor=""></label>
             <input type="text" value=""/>
-          </div>
-          <div className="buttonholder">
-            <button>Move on!</button>
-          </div> */}
+    </div> */}
+            <div className="buttonholder">
+              <button type="submit" onClick={this.props.onClick}>Move on!</button>
+            </div>
         </form>
       </div>
     );
   }
 }
+
+// mapStateToProps() {
+
+// }
+
+// mapDispatch() {
+
+// }
+
+
 
 export default CheckoutPageOne;

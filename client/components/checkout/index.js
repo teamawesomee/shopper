@@ -36,6 +36,7 @@ function CheckoutPage() {
               <CheckoutPageOne />
               {/* <CheckoutPageTwo /> */}
             {/* </Elements> */}
+
           </div>
         </div>
       </div>

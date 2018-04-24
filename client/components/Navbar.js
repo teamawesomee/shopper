@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import {logout, clearCurrentCart} from '../store'
 import CartIcon from './Cart/CartIcon.jsx'
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
@@ -48,6 +48,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     handleClick() {
+      dispatch(clearCurrentCart())
       dispatch(logout())
     }
   }

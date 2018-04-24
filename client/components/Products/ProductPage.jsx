@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addItemToCart } from '../../store';
+import { addItemToCart, deleteProd } from '../../store';
+import Reviews from '../Reviews'
 
 class ProductPage extends Component {
   constructor(props) {
@@ -9,25 +10,24 @@ class ProductPage extends Component {
     this.state = {
       success: false
     }
+    this.onClickenzee = this.onClickenzee.bind(this)
   }
 
-
-  render() {
-    const productId = +this.props.match.params.productId;
-    const products = this.props.products;
-
-    let product = products.filter(oneProduct => {
-      return oneProduct.id === productId
-    });
-    product = product[0];
-    const onClickenzee = (evt) => {
+  onClickenzee = (evt) => {
       this.props.addItemToCart(evt)
       this.setState({success: true})
       setTimeout(() => {
         this.setState({success: false})
       }, 3000)
-
     }
+
+  render() {
+    const productId = +this.props.match.params.productId;
+    const products = this.props.products;
+    let product = products.filter(oneProduct => {
+      return oneProduct.id === productId
+    });
+    product = product[0];    
     return (
     <div className="productPage">
       {product ?
@@ -42,18 +42,22 @@ class ProductPage extends Component {
             <p>{product.price}</p>
           </div>
           <div className="buttons">
-            <button value={product.id} onClick={onClickenzee}>
+            <button value={product.id} onClick={this.onClickenzee}>
               Add to cart
             </button>
           {this.props.user.isAdmin &&
-                <Link to={`/products/${product.id}/edit`}><button disabled={!this.props.user.isAdmin}>Edit</button></Link>}
+                <Link to={`/products/${product.id}/edit`}><button disabled={!this.props.user.isAdmin}>Edit Product</button></Link>}
+          {this.props.user.isAdmin &&
+                <button onClick ={(evt) => this.props.clickHandler(evt, product)} disabled={!this.props.user.isAdmin}>Delete Product</button>}
           </div>
 
         </div>
+
       </div> : <div className="alert">No product to display</div>
         }
         {this.state.success ? <div className="alertHolder success"><div className="alert success"> <p>The item has been added to your cart!</p> </div></div> : null
         }
+        <Reviews product={product}/>
         </div>
     );
   }
@@ -65,6 +69,10 @@ const mapDispatchToProps = dispatch => {
     addItemToCart(evt){
       evt.preventDefault();
       dispatch(addItemToCart({productId: evt.target.value}))
+    },
+    clickHandler(evt, product){
+      evt.preventDefault();
+      dispatch(deleteProd(product))
     }
   };
 };

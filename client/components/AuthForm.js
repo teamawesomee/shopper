@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {auth, me} from '../store'
+import {auth, me, getTheCart} from '../store'
 
 /**
  * COMPONENT
@@ -72,6 +72,7 @@ const mapDispatch = (dispatch) => {
       const email = evt.target.email.value
       const password = evt.target.password.value
       dispatch(auth(email, password, formName))
+      dispatch(getTheCart())
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
     }
   }
