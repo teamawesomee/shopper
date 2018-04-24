@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 function OrderBox (props){
     const order = props.order;
+    console.log("props:", props)
     console.log("ORDER:", props.order)
     console.log("ORDER PRODUCTS:", props.order.products)
     const products = order.products;

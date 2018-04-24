@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Order, Product, User } = require('../db/models');
+const { Order, Product, User, LineItem } = require('../db/models');
 const { isMine, isAdmin } = require('../../utils');
 
 module.exports = router;
@@ -8,7 +8,7 @@ module.exports = router;
 
 router.get('/', isAdmin, (req, res, next) => {
   Order.findAll({
-    include: [{ model: Product }, { model: User }]
+    include: [{all:true}]
   })
   //Order.getAllOrders()
   .then(orders => {
