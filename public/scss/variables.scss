@@ -1,5 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather|Slabo+27px|Tajawal');
+
 $ivory: #f9f9e8;
 $bluegreen: #A0C1B8;
 $blue: #709FB0;
 $purple:#726A95;
 $darkpurple: #4A2152;
+
+$header-font-family: 'Merriweather', serif;
+$font-family: 'Slabo', sans-serif;
+$box-shadow: 3px 3px 3px 0px;
+
+
+
+@mixin box-shadow($percent) {
+  -moz-box-shadow:  3px 3px 3px 0px lighten(gray, $percent);
+  -webkit-box-shadow:  3px 3px 3px 0px lighten(gray, $percent);
+  box-shadow: 3px 3px 3px 0px lighten(gray, $percent);
+}
+
+@mixin box-shadow-color($color) {
+  -moz-box-shadow:  3px 3px 3px 0px $color;
+  -webkit-box-shadow:  3px 3px 3px 0px $color;
+  box-shadow: 3px 3px 3px 0px $color;
+}
+
+@mixin inset-box-shadow($percent) {
+  -moz-box-shadow: inset 3px 3px 3px 0px lighten(gray, $percent);
+  -webkit-box-shadow: inset 3px 3px 3px 0px lighten(gray, $percent);
+  box-shadow: inset 3px 3px 3px 0px lighten(gray, $percent);
+}
+
+@mixin inset-box-shadow-color($color) {
+  -moz-box-shadow:  inset 3px 3px 3px 0px $color;
+  -webkit-box-shadow:  inset 3px 3px 3px 0px $color;
+  box-shadow: inset 3px 3px 3px 0px $color;
+}
+
+@mixin no-box-shadow {
+  -moz-box-shadow:  none;
+  -webkit-box-shadow:  none;
+  box-shadow: none;
+}
+

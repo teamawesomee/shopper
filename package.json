@@ -8,6 +8,7 @@
   "main": "index.js",
   "scripts": {
     "build-client": "webpack",
+    "build-sass": "sass",
     "build-client-watch": "webpack -w",
     "deploy": "script/deploy",
     "lint": "eslint ./ --ignore-path .gitignore",
@@ -43,9 +44,11 @@
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.2",
     "react-router-dom": "^4.1.1",
+    "react-stripe-elements": "^1.6.0",
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
+    "sass": "^1.2.1",
     "sequelize": "^4.3.1",
     "sinon": "^4.5.0",
     "socket.io": "^2.0.3"
