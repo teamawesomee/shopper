@@ -11,9 +11,10 @@ const GuestReview = db.define('guestreview', {
           max: 5
         }
       },
+      title: Sequelize.STRING,
       message: {
-        type: Sequelize.STRING
-      }    
+        type: Sequelize.TEXT
+      }
 })
 
 module.exports = GuestReview

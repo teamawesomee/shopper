@@ -7,6 +7,7 @@ import history from '../history'
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const EDIT_PRODUCT = 'EDIT_PRODUCT'
+const DELETE_PRODUCT = 'DELETE_PRODUCT'
 
 
 /**
@@ -20,6 +21,7 @@ const productsArray = []
 const getProducts = products => ({type: GET_PRODUCTS, products})
 const addProduct = product => ({type: ADD_PRODUCT, product})
 const editedProduct = product => ({type: EDIT_PRODUCT, product})
+const deletedProduct = product => ({type: DELETE_PRODUCT, product})
 
 /**
  * THUNK CREATORS
@@ -53,6 +55,14 @@ export const editProduct = (editedProd) =>
       })
       .catch(err => console.log(err))
 
+export const deleteProd = (prod) =>
+  dispatch =>
+    axios.delete(`/api/products/${prod.id}`)
+      .then(()=>{
+        dispatch(deletedProduct(prod))
+        history.push(`/products`)
+      })
+
 
 /**
  * REDUCER
@@ -65,6 +75,8 @@ export default function (state = productsArray, action) {
       return [...state, action.product]
     case EDIT_PRODUCT:
       return [...(state.filter(product => (product.id !== action.product.id))), action.product]
+    case DELETE_PRODUCT:
+      return [...(state.filter(product => (product.id !== action.product.id)))]
     default:
       return state
   }

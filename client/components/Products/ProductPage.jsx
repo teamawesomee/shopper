@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addItemToCart } from '../../store';
+import { addItemToCart, deleteProd } from '../../store';
+import Reviews from '../Reviews'
 
 class ProductPage extends Component {
   constructor(props) {
@@ -45,14 +46,18 @@ class ProductPage extends Component {
               Add to cart
             </button>
           {this.props.user.isAdmin &&
-                <Link to={`/products/${product.id}/edit`}><button disabled={!this.props.user.isAdmin}>Edit</button></Link>}
+                <Link to={`/products/${product.id}/edit`}><button disabled={!this.props.user.isAdmin}>Edit Product</button></Link>}
+          {this.props.user.isAdmin &&
+                <button onClick ={(evt) => this.props.clickHandler(evt, product)} disabled={!this.props.user.isAdmin}>Delete Product</button>}
           </div>
 
         </div>
+
       </div> : <div className="alert">No product to display</div>
         }
         {this.state.success ? <div className="alertHolder success"><div className="alert success"> <p>The item has been added to your cart!</p> </div></div> : null
         }
+        <Reviews product={product}/>
         </div>
     );
   }
@@ -64,6 +69,10 @@ const mapDispatchToProps = dispatch => {
     addItemToCart(evt){
       evt.preventDefault();
       dispatch(addItemToCart({productId: evt.target.value}))
+    },
+    clickHandler(evt, product){
+      evt.preventDefault();
+      dispatch(deleteProd(product))
     }
   };
 };
