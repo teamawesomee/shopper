@@ -7,10 +7,8 @@ function StripeElement() {
 
     return (
       <div>
-        {/* <ErrorBoundary> */}
           <Navbar />
           <Routes />
-        {/* </ErrorBoundary> */}
       </div>
     );
 

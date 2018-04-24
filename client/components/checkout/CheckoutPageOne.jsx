@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import CartDetails from '../Cart/CartDetails.jsx';
+import ErrorBoundary from '../ErrorBoundary.js';
+import { checkout, successOne, successTwo } from '../../store/checkout';
+import { connect } from 'react-redux';
 
 class CheckoutPageOne extends Component {
   constructor(props) {
@@ -8,10 +11,22 @@ class CheckoutPageOne extends Component {
         address: '',
         email: '',
       }
+      this.onClick = this.onClick.bind(this);
+      this.handleChange = this.handleChange.bind(this);
   }
+
+ onClick() {
+    this.props.checkout()
+    this.props.successOne()
+  }
+
+handleChange() {
+
+}
 
   render() {
     return (
+      <ErrorBoundary>
       <div className="pageForm">
         <CartDetails />
         <form action="" className="formContainer">
@@ -36,22 +51,36 @@ class CheckoutPageOne extends Component {
             <input type="text" value=""/>
     </div> */}
             <div className="buttonholder">
-              <button type="submit" onClick={this.props.onClick}>Move on!</button>
+              <button onClick={this.onClick}>Next Step!</button>
+              {/* <button type="submit" onClick={this.props.onClick}>Move on!</button> */}
             </div>
         </form>
       </div>
+    </ErrorBoundary>
     );
   }
 }
 
-// mapStateToProps() {
 
-// }
+const mapState = state => {
+  return {
+    user: state.user,
+    checkoutInfo: state.checkoutInfo
+  }
 
-// mapDispatch() {
+}
+const mapDispatch = dispatch => {
+return {
+  checkout(){
+    dispatch(checkout());
+  },
+  successOne(){
+    dispatch(successOne())
+  },
+  successTwo() {
+    dispatch(successTwo());
+  }
+}
+}
 
-// }
-
-
-
-export default CheckoutPageOne;
+export default connect(mapState, mapDispatch)(CheckoutPageOne)

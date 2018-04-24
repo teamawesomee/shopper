@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllProdReviews, addReview } from '../store/index'
+import ErrorBoundary from './ErrorBoundary.js';
 
 export class Reviews extends Component {
   constructor(){
@@ -28,7 +29,8 @@ export class Reviews extends Component {
   render(){
     console.log("props", this.props)
     const reviews = this.props.prodReviews
-    return(
+    return (
+
       <div className = 'reviewsBox'>
         <h1>Product Reviews</h1>
         <button value ="read" onClick = {this.handleChange}>READ REVIEWS</button>
