@@ -10,18 +10,22 @@ module.exports = router;
 router.get('/', (req, res, next) => {
   if (req.session.passport && req.session.passport.user) {
     let userId = req.session.passport.user;
+    console.log("userId is...", userId)
     User.findById(userId, {
       include: {
         model: Product
       }
     })
-    .then((cart) => res.json(cart.products))
+    .then((cart) => {
+      console.log(cart)
+      res.json(cart.products)
+    })
     .catch(next)
   } //
   else {
     Guest.findOrCreate({
       where: {
-        guestId: req.session.id
+        guestSessionId: req.session.id
       },
     include: {
       model: Product
@@ -86,7 +90,7 @@ router.post('/', (req, res, next) => {
   else {
     Guest.findOrCreate({ //FIND OR CREATE THEM IN OUR GUEST DB
       where: {
-        guestId: req.session.id
+        guestSessionId: req.session.id
       }})
           /*THEN*/
       .then((guest) => {
@@ -141,11 +145,10 @@ router.delete('/:productId', (req, res, next) => {
     .catch(next)
 
   } else { //if they are a guest user
-    console.log("guestId is...", req.session.id)
-    console.log("productId is...", req.params.productId)
+    let myGuest = Guest.findOne({where: {guestSessionId: req.session.id}})
     GuestCart.destroy({
       where: { //go into the guest database
-        guestId: req.session.id,
+        guestId: myGuest.id,
         productId: req.params.productId
       }
     })
