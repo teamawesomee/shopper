@@ -14,7 +14,13 @@
 div.alert {
   background-color: $purple;
   color: $ivory;
-  width:50%;
+  width:100%;
+  @media (min-width: 500px) {
+    width: 70%;
+  }
+  @media (min-width: 700px) {
+    width: 50%;
+  }
   height: 4rem;
   font-size: 1.2rem;
   flex: 0 1 auto;
@@ -23,8 +29,10 @@ div.alert {
   justify-content: center;
   text-align: center;
   padding:1em;
+  @include box-shadow(0%);
   &.success, &.happy {
     background-color:$blue;
+    @include box-shadow(0%);
   }
   a {
     color: $ivory;

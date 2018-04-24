@@ -16,12 +16,14 @@
     flex-direction: column;
     border: 6px solid $purple;
     border-top:0;
+    @include box-shadow(10%);
     div.singleProductOrder {
       padding:1rem;
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
+      margin-bottom:1rem;
       img {
       height: 150px;
       width: 150px;
@@ -41,6 +43,6 @@
           cursor: pointer;
         }
       }
-    }
+    } //end singleProductOrder
   }
 }

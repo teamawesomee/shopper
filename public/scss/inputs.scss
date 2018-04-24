@@ -2,9 +2,9 @@
 
 //inputs
 $input-border: 3px solid $purple;
-$input-background: $ivory;
+$input-background: white;
 $input-text-color: $darkpurple;
-$input-focus-border: 3px solid $bluegreen;
+$input-focus-border: 3px solid $ivory;
  //buttons
 $button-background: $purple;
 $button-text-color: $ivory;
@@ -22,6 +22,7 @@ textArea {
 }
 
 input, textArea {
+  @include inset-box-shadow(20%);
   color:$input-text-color;
   background-color: $input-background;
   border: $input-border;
@@ -67,6 +68,7 @@ button {
   flex-direction: row;
   background-color:$blue;
   color:$button-text-color;
+  @include box-shadow(0);
   @media (max-width:700px) {
     flex-direction: column;
     width:100%;
@@ -78,13 +80,22 @@ button {
     flex-direction:column;
     button.login {
       flex: 1 1 auto;
+      border-radius: 5px;
       background-color:$button-background;
-      color:$input-text-color;
-      border: 3px solid $darkpurple;
+      color:$ivory;
+      @include box-shadow-color(darken($blue, 20%));
       padding:1rem;
-      border: 3px solid $darkpurple;
-      &:active {
-        outline: $ivory;
+      height:70%;
+      border:none;
+      outline: none;
+      &:focus {
+        outline:2px ivory;
+      }
+      &:hover {
+        @include inset-box-shadow-color(darken($button-background, 10%));
+      }
+      &:visited {
+        color:$ivory;
       }
     }
   }
@@ -122,6 +133,7 @@ button {
   display:flex;
   flex-direction: column;
   align-items: center;
+  // @include box-shadow(0);
   // justify-content:center;
   .formContainer {
     flex: 0 1 auto;
@@ -133,6 +145,7 @@ button {
     transition: width .5s;
     width:100%;
     justify-content:center;
+    @include box-shadow(0);
     @media (min-width:500px) {
       width:90%;
       padding:1rem;
