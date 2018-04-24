@@ -9,25 +9,24 @@ class ProductPage extends Component {
     this.state = {
       success: false
     }
+    this.onClickenzee = this.onClickenzee.bind(this)
   }
 
-
-  render() {
-    const productId = +this.props.match.params.productId;
-    const products = this.props.products;
-
-    let product = products.filter(oneProduct => {
-      return oneProduct.id === productId
-    });
-    product = product[0];
-    const onClickenzee = (evt) => {
+  onClickenzee = (evt) => {
       this.props.addItemToCart(evt)
       this.setState({success: true})
       setTimeout(() => {
         this.setState({success: false})
       }, 3000)
-
     }
+
+  render() {
+    const productId = +this.props.match.params.productId;
+    const products = this.props.products;
+    let product = products.filter(oneProduct => {
+      return oneProduct.id === productId
+    });
+    product = product[0];    
     return (
     <div className="productPage">
       {product ?
@@ -42,7 +41,7 @@ class ProductPage extends Component {
             <p>{product.price}</p>
           </div>
           <div className="buttons">
-            <button value={product.id} onClick={onClickenzee}>
+            <button value={product.id} onClick={this.onClickenzee}>
               Add to cart
             </button>
           {this.props.user.isAdmin &&

@@ -22,7 +22,7 @@ function CartDetails(props) {
                 <p>{product.price}</p>
               </div>
               <div className="orderBtn">
-                <button type="submit" onClick={() => props.removeItemFromCart(product)}>Remove</button>
+                <button onClick={() => props.removeItemFromCart(product)}>Remove</button>
               </div>
             </div>
           );
