@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getAllProdReviews, addReview } from '../store/index'
 
 export class Reviews extends Component {
   constructor(){
@@ -8,6 +9,9 @@ export class Reviews extends Component {
       writeReview: false
     }
   }
+  componentDidMount(){
+    this.props.getReviews(this.props.product.id)
+  }
 
   handleChange = (event) => {
     event.preventDefault()
@@ -15,15 +19,15 @@ export class Reviews extends Component {
       console.log("set to false")
       this.setState({writeReview:false})
     }
-    else if( event.target.value === "write"){
+    else if ( event.target.value === "write"){
       console.log("set to true")
       this.setState({writeReview: true})
     }
   }
 
   render(){
-    const reviews = this.props.reviews
-    console.log("props:", this.props)
+    console.log("props", this.props)
+    const reviews = this.props.prodReviews
     return(
       <div className = 'reviewsBox'>
         <h1>Product Reviews</h1>
@@ -36,24 +40,25 @@ export class Reviews extends Component {
           )
         }):
         <div className ="pageForm">
-          <form className ="formContainer">
+          <form className ="formContainer" onSubmit = {this.props.handleSubmit}>
             <div>Write your review for our: {this.props.product.title} </div>
             <div className = "inputSurround">
               <label>Rating</label>
-              <label>1<input type ="radio" name = "star" value ="1" /></label>
-              <label>2<input type ="radio" name = "star" value = "2" /></label>
-              <label>3<input type ="radio" name = "star" value = "3" /></label>
-              <label>4<input type ="radio" name = "star" value = "4" /></label>
-              <label>5<input type ="radio" name = "star" value = "5" /></label>
+              <label>1<input type ="radio" name = "rating" value ="1" /></label>
+              <label>2<input type ="radio" name = "rating" value = "2" /></label>
+              <label>3<input type ="radio" name = "rating" value = "3" /></label>
+              <label>4<input type ="radio" name = "rating" value = "4" /></label>
+              <label>5<input type ="radio" name = "rating" value = "5" /></label>
             </div>
             <div className ="inputSurround">
               <label htmlFor="title">Title</label>
-              <input type="text"/>
+              <input name ="title" type="text"/>
             </div>
             <div className ="inputSurround">
-              <label htmlFor="review">Review</label>
-              <textarea type="textbox"/>
+              <label htmlFor="message">Message</label>
+              <textarea name="message" type="textbox"/>
             </div>
+            <input type = "hidden" name="userId" value={this.props.user.id} />
             <div className="buttonholder">
               <button type="submit">Submit Review</button>
             </div>
@@ -66,8 +71,24 @@ export class Reviews extends Component {
 }
 
 const mapState = (state) =>{
-  return {reviews: state.reviews.reviews, review: state.reviews.review}
+  return { user: state.user, prodReviews: state.reviews.prodReviews}
 }
 
+const mapDispatch = (dispatch) => {
+  return {
+    handleSubmit (event){
+      event.preventDefault();
+      const rating = event.target.rating.value;
+      const title = event.target.title.value;
+      const message = event.target.message.value;
+      const userId = event.target.userId.value
+      const newReview = { userId, rating, title, message}
+      dispatch(addReview(newReview))
+    },
+    getReviews(productId){
+      dispatch(getAllProdReviews(productId))
+    }
+  }
+}
 
-export default connect(mapState, null)(Reviews)
+export default connect(mapState, mapDispatch)(Reviews)

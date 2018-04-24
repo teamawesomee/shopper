@@ -47,5 +47,7 @@ module.exports = {
   Guest,
   Cart,
   GuestCart,
-  LineItem
+  LineItem,
+  Review
+
 }

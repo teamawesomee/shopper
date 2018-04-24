@@ -11,8 +11,9 @@ const Review = db.define('review', {
       max: 5
     }
   },
+  title: Sequelize.STRING,
   message: {
-    type: Sequelize.STRING
+    type: Sequelize.TEXT
   }
 
 });
@@ -20,20 +21,21 @@ const Review = db.define('review', {
 Review.addNewReview = function(submittedReview) {
     let myReview = Review.create({
       rating: submittedReview.rating,
+      title: submittedReview.title,
       message: submittedOrder.message
     });
-  
+
     //whichever one the order has, will be given a real value
     let userId = submittedReview.userId
     let guestId = null;
-  
+
     if (!userId) {
       guestId = submittedReview.guestId
     }
-  
-  
+
+
     let prod = submittedReview.product; //this will be an array
-  
+
     //sets the associated user
     if (userId) {
       myReview.setUser(userId);
@@ -43,9 +45,9 @@ Review.addNewReview = function(submittedReview) {
     }
     //sets the associated products in line items
     myReview.addProduct(prod)
-  
+
     return myReview;
-  
+
   }
 
 module.exports = Review
