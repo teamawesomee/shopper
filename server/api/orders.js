@@ -20,7 +20,6 @@ router.get('/', isAdmin, (req, res, next) => {
 /* GET ORDERS BY USER */
 
 router.get('/:userId', isMine, (req, res, next) => {
-  console.log("HELLLLOOOOO")
   Order.findAll({
     where: {userId: req.params.userId},
     include: [{ model: Product }, { model: User }]
