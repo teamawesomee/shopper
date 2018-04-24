@@ -4,49 +4,27 @@ import CheckoutPageOne from './CheckoutPageOne.jsx';
 // import CheckoutPageTwo from './CheckoutPageTwo.jsx';
 import { checkout } from '../../store/checkout';
 import { connect } from 'react-redux';
-import CheckoutPageTwo from './CheckoutPageTwo.jsx';
 import ErrorBoundary from '../ErrorBoundary';
 
-function CheckoutPage() {
-  console.log("my props are", this.props)
-    return (
+function CheckoutPage(props) {
 
-    <ErrorBoundary>
+    return (
 
       <div className ="checkoutPage">
         <div className="titleHolder">
           <h1>Checkout</h1>
         </div>
-      {/* //   <div className="pageHolder">
-      //     <div className="progressSidebar">
-      //       <div className="trackerHolder">
-      //         <h5>Check your order</h5>
-      //         <div className="progressBar achieved" />
-      //         <img className="checkmark" />
-      //       </div>
-      //       <div className="trackerHolder">
-      //         <div className="progressBar" />
-      //         <img className="checkmark" />
-      //       </div>
-      //       <div className="trackerHolder">
-      //         <div className="progressBar" />
-      //         <img className="checkmark" />
-      //       </div>
-      //       <div className="trackerHolder">
-      //         <div className="progressBar" />
-      //         <img className="checkmark" />
-      //       </div>
-      //     </div> */}
         <div className="checkoutForm">
-        {/* { this.props.checkoutInfo.successOne ?
-              <CheckoutPageTwo />  :
+          {props.cart.length ?
+          <ErrorBoundary>
+            <CheckoutPageOne />
+          </ErrorBoundary> : <div className="alertHolder">
+          <div className="alert"><p>You can't check out without any items in your cart!</p></div>
+          </div>
 
-              <CheckoutPageOne /> } */}
-
-
+        }
         </div>
       </div>
-      </ErrorBoundary>
 
     );
   }
@@ -54,7 +32,8 @@ function CheckoutPage() {
 const mapState = state => {
     return {
       user: state.user,
-      checkoutInfo: state.checkoutInfo
+      checkoutInfo: state.checkoutInfo,
+      cart: state.cart
     }
 
   }

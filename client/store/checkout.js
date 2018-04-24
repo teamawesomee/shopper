@@ -1,4 +1,6 @@
 import axios from 'axios';
+import PAYMENT_SERVER_URL from '../components/checkout/constants/server';
+import STRIPE_PUBLISHABLE from '../components/checkout/constants/stripe';
 
 
 
@@ -15,9 +17,16 @@ const STEP_TWO_SUCCESS = 'STEP_TWO+SUCCESS';
   * INITIAL STATE
   */
 const checkoutInfo = {
-  stepOne: {},
-  stepTwo: {},
-  myCheckoutInfo: {}
+  stepOne: false,
+  stepTwo: false,
+  myCheckoutInfo: {
+    name: '',
+    description: '',
+    source: '',
+    currency: '',
+    amount: '',
+    stripeKey: STRIPE_PUBLISHABLE
+  }
 }
 
 /**
@@ -32,14 +41,24 @@ const checkoutInfo = {
   * THUNK CREATORS
   */
 
-  export const checkout = (checkoutObject) => dispatch =>{
+  const successPayment = data => {
+    alert('Payment Successful');
+  }
+
+const errorPayment = data => {
+  alert('Payment Error');
+  console.log(data)
+}
+
+  export const checkout = (checkoutObject) => dispatch => {
     axios
       .post('/api/orders', checkoutObject)
       .then(res => {
         let action = checkoutAction(res.data);
         dispatch(action)
       })
-      .catch(err => console.log(err));}
+      .catch(err => console.log(err));
+    }
 
   export const successOne = (boolean) => dispatch => {
       let action = setStepOneSuccess(boolean);
@@ -49,6 +68,14 @@ const checkoutInfo = {
       let action = setStepTwoSuccess(boolean);
       dispatch(action)
   }
+
+  export const onToken = (stripeCheckout) => token =>
+    axios.post(PAYMENT_SERVER_URL, {
+      stripeCheckout
+    })
+    .then(successPayment)
+    .catch(errorPayment);
+
 
 
 
@@ -62,7 +89,8 @@ export default function(state = checkoutInfo, action) {
       return {checkoutInfo: action.checkoutInfo}
 
     case STEP_ONE_SUCCESS:
-      return {stepOne: action.successStatus}
+      state.stepOne = action.successStatus;
+      return state;
 
     case STEP_TWO_SUCCESS:
       return {stepTwo: action.successStatus}
