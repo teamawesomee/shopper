@@ -1,1 +1,2 @@
 @import url("https://fonts.googleapis.com/css?family=Merriweather|Slabo+27px|Tajawal");.productBox{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;width:100%}.productBox .imgBox{flex:1 1 auto}.productBox .imgBox img{height:8rem;width:auto}.productBox .contentBox{flex:1 1 auto;color:#4A2152;height:25%;width:100%;display:flex;justify-content:center;align-items:space-between}.productBox .contentBox h3{flex:2 2 auto;margin-bottom:0}.productBox .contentBox p{flex:1 1 auto}
+/*# sourceMappingURL=ProductBox.min.css.map */

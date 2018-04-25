@@ -162,4 +162,17 @@ button.addProduct {
   }
 }
 
+.review {
+  display: flex;
+  flex-direction: row;
+  color: $darkpurple;
+  background-color: $ivory;
+  border: 5px solid $purple;
+  margin: 10px;
+  padding: 10px;
 
+}
+
+#writeReview {
+  margin: 20px 0;
+}

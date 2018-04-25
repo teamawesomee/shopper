@@ -53,8 +53,8 @@ class OrderBox extends Component {
                       )
                   })}
                   <div className="orderFormBtn">
-                  {this.state.formButton ? 
-                    <OrderForm order={order} deRenderForm={this.handleOrderForm}/> : 
+                  {this.state.formButton ?
+                    <OrderForm order={order} deRenderForm={this.handleOrderForm}/> :
                     <button onClick={this.handleClick}>Update Order Status</button>}
                   </div>
               </div>
