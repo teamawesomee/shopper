@@ -55,7 +55,7 @@ async function seed () {
       title:
         'I’d tell you how I really feel, but I wasn’t born with enough middle fingers to express myself in this case.',
       description:
-        'Use this sassy comeback for temporary relief from prickery!',
+        `Use this sassy comeback when there aren't enough fingers in the world!`,
       price: 3.33,
       inventoryQuantity: 40,
       category: ['Sass', 'Happiness'],
@@ -64,7 +64,7 @@ async function seed () {
       title:
         'I’m trying my absolute hardest to see things from your perspective, but I just can’t get my head that far up my ass.',
       description:
-        'Use this sassy comeback for temporary relief from prickery!',
+        'Use this sassy comeback for temporary relief from ass-heads!',
       price: 8.79,
       inventoryQuantity: 40,
       category: ['Sass', 'Happiness'],
@@ -82,7 +82,7 @@ async function seed () {
       title:
         'Do your hear that? It’s the sound of no one caring.',
       description:
-        'Use this sassy comeback for temporary relief from prickery!',
+        'Use this sassy comeback in lieu of caring!',
       price: 3.33,
       inventoryQuantity: 40,
       category: ['Sass', 'Happiness'],
@@ -91,7 +91,7 @@ async function seed () {
       title:
         'You’re about as useful as a screen door on a submarine.',
       description:
-        'Use this sassy comeback for temporary relief from prickery!',
+        'Use this sassy comeback when dealing with persistant irrelevance!',
       price: 3.33,
       inventoryQuantity: 40,
       category: ['Sass', 'Happiness'],
