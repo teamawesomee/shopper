@@ -6,65 +6,100 @@ export class Reviews extends Component {
   constructor(){
     super()
     this.state = {
-      writeReview: false
+      writeReview: false,
+      valid: true,
     }
   }
   componentDidMount(){
     this.props.getReviews(this.props.product.id)
   }
 
+
   handleChange = (event) => {
     event.preventDefault()
-    if (event.target.value === "read"){
+    if (event.target.name === "read"){
       console.log("set to false")
       this.setState({writeReview:false})
     }
-    else if ( event.target.value === "write"){
+    else if ( event.target.name === "write"){
       console.log("set to true")
       this.setState({writeReview: true})
     }
+    else{
+      this.setState({valid:true})
+    }
+  }
+
+  isValid = (event) =>{
+    event.preventDefault();
+    const rating = event.target.rating.value;
+    const title = event.target.title.value;
+    const message = event.target.message.value;
+    const userId = event.target.userId.value
+    const productId = event.target.productId.value
+    if (title.trim() === "" || message.trim() === "" || rating === null){
+        this.setState({valid:false})
+    }
+    else{
+      const newReview = { userId, productId, rating, title, message}
+      this.props.handleSubmit(newReview)
+      this.setState({writeReview:false})
+    }
+
+
+
   }
 
   render(){
     console.log("props", this.props)
     const reviews = this.props.prodReviews
+    console.log("reviews: ", reviews)
     return(
       <div className = 'reviewsBox'>
         <h1>Product Reviews</h1>
-        <button value ="read" onClick = {this.handleChange}>READ REVIEWS</button>
-        <button value ="write" onClick = {this.handleChange}>WRITE A REVIEW</button>
-        {!this.state.writeReview ? reviews.map(review => {
+        <button name ="read" onClick = {this.handleChange}>READ REVIEWS</button>
+        <button name="write" onClick = {this.handleChange}>WRITE A REVIEW</button>
+        {!this.state.writeReview ? <div>{reviews.length > 0 ? reviews.map(review => {
           return (
 
-            <div className = "review" key = {review.id}>REVIEW</div>
+            <div className = "review" key = {review.id}>
+              <div className = "inputSurround">
+                <div><h2>{review.title}</h2></div>
+                <div><h3>Rating: {review.rating} Stars</h3></div>
+                <div>{review.message}</div>
+              </div>
+
+            </div>
           )
-        }):
-        <div className ="pageForm">
-          <form className ="formContainer" onSubmit = {this.props.handleSubmit}>
+        }) : <div>There are currently no reviews for this product. Why not add one :)?</div>}</div>:
+        <div>
+        <div className ="pageForm" id="writeReview">
+          <form className ="formContainer" onSubmit = {this.isValid}>
             <div>Write your review for our: {this.props.product.title} </div>
             <div className = "inputSurround">
               <label>Rating</label>
-              <label>1<input type ="radio" name = "rating" value ="1" /></label>
-              <label>2<input type ="radio" name = "rating" value = "2" /></label>
-              <label>3<input type ="radio" name = "rating" value = "3" /></label>
-              <label>4<input type ="radio" name = "rating" value = "4" /></label>
-              <label>5<input type ="radio" name = "rating" value = "5" /></label>
+              <label>1<input onChange = {this.handleChange} type ="radio" name = "rating" value ="1" /></label>
+              <label>2<input onChange = {this.handleChange}type ="radio" name = "rating" value = "2" /></label>
+              <label>3<input onChange = {this.handleChange}type ="radio" name = "rating" value = "3" /></label>
+              <label>4<input onChange = {this.handleChange}type ="radio" name = "rating" value = "4" /></label>
+              <label>5<input onChange = {this.handleChange} type ="radio" name = "rating" value = "5" /></label>
             </div>
             <div className ="inputSurround">
               <label htmlFor="title">Title</label>
-              <input name ="title" type="text"/>
+              <input onChange = {this.handleChange} name ="title" type="text"/>
             </div>
             <div className ="inputSurround">
               <label htmlFor="message">Message</label>
-              <textarea name="message" type="textbox"/>
+              <textarea onChange = {this.handleChange} name="message" type="textbox"/>
             </div>
             <input type = "hidden" name="userId" value={this.props.user.id} />
             <input type = "hidden" name="productId" value={this.props.product.id} />
             <div className="buttonholder">
-              <button type="submit">Submit Review</button>
+              <button disabled={!this.state.valid}type="submit">Submit Review</button>
             </div>
+            {!this.state.valid && <div className ="alert">Please fill in all the fields before submitting your review!</div>}
           </form>
-        </div> }
+        </div> </div> }
       </div>
     )
 
@@ -77,14 +112,7 @@ const mapState = (state) =>{
 
 const mapDispatch = (dispatch) => {
   return {
-    handleSubmit (event){
-      event.preventDefault();
-      const rating = event.target.rating.value;
-      const title = event.target.title.value;
-      const message = event.target.message.value;
-      const userId = event.target.userId.value
-      const productId = event.target.productId.value
-      const newReview = { userId, productId, rating, title, message}
+    handleSubmit (newReview){
       dispatch(addReview(newReview))
     },
     getReviews(productId){

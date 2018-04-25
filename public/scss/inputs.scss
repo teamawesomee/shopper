@@ -144,7 +144,7 @@ button {
     -webkit-transition: width .5s;
     transition: width .5s;
     width:100%;
-    justify-content:center;
+    // justify-content:center;
     @include box-shadow(0);
     @media (min-width:500px) {
       width:90%;
@@ -189,3 +189,4 @@ button {
   }
 }
 }
+
