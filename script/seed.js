@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const {User, Product, Order} = require('../server/db/models')
+const {User, Product, Order, LineItem} = require('../server/db/models')
 
 async function seed () {
   await db.sync({force: true})
@@ -121,13 +121,21 @@ async function seed () {
       adminInCharge: 3,
     }),
   ])
-  
-  
+
+  const lineItems = await Promise.all([
+    LineItem.create({quantity: 2, productId: 1, orderId: 1}),
+    LineItem.create({quantity: 1, productId: 2, orderId: 3}),
+    LineItem.create({quantity: 3, productId: 3, orderId: 1}),
+    LineItem.create({quantity: 1, productId: 4, orderId: 2})
+  ])
+
+
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${products.length} products`);
   console.log(`seeded ${orders.length} orders`);
+  console.log(`seeded ${lineItems.length} lineItems`);
   console.log(`seeded successfully`)
 }
 
