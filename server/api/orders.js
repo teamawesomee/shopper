@@ -54,13 +54,15 @@ router.post('/', (req, res, next) => {
 
         /* ADMIN UPDATES ORDER STATUS */
 router.put('/:orderId/updateStatus', isAdmin, (req, res, next) => {
-  Order.findById(req.params.orderId)
+  const orderId = +req.params.orderId
+  Order.findById(orderId, {include: [{ model: Product }, { model: User }]})
     .then(order => {
-      order.status = req.body.order.status;
+      order.orderStatus = req.body.orderStatus;
       order.adminInCharge = req.session.passport.user;
+      order.save()
       return order;
     })
-    .then((order) => res.status('201').json(order).send('Order status has been updated!'))
+    .then((order) => res.status('201').json(order))
     .catch(next);
 })
 

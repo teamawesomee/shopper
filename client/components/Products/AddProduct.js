@@ -5,14 +5,14 @@ import {addNewProduct} from '../../store'
 /**
  * COMPONENT
  */
-export function AddProduct(){
+export function AddProduct(props){
       return (
         <div className="pageForm">
           <div className="titleHolder">
             <h1>Add a product!</h1>
           </div>
-          {!this.props.user.isAdmin ? <div className="alert">You must be an admin to add a Product</div> :
-          <form onSubmit={ this.props.handleSubmit } className="formContainer">
+          {!props.user.isAdmin ? <div className="alert">You must be an admin to add a Product</div> :
+          <form onSubmit={props.handleSubmit } className="formContainer">
             <div className="inputSurround">
               <label htmlFor="title"><small>Title</small></label>
               <input name="title" type="text" />
