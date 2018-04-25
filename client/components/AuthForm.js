@@ -73,7 +73,7 @@ const mapDispatch = (dispatch) => {
       const password = evt.target.password.value
       dispatch(auth(email, password, formName))
       dispatch(getTheCart())
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      //.catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
     }
   }
 }
