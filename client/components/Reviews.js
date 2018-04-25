@@ -7,21 +7,46 @@ export class Reviews extends Component {
   constructor(){
     super()
     this.state = {
-      writeReview: false
+      writeReview: false,
+      valid: true,
     }
   }
   componentDidMount(){
     this.props.getReviews(this.props.product.id)
   }
 
+
   handleChange = (event) => {
     event.preventDefault()
-    if (event.target.value === "read"){
+    if (event.target.name === "read"){
       this.setState({writeReview:false})
     }
-    else if ( event.target.value === "write"){
+    else if ( event.target.name === "write"){
       this.setState({writeReview: true})
     }
+    else {
+      this.setState({valid:true})
+    }
+  }
+
+  isValid = (event) =>{
+    event.preventDefault();
+    const rating = event.target.rating.value;
+    const title = event.target.title.value;
+    const message = event.target.message.value;
+    const userId = event.target.userId.value
+    const productId = event.target.productId.value
+    if (title.trim() === "" || message.trim() === "" || rating === null){
+        this.setState({valid:false})
+    }
+    else{
+      const newReview = { userId, productId, rating, title, message}
+      this.props.handleSubmit(newReview)
+      this.setState({writeReview:false})
+    }
+
+
+
   }
 
   render(){
@@ -30,17 +55,25 @@ export class Reviews extends Component {
 
       <div className = 'reviewsBox'>
         <h1>Product Reviews</h1>
-        <button value ="read" onClick = {this.handleChange}>READ REVIEWS</button>
-        <button value ="write" onClick = {this.handleChange}>WRITE A REVIEW</button>
-        {!this.state.writeReview ? reviews.map(review => {
+        <button name ="read" onClick = {this.handleChange}>READ REVIEWS</button>
+        <button name="write" onClick = {this.handleChange}>WRITE A REVIEW</button>
+        {!this.state.writeReview ? <div>{reviews.length > 0 ? reviews.map(review => {
           return (
 
-            <div className = "review" key = {review.id}>REVIEW</div>
+            <div className = "review" key = {review.id}>
+              <div className = "inputSurround">
+                <div><h2>{review.title}</h2></div>
+                <div><h3>Rating: {review.rating} Stars</h3></div>
+                <div>{review.message}</div>
+              </div>
+
+            </div>
           )
-        }):
-        <div className ="pageForm">
-          <form className ="formContainer" onSubmit = {this.props.handleSubmit}>
-            <div>Write your review for our: {this.props.product.title} </div>
+        }) : <div>There are currently no reviews for this product. Why not add one :)?</div>}</div>:
+        <div>
+        <div className ="pageForm" id="writeReview">
+          <form className ="formContainer" onSubmit = {this.isValid}>
+            <div><h3>Write your review for our: {this.props.product.title} </h3></div>
             <div className = "inputSurround stars">
               <label>Rating</label>
                 <div className="radioBox inputSurround">
@@ -50,8 +83,6 @@ export class Reviews extends Component {
                   <label>4<input type ="radio" name = "rating" value = "4" /></label>
                   <label id="star-5">5<input type ="radio" name = "rating" value = "5" /></label>
                 </div>
-
-
             </div>
             <div className ="inputSurround">
               <label htmlFor="title">Title</label>
@@ -64,10 +95,11 @@ export class Reviews extends Component {
             <input type = "hidden" name="userId" value={this.props.user.id} />
             <input type = "hidden" name="productId" value={this.props.product.id} />
             <div className="buttonholder">
-              <button type="submit">Submit Review</button>
+              <button disabled={!this.state.valid}type="submit">Submit Review</button>
             </div>
+            {!this.state.valid && <div className ="alert">Please fill in all the fields before submitting your review!</div>}
           </form>
-        </div> }
+        </div> </div> }
       </div>
     )
 
@@ -80,14 +112,7 @@ const mapState = (state) =>{
 
 const mapDispatch = (dispatch) => {
   return {
-    handleSubmit (event){
-      event.preventDefault();
-      const rating = event.target.rating.value;
-      const title = event.target.title.value;
-      const message = event.target.message.value;
-      const userId = event.target.userId.value
-      const productId = event.target.productId.value
-      const newReview = { userId, productId, rating, title, message}
+    handleSubmit (newReview){
       dispatch(addReview(newReview))
     },
     getReviews(productId){

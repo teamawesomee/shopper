@@ -1,4 +1,5 @@
 import axios from 'axios';
+import history from '../history';
 
 //ACTION TYPES
 const GET_ALL_REVIEWS = 'GET_ALL_REVIEWS';
@@ -51,7 +52,7 @@ export default function (state = intialState, action){
     case GET_ALL_REVIEWS:
       return {...state, reviews: action.reviews};
     case WRITE_REVIEW:
-      return {...state, review: action.review};
+      return {reviews: [...state.reviews, action.review ], prodReviews:[...state.prodReviews, action.review], review: action.review};
     case GET_PRODUCT_REVIEWS:
       return {...state, prodReviews: action.prodReviews}
     default:

@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "ACAA,OAAO,CAAC,8EAAI,CDEZ,AAAA,UAAU,AAAC,CACT,OAAO,CAAC,GAAG,CAQZ,AATD,AAEI,UAFM,CAEN,GAAG,AAAA,UAAU,AAAC,CACd,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CAIvB,AARH,AAKI,UALM,CAEN,GAAG,AAAA,UAAU,CAGb,GAAG,AAAA,MAAM,AAAC,CACR,cAAc,CAAE,GAAG,CACpB",
+    "sources": [
+        "../scss/orderPage.scss",
+        "../scss/variables.scss"
+    ],
+    "names": [],
+    "file": "orderPage.min.css"
+}
