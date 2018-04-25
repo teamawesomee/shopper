@@ -34,9 +34,9 @@ render (){
     //collect product categories from the products we have
     let prodCategories = this.props.products.map(prod => prod.category)
     //and then concatenate them onto the end of the helper array to get one long array
-    for (var i = 0; i < prodCategories.length; i++){
-      helper = helper.concat(prodCategories[i])
-    }
+    prodCategories.forEach((category) => {
+      helper = helper.concat(category)
+    })
 
     //this is the final array of our products
     prodCategories = Array.from(new Set(helper))

@@ -69,7 +69,7 @@ export class Reviews extends Component {
 
             </div>
           )
-        }) : <div>There are currently no reviews for this product. Why not add one :)?</div>}</div>:
+        }) : <div className = "alert">There are currently no reviews for this product. Why not add one :)?</div>}</div>:
         <div>
         <div className ="pageForm" id="writeReview">
           <form className ="formContainer" onSubmit = {this.isValid}>
@@ -77,20 +77,20 @@ export class Reviews extends Component {
             <div className = "inputSurround stars">
               <label>Rating</label>
                 <div className="radioBox inputSurround">
-                  <label>1<input type ="radio" name = "rating" value ="1" /></label>
-                  <label>2<input type ="radio" name = "rating" value = "2" /></label>
-                  <label>3<input type ="radio" name = "rating" value = "3" /></label>
-                  <label>4<input type ="radio" name = "rating" value = "4" /></label>
-                  <label id="star-5">5<input type ="radio" name = "rating" value = "5" /></label>
+                  <label>1 <input onChange = {this.handleChange} type ="radio" name = "rating" value ="1" /></label>
+                  <label>2<input onChange = {this.handleChange}type ="radio" name = "rating" value = "2" /></label>
+                  <label>3 <input onChange = {this.handleChange}type ="radio" name = "rating" value = "3" /></label>
+                  <label>4<input onChange = {this.handleChange}type ="radio" name = "rating" value = "4" /></label>
+                  <label id="star-5">5<input onChange = {this.handleChange}type ="radio" name = "rating" value = "5" /></label>
                 </div>
             </div>
             <div className ="inputSurround">
               <label htmlFor="title">Title</label>
-              <input name ="title" type="text" />
+              <input onChange = {this.handleChange} name ="title" type="text" />
             </div>
             <div className ="inputSurround">
               <label htmlFor="message">Message</label>
-              <textarea name="message" type="textbox" />
+              <textarea onChange = {this.handleChange} name="message" type="textbox" />
             </div>
             <input type = "hidden" name="userId" value={this.props.user.id} />
             <input type = "hidden" name="productId" value={this.props.product.id} />
