@@ -53,13 +53,8 @@ export class Reviews extends Component {
 
   render(){
     const reviews = this.props.prodReviews
-<<<<<<< HEAD
-    console.log("reviews: ", reviews)
-    return(
-=======
     return (
 
->>>>>>> master
       <div className = 'reviewsBox'>
         <h1>Product Reviews</h1>
         <button name ="read" onClick = {this.handleChange}>READ REVIEWS</button>
@@ -80,7 +75,7 @@ export class Reviews extends Component {
         <div>
         <div className ="pageForm" id="writeReview">
           <form className ="formContainer" onSubmit = {this.isValid}>
-            <div>Write your review for our: {this.props.product.title} </div>
+            <div><h3>Write your review for our: {this.props.product.title} </h3></div>
             <div className = "inputSurround stars">
               <label>Rating</label>
                 <div className="radioBox inputSurround">
