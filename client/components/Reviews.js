@@ -27,7 +27,6 @@ export class Reviews extends Component {
   }
 
   render(){
-    console.log("props", this.props)
     const reviews = this.props.prodReviews
     return (
 
