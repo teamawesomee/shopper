@@ -14,6 +14,11 @@ input, button, select, textArea {
   height: 2.2rem;
   padding:.2rem;
 }
+input[type~="radio"] {
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+}
 
 
 textArea {
@@ -189,4 +194,19 @@ button {
   }
 }
 }
+
+#star-5 {
+  margin-right: 0;
+}
+
+.inputSurround.stars {
+  align-items: flex-end;
+  .inputSurround {
+    flex: 1 1 auto;
+    margin: 0;
+  }
+}
+
+
+
 

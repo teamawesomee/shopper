@@ -109,6 +109,15 @@ button.addProduct {
 .checkoutPage {
   display: flex;
   flex-direction: column;
+  .formContainer {
+    margin-top: 1em;
+  }
+  .orderBox {
+    margin-top:0;
+    width: 100%;
+    border-color:$blue;
+  }
+
   .titleHolder {
     flex: 0 1 auto;
   }
@@ -129,11 +138,7 @@ button.addProduct {
       @media(max-width:700px) {
         width: 100%;
       }
-      .pageForm .orderBox {
-        margin-top:0;
-        width: 100%;
-        border-color:$blue;
-      }
+
       .formContainer {
         width: 100%;
       }

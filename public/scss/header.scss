@@ -30,8 +30,13 @@
     a {
     display: inline-block;
     font-size:1.2rem;
-    margin: 1em;
+    padding: 1em;
     color: $ivory;
+    -webkit-transition: background-color .25s;
+    transition: background-color .25s;
+    &:hover {
+      background-color: transparentize($purple, .5);
+    }
     }
     margin-bottom:0;
   }
