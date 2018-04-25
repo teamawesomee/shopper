@@ -17,11 +17,9 @@ export class Reviews extends Component {
   handleChange = (event) => {
     event.preventDefault()
     if (event.target.value === "read"){
-      console.log("set to false")
       this.setState({writeReview:false})
     }
     else if ( event.target.value === "write"){
-      console.log("set to true")
       this.setState({writeReview: true})
     }
   }

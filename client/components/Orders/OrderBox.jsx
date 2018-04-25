@@ -23,7 +23,6 @@ class OrderBox extends Component {
 
     render() {
         const order = this.props.order;
-        console.log(order)
         const products = order.products;
         return (
             <div className="orderBox">

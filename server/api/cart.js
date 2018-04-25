@@ -46,13 +46,18 @@ router.post('/', (req, res, next) => {
         if (item) {
           item
             .update({ quantity: item.getDataValue('quantity') + num })
-            .then(updatedItem => {
-              res.json(updatedItem);
+            .then(() => {
+              Cart.findAll({ where: { userId } }).then(cart => {
+                res.json(cart);
+              });
             });
         } else {
           User.findById(userId).then(user => {
-            user.addProduct(productId).then(returned => {
-              res.json(returned);
+            user.addProduct(productId)
+            .then(() => {
+              Cart.findAll({ where: { userId } }).then(cart => {
+                res.json(cart);
+              });
             });
           });
         }
