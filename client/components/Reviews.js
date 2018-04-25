@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllProdReviews, addReview } from '../store/index'
+import ErrorBoundary from './ErrorBoundary.js';
 
 export class Reviews extends Component {
   constructor(){
@@ -27,7 +28,8 @@ export class Reviews extends Component {
 
   render(){
     const reviews = this.props.prodReviews
-    return(
+    return (
+
       <div className = 'reviewsBox'>
         <h1>Product Reviews</h1>
         <button value ="read" onClick = {this.handleChange}>READ REVIEWS</button>
@@ -41,21 +43,25 @@ export class Reviews extends Component {
         <div className ="pageForm">
           <form className ="formContainer" onSubmit = {this.props.handleSubmit}>
             <div>Write your review for our: {this.props.product.title} </div>
-            <div className = "inputSurround">
+            <div className = "inputSurround stars">
               <label>Rating</label>
-              <label>1<input type ="radio" name = "rating" value ="1" /></label>
-              <label>2<input type ="radio" name = "rating" value = "2" /></label>
-              <label>3<input type ="radio" name = "rating" value = "3" /></label>
-              <label>4<input type ="radio" name = "rating" value = "4" /></label>
-              <label>5<input type ="radio" name = "rating" value = "5" /></label>
+                <div className="radioBox inputSurround">
+                  <label>1<input type ="radio" name = "rating" value ="1" /></label>
+                  <label>2<input type ="radio" name = "rating" value = "2" /></label>
+                  <label>3<input type ="radio" name = "rating" value = "3" /></label>
+                  <label>4<input type ="radio" name = "rating" value = "4" /></label>
+                  <label id="star-5">5<input type ="radio" name = "rating" value = "5" /></label>
+                </div>
+
+
             </div>
             <div className ="inputSurround">
               <label htmlFor="title">Title</label>
-              <input name ="title" type="text"/>
+              <input name ="title" type="text" />
             </div>
             <div className ="inputSurround">
               <label htmlFor="message">Message</label>
-              <textarea name="message" type="textbox"/>
+              <textarea name="message" type="textbox" />
             </div>
             <input type = "hidden" name="userId" value={this.props.user.id} />
             <input type = "hidden" name="productId" value={this.props.product.id} />

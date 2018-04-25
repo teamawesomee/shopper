@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addItemToCart, deleteProd } from '../../store';
 import Reviews from '../Reviews'
+import ErrorBoundary from '../ErrorBoundary.js';
 
 class ProductPage extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class ProductPage extends Component {
     let product = products.filter(oneProduct => {
       return oneProduct.id === productId
     });
-    product = product[0];    
+    product = product[0];
     return (
     <div className="productPage">
       {product ?
@@ -57,7 +58,9 @@ class ProductPage extends Component {
         }
         {this.state.success ? <div className="alertHolder success"><div className="alert success"> <p>The item has been added to your cart!</p> </div></div> : null
         }
-        <Reviews product={product}/>
+        <ErrorBoundary>
+          <Reviews product={product}/>
+        </ErrorBoundary>
         </div>
     );
   }
