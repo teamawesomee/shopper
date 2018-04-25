@@ -59,7 +59,7 @@ async function seed () {
       price: 3.33,
       inventoryQuantity: 40,
       category: ['Sass', 'Happiness'],
-      img: 'https://i.pinimg.com/originals/03/5e/af/035eafc66394f26c94f2ef56095f90f9.jpg'}),
+      img: 'https://data.whicdn.com/images/170393266/large.jpg'}),
     Product.create({
       title:
         'I’m trying my absolute hardest to see things from your perspective, but I just can’t get my head that far up my ass.',
@@ -68,7 +68,7 @@ async function seed () {
       price: 8.79,
       inventoryQuantity: 40,
       category: ['Sass', 'Happiness'],
-      img: 'https://i.pinimg.com/originals/03/5e/af/035eafc66394f26c94f2ef56095f90f9.jpg'}),
+      img: 'https://download.manycam.com/effects/get?f=l&i=2640&v=2.0'}),
     Product.create({
       title:
         'You only annoy me when you’re breathing, really.',
@@ -77,7 +77,7 @@ async function seed () {
       price: 3.33,
       inventoryQuantity: 40,
       category: ['Sass', 'Happiness'],
-      img: 'https://i.pinimg.com/originals/03/5e/af/035eafc66394f26c94f2ef56095f90f9.jpg'}),
+      img: 'http://www.relatably.com/m/img/sassy-cat-memes/64911318.jpg'}),
     Product.create({
       title:
         'Do your hear that? It’s the sound of no one caring.',
@@ -86,7 +86,7 @@ async function seed () {
       price: 3.33,
       inventoryQuantity: 40,
       category: ['Sass', 'Happiness'],
-      img: 'https://i.pinimg.com/originals/03/5e/af/035eafc66394f26c94f2ef56095f90f9.jpg'}),
+      img: 'http://hopeandjoynetwork.weebly.com/uploads/4/3/3/4/4334057/wearing-sassy-pants_orig.jpg'}),
     Product.create({
       title:
         'You’re about as useful as a screen door on a submarine.',
@@ -95,7 +95,7 @@ async function seed () {
       price: 3.33,
       inventoryQuantity: 40,
       category: ['Sass', 'Happiness'],
-      img: 'https://i.pinimg.com/originals/03/5e/af/035eafc66394f26c94f2ef56095f90f9.jpg'}),
+      img: 'http://www.lovethispic.com/uploaded_images/206054-Sassy-Starfish.jpg'}),
   ])
 
   const orders = await Promise.all([
