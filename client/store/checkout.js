@@ -47,7 +47,6 @@ const checkoutInfo = {
 
 const errorPayment = data => {
   alert('Payment Error');
-  console.log(data)
 }
 
   export const checkout = (checkoutObject) => dispatch => {

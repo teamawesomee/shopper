@@ -161,7 +161,6 @@ describe("Cart routes", () => {
           .expect(200)
           .then(res => {
             const cartItem = res.body[0][0].dataValues;
-            console.log("I am in the first 'then")
             return cartItem
           })
           .then(foundItem => {

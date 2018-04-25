@@ -44,7 +44,6 @@ router.get('/product/:productId', (req, res, next) => {
 
   /* SUBMIT REVIEW */
 router.post('/', (req, res, next) => {
-  console.log(req.body)
   Review.create(req.body)
   .then(review => res.status(200).json(review))
   .catch(next);

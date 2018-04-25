@@ -10,123 +10,94 @@ module.exports = router;
 router.get('/', (req, res, next) => {
   if (req.session.passport && req.session.passport.user) {
     let userId = req.session.passport.user;
-    console.log("userId is...", userId)
-    User.findById(userId, {
-      include: {
-        model: Product
-      }
+    Cart.findAll({where: { userId }})
+    .then((cart) => {
+      res.json(cart)
+    })
+  }
+  else {
+    let guestSessionId = req.session.id
+    Guest.findOrCreate({
+      where: { guestSessionId },
+    })
+    .then((guest) => {
+      let guestId = guest.guestSessionId
+      GuestCart.findAll({where: { guestId }})
     })
     .then((cart) => {
-      console.log(cart)
-      res.json(cart.products)
+      res.json(cart)
     })
-    .catch(next)
-  } //
-  else {
-    Guest.findOrCreate({
-      where: {
-        guestSessionId: req.session.id
-      },
-    include: {
-      model: Product
-    }})
-      .then(guest => res.json(guest.products))
       .catch(next)
   }
-  //IF we have a user, take the user id and get that cart
-  //ELSE take the guest ID and get THAT cart
-}) // end of router.get
-
+})
             /* //////////// */
           /* ADD ITEM TO CART */
           /* //////////// */
 
 router.post('/', (req, res, next) => {
   let num = req.body.productQuantity || 1;
-  let productId = req.body.productId;
-
+  let productId = +req.body.productId;
                 /* IF THE USER IS LOGGED IN*/
   if (req.session.passport && req.session.passport.user) {
-
-    //Variables
     const userId = req.session.passport.user;
-
-    User.findById(userId)  //FIND THE USER
-              /* THEN */
-    .then((user) => {
-      Cart.findOne({where: {userId, productId}} )
-        .then(item => {
-                        /* IF THE ITEM IS ALREADY PRESENT*/
-          if (item) {
-            item.update({quantity: item.getDataValue('quantity') + num})
-            .then((updatedItem) => {
-              let productId = updatedItem.productId;
-              Product.findById(productId).then(product => {
-                console.log('product is...', product);
-                res.json(product); //return product through json
+    Cart.findOne({ where: { userId, productId } })
+      .then(item => {
+        /* IF THE ITEM IS ALREADY PRESENT*/
+        if (item) {
+          item
+            .update({ quantity: item.getDataValue('quantity') + num })
+            .then(() => {
+              Cart.findAll({ where: { userId } }).then(cart => {
+                res.json(cart);
               });
-            })
-          } //then increase the quantity of the thing by one
-
-                /* IF IT IS NOT ALREADY PRESENT */
-          else {
+            });
+        } else {
+          User.findById(userId).then(user => {
             user.addProduct(productId)
-              .then(returned => {
-                let productId = returned[0][0].productId;
-                Product.findById(productId).then(product => {
-                  console.log("product is...", product)
-                  res.json(product); //return product through json
-                });
-              }) //ADD THE PRODUCT TO THE CART, AND RETURN THE PRODUCT
-          }
-        })
-        .catch(next) //AND CATCH ALL ERRORS
-    })
-  }
-            /* ///////////////// */
-          /* ELSE IF THE USER IS NOT LOGGED IN */
-          /* ////////////////// */
-
-  else {
+            .then(() => {
+              Cart.findAll({ where: { userId } }).then(cart => {
+                res.json(cart);
+              });
+            });
+          });
+        }
+      })
+      .catch(next);
+  } else {
+  /* ///////////////// */
+  /* ELSE IF THE USER IS NOT LOGGED IN */
+  /* ////////////////// */
     Guest.findOrCreate({ //FIND OR CREATE THEM IN OUR GUEST DB
-      where: {
-        guestSessionId: req.session.id
-      }})
-          /*THEN*/
-      .then((guest) => {
-        let guestId = guest[0].id
+      where: { guestSessionId: req.session.id } })
+      /*THEN*/
+      .then(guest => {
+        let guestId = guest[0].id;
         GuestCart.findOne({ where: { guestId, productId } })
           .then(item => {
-            /* IF THE ITEM IS ALREADY PRESENT*/
+          /* IF THE ITEM IS ALREADY PRESENT*/
             if (item) {
               item
-                .update({
-                  quantity: item.getDataValue('quantity') + num
-                })
-                .then(updatedItem => {
-                  let productId = updatedItem.productId;
-                  Product.findById(productId).then(product => {
-                    console.log('product is...', product);
-                    res.json(product); //return product through json
-                  });
+                .update({ quantity: item.getDataValue('quantity') + num })
+                .then(() => {
+                  GuestCart.findAll({ where: guestId})
+                  .then((cart) => res.json(cart))
                 });
             } //then increase the quantity of the thing by one
-
-            /* IF THEY DO NOT ALREADY HAVE THE ITEM */
+          /* IF THEY DO NOT ALREADY HAVE THE ITEM */
             else {
               guest[0]
                 .addProduct(+req.body.productId) //add product to cart
-                .then(cart => {
-                  let productId = cart[0][0].productId;
-                  Product.findById(productId).then(product => {
-                    res.json(product); //return product through json
-                  });
+                .then(() => {
+                  GuestCart.findAll({ where: guestId })
+                  //THIS DOESN'T WORK BECAUSE GUEST ID CHANGES EVERY TIME
+                  .then((cart) => {
+                    res.json(cart)
+                  })
                 });
             }
-          })
-          .catch(next); //AND CATCH ALL ERRORS
-
+        })
       })
+      .catch(next); //AND CATCH ALL ERRORS
   }
 })
             /* /////////// */
@@ -156,4 +127,3 @@ router.delete('/:productId', (req, res, next) => {
     .catch(next)
   }
 })
-

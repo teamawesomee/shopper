@@ -10,7 +10,6 @@ class ErrorBoundary extends Component {
     // Display fallback UI
     this.setState({ hasError: true });
     // You can also log the error to an error reporting service
-    console.log(error, info);
   }
 
   render() {
