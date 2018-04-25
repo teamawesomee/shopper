@@ -15,5 +15,6 @@ export { default as OrderList } from './Orders/OrderList.jsx';
 export { default as CartDetails } from './Cart/CartDetails.jsx';
 export { default as CartIcon } from './Cart/CartIcon.jsx';
 export { default as CheckoutPage } from './checkout'
+export { default as ErrorBoundary } from './ErrorBoundary'
 export { default as OrderForm} from './Orders/OrderForm.jsx'
 
