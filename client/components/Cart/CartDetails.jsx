@@ -9,19 +9,29 @@ function CartDetails(props) {
   const cart = props.cart;
   const products = props.products;
   const productsArr = []
-  cart.forEach((entry) => {
-    let productId = entry.productId;
-    const [productToReturn] = products.filter((product) => {
-      return product.id === productId
-    })
-    productsArr.push(productToReturn)
-  })
+  //USE PRODUCTID FROM THE CART ARRAY TO MAKE AN ARRAY OF ACTUAL PRODUCT INFO
+  if (cart.length > 0 ){
+    cart.forEach(entry => {
+      let productId = entry.productId;
+      const [productToReturn] = products.filter(product => {
+        return product.id === productId;
+      });
+      productsArr.push(productToReturn);
+    });
+  }
+  let totalItems;
+  //IF THE CART HAS LENGTH, ADD UP THE TOTAL QUANTITY
+  cart.length > 0
+  ? totalItems = cart.reduce((total, item) => {
+      return total + item.quantity;
+    }, 0)
+  : totalItems = 0
 
   return (
     cart.length ?
     <div className="orderBox">
       <div className="headerBox">
-        <h3>Total Items: {cart.length}</h3>
+        <h3>Total Items: {totalItems}</h3>
       </div>
       <div className="productOrderBox">
         {productsArr.map( (product, index) => {
