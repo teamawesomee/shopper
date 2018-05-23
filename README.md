@@ -2,7 +2,7 @@
 
 A mock ecommerce site selling sassy comebacks and emotion potions.
 
-BUilt using NERP stack.
+Built using NERP stack.
 
 
 ##Screenshots:
