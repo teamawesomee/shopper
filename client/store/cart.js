@@ -26,14 +26,30 @@ const clearCart = () => ({ type: CLEAR_CART});
  * THUNK CREATORS
  */
 
-export const addItemToCart = (productId) => dispatch =>
-  axios
+export const addItemToCart = (productId) => dispatch => {
+    axios
     .post(`/api/cart`, productId)
     .then(res => {
       let action = getCart(res.data);
       dispatch(action);
     })
     .catch(err => console.log(err));
+}
+
+export const addGuestItemToCart = (productId) => dispatch => {
+  if (!localStorage.getItem('cart')){
+    localStorage.setItem('cart', productId)
+  }
+  else {
+    let newCart = localStorage.getItem('cart')
+    newCart += `,${productId}`;
+    localStorage.setItem('cart', newCart)
+  }
+  let udpatedCart = localStorage.getItem('cart').split(',')
+  let action = getCart(udpatedCart)
+  dispatch(action)
+}
+  
 
 export const removeItemFromCart = (product) => {
   return (dispatch) =>
@@ -56,6 +72,12 @@ export const getTheCart = () => dispatch => {
       })
       .catch(err => console.log(err))
     }
+
+export const getTheGuestCart = () => dispatch => {
+  let guestCart = localStorage.getItem('cart').split(',')
+  let action = getCart(guestCart)
+  dispatch(action)
+  }
 
 export const clearCurrentCart = () => dispatch => {
   let action = clearCart();

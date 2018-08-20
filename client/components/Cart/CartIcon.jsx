@@ -3,11 +3,9 @@ import { connect } from 'react-redux';
 
 function CartIcon (props) {
   const cart = props.cart;
-  let totalItems;
+  let totalItems = 0;
   if (cart.length > 0){
-    totalItems = cart.reduce((total, item) => {
-      return total + item.quantity;
-    }, 0);
+    totalItems = cart.length;
   }
 
   return (
