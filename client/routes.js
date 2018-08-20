@@ -3,15 +3,13 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, EditProduct, AddProduct, ProductList, ProductPage, OrderList, CartDetails, CheckoutPage } from './components'
-import {me, getAllProducts, getTheCart} from './store'
-// import { isLoggedIn } from '../utils';
+import {me, getAllProducts, getTheCart, getTheGuestCart} from './store'
+// import { isLoggedIn } from '../utils'
 
-/**
- * COMPONENT
- */
+
 class Routes extends Component {
   componentDidMount () {
-    this.props.loadInitialData()
+    this.props.loadInitialData(this.props.isLoggedIn)
   }
 
   render () {
@@ -60,10 +58,11 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData () {
+    loadInitialData (isLoggedIn) {
       dispatch(me())
       dispatch(getAllProducts())
-      dispatch(getTheCart())
+      if (isLoggedIn) dispatch(getTheCart())
+      else dispatch(getTheGuestCart())
     }
   }
 }

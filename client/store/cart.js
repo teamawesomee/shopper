@@ -74,10 +74,12 @@ export const getTheCart = () => dispatch => {
     }
 
 export const getTheGuestCart = () => dispatch => {
-  let guestCart = localStorage.getItem('cart').split(',')
-  let action = getCart(guestCart)
-  dispatch(action)
+  if (localStorage.getItem('cart')){
+    let guestCart = localStorage.getItem('cart').split(',')
+    let action = getCart(guestCart)
+    dispatch(action)
   }
+}
 
 export const clearCurrentCart = () => dispatch => {
   let action = clearCart();
