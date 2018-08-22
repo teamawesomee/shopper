@@ -51,8 +51,7 @@ export const addGuestItemToCart = (productId) => dispatch => {
 }
   
 
-export const removeItemFromCart = (product) => {
-  return (dispatch) =>
+export const removeItemFromCart = (product) => (dispatch) => {
   axios
     .delete(`/api/cart/${product.id}`)
     .then(() => {
@@ -62,6 +61,16 @@ export const removeItemFromCart = (product) => {
     })
     .catch(err => console.log(err));
   }
+
+export const removeGuestItemFromCart = (productId) => dispatch => {
+  let guestCart = localStorage.getItem('cart').split(',')
+  let index = guestCart.indexOf(productId.toString())
+  guestCart.splice(index, 1)
+  let updatedCart = guestCart.join(',')
+  localStorage.setItem('cart', updatedCart)
+  let action = getCart(guestCart)
+  dispatch(action)
+}
 
 export const getTheCart = () => dispatch => {
     axios
@@ -74,12 +83,10 @@ export const getTheCart = () => dispatch => {
     }
 
 export const getTheGuestCart = () => dispatch => {
-  if (localStorage.getItem('cart')){
-    let guestCart = localStorage.getItem('cart').split(',')
-    let action = getCart(guestCart)
-    dispatch(action)
+  let guestCart = localStorage.getItem('cart').split(',')
+  let action = getCart(guestCart)
+  dispatch(action)
   }
-}
 
 export const clearCurrentCart = () => dispatch => {
   let action = clearCart();
@@ -93,8 +100,6 @@ export default function(state = cart, action) {
   switch (action.type) {
     case GET_CART:
       return action.cart;
-    // case ADD_TO_CART:
-    //   return [...state, action.product];
     case REMOVE_FROM_CART:
       return [...state.filter(item => item.productId !== action.productId)];
     case CLEAR_CART:

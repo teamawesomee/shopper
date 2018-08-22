@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removeItemFromCart } from '../../store';
+import { removeItemFromCart, removeGuestItemFromCart } from '../../store';
 
 //has the product ids to an array with a count
 
@@ -44,7 +44,7 @@ function CartDetails(props) {
                 <p> Quantity: {productsObj[product.id]}</p>
               </div>
               <div className="orderBtn">
-                <button onClick={() => props.removeItemFromCart(product)}>Remove</button>
+                <button onClick={() => {return props.user.id ? props.removeItemFromCart(product) : props.removeGuestItemFromCart(product.id)}}>Remove</button>
               </div>
             </div>
           );
@@ -69,6 +69,9 @@ const mapDispatchToProps = dispatch => {
   return {
     removeItemFromCart(product) {
       dispatch(removeItemFromCart(product));
+    },
+    removeGuestItemFromCart(productId) {
+      dispatch(removeGuestItemFromCart(productId))
     }
   };
 };
