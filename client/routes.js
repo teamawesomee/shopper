@@ -9,9 +9,8 @@ import {me, getAllProducts, getTheCart, getTheGuestCart} from './store'
 
 class Routes extends Component {
   componentDidMount () {
-    this.props.loadInitialData(this.props.isLoggedIn)
+    this.props.loadInitialData()
   }
-
   render () {
     const {isLoggedIn} = this.props
 
@@ -58,11 +57,10 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData (isLoggedIn) {
+    loadInitialData () {
       dispatch(me())
       dispatch(getAllProducts())
-      if (isLoggedIn) dispatch(getTheCart())
-      else dispatch(getTheGuestCart())
+      dispatch(getTheGuestCart())
     }
   }
 }
@@ -76,5 +74,5 @@ export default withRouter(connect(mapState, mapDispatch)(Routes))
  */
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
 }
