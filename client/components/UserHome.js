@@ -8,13 +8,9 @@ import {getTheCart} from '../store'
 /**
  * COMPONENT
  */
-export class UserHome extends Component {
-  componentDidMount () {
-    this.props.getTheCart()
-  }
-  render () {
-    const {email} = this.props
-    if (!this.props.email){
+function UserHome (props) {
+    const {email} = props
+    if (!props.email){
       history.push('/login')
     }
     return (
@@ -32,8 +28,7 @@ export class UserHome extends Component {
         </div>
       </div>
     )
-  }
-}  
+}
 
 /**
  * CONTAINER
@@ -44,15 +39,7 @@ const mapState = (state) => {
   }
 }
 
-const mapDispatch = (dispatch) => {
-  return {
-    getTheCart() {
-      dispatch(getTheCart())
-    }
-  }
-}
-
-export default connect(mapState, mapDispatch)(UserHome)
+export default connect(mapState)(UserHome)
 
 /**
  * PROP TYPES

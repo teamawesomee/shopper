@@ -9,8 +9,14 @@ import {me, getAllProducts, getTheCart, getTheGuestCart} from './store'
 
 class Routes extends Component {
   componentDidMount () {
-    this.props.loadInitialData()
+    this.props.loadInitialData(this.props.isLoggedIn)
   }
+  componentDidUpdate (prevProps) {
+    if (this.props.isLoggedIn !== prevProps.isLoggedIn && this.props.isLoggedIn) {
+      this.props.getTheCart()
+    }
+  }
+
   render () {
     const {isLoggedIn} = this.props
 
@@ -32,6 +38,7 @@ class Routes extends Component {
           isLoggedIn &&
             <Switch>
               {/* Routes placed here are only available after logging in */}
+              <Route exact path="/" component={UserHome} />
               <Route path="/home" component={UserHome} />
 
             </Switch>
@@ -61,6 +68,9 @@ const mapDispatch = (dispatch) => {
       dispatch(me())
       dispatch(getAllProducts())
       dispatch(getTheGuestCart())
+    },
+    getTheCart(){
+      dispatch(getTheCart())
     }
   }
 }
