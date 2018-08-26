@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addItemToCart, deleteProd } from '../../store';
+import { addItemToCart, deleteProd, addGuestItemToCart } from '../../store';
 import Reviews from '../Reviews'
 import ErrorBoundary from '../ErrorBoundary.js';
 
@@ -15,7 +15,12 @@ class ProductPage extends Component {
   }
 
   onClickenzee = (evt) => {
-      this.props.addItemToCart(evt)
+      if (this.props.user.id){
+        this.props.addItemToCart(evt)
+      }
+      else {
+        this.props.addGuestItemToCart(evt)
+      }
       this.setState({success: true})
       setTimeout(() => {
         this.setState({success: false})
@@ -76,6 +81,10 @@ const mapDispatchToProps = dispatch => {
     clickHandler(evt, product){
       evt.preventDefault();
       dispatch(deleteProd(product))
+    },
+    addGuestItemToCart(evt){
+      evt.preventDefault();
+      dispatch(addGuestItemToCart(evt.target.value))
     }
   };
 };

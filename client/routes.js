@@ -3,15 +3,18 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, EditProduct, AddProduct, ProductList, ProductPage, OrderList, CartDetails, CheckoutPage } from './components'
-import {me, getAllProducts, getTheCart} from './store'
-// import { isLoggedIn } from '../utils';
+import {me, getAllProducts, getTheCart, getTheGuestCart} from './store'
+// import { isLoggedIn } from '../utils'
 
-/**
- * COMPONENT
- */
+
 class Routes extends Component {
   componentDidMount () {
-    this.props.loadInitialData()
+    this.props.loadInitialData(this.props.isLoggedIn)
+  }
+  componentDidUpdate (prevProps) {
+    if (this.props.isLoggedIn !== prevProps.isLoggedIn && this.props.isLoggedIn) {
+      this.props.getTheCart()
+    }
   }
 
   render () {
@@ -35,6 +38,7 @@ class Routes extends Component {
           isLoggedIn &&
             <Switch>
               {/* Routes placed here are only available after logging in */}
+              <Route exact path="/" component={UserHome} />
               <Route path="/home" component={UserHome} />
 
             </Switch>
@@ -63,6 +67,9 @@ const mapDispatch = (dispatch) => {
     loadInitialData () {
       dispatch(me())
       dispatch(getAllProducts())
+      dispatch(getTheGuestCart())
+    },
+    getTheCart(){
       dispatch(getTheCart())
     }
   }
@@ -77,5 +84,5 @@ export default withRouter(connect(mapState, mapDispatch)(Routes))
  */
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
 }
